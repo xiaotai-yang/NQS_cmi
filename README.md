@@ -9,7 +9,7 @@ The Neural Quantum State (NQS) is a variational ansatz for representing the wave
 
 ## 2D Hamiltonian
 
-Only graph state now so no variable here
+- Only graph state now so no variable here
 
 # 1D & 2D autoregressive model
 - numsamples: The batch size of each training
