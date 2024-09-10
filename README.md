@@ -5,13 +5,13 @@ The Neural Quantum State (NQS) is a variational ansatz for representing the wave
 
 ## 1D Hamiltonian 
 
-The parameter is called "H_type" and we can choose "ES" or "cluster" which means entanglement swapping state or a cluster state.
+- H_type: "ES" or "cluster" which means entanglement swapping state or a cluster state.
 
 ## 2D Hamiltonian
 
 Only graph state now so no variable here
-## 1D & 2D autoregressive model
 
+## 1D & 2D autoregressive model
 - numsamples: The batch size of each training
 - testing_sample: The batch size for final evaluation of the ground state energy after the training. 
 - dmrg (only for 1D): Whether to use dmrg ground truth to get the phases of the quantum state.
@@ -29,7 +29,7 @@ Only graph state now so no variable here
 - TQS_head: The number of head in multihead attenetion.
 
 ## Restriced Boltzmann Machine
-There is only two models and no submodule so I just wrote them in two individual files.
+There is only two models and no submodule so I just wrote them in two individual files. The variables are:
 - alpha: The width of the hidden layer
 - numsamples: The batch size of each training
 ---
