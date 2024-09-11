@@ -18,7 +18,7 @@ The Neural Quantum State (NQS) is a variational ansatz for representing the wave
 ## Recurrent neural network (RNN)
 - numunits: Hidden layer width of the RNN.
 ## Receptance Weighted Key Value (RWKV)
-- RWKV_emb: THe size of the embedding input (>16)
+- RWKV_emb: THe size of the embedding input 
 - RWKV_hidden: The hidden layer length of the RWKV
 - RWKV_layer: How many layer of RWKV we apply
 - RWKV_ff: The final feedforward network size in each RWKV layer
