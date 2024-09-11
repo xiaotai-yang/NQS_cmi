@@ -18,15 +18,15 @@ The Neural Quantum State (NQS) is a variational ansatz for representing the wave
 ## Recurrent neural network (RNN)
 - numunits: Hidden layer width of the RNN.
 ## Receptance Weighted Key Value (RWKV)
-- RWKV_emb: THe size of the embedding input
+- RWKV_emb: THe size of the embedding input (>16)
 - RWKV_hidden: The hidden layer length of the RWKV
 - RWKV_layer: How many layer of RWKV we apply
 - RWKV_ff: The final feedforward network size in each RWKV layer
 ## Transformer Quantum state (TQS)
 - TQS_layer: How many layer of Transformer we apply
-- TQS_units : Hidden layer width (QKV) for the transformer
+- TQS_units : Hidden layer width (QKV) and embedding size for the transformer
 - TQS_ff: The final feedforward network size in each layer
-- TQS_head: The number of head in multihead attenetion.
+- TQS_head: The number of head in multihead attenetion. (4 or 8)
 
 # Restriced Boltzmann Machine
 There is only two models and no submodule so I just wrote them in two individual files. The variables are:
