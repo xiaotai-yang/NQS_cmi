@@ -19,13 +19,14 @@ parser.add_argument('--numunits', type = int, default=32)
 parser.add_argument('--lr', type = float, default=2e-4)
 parser.add_argument('--gradient_clip', type = bool, default=True)
 parser.add_argument('--gradient_clipvalue', type = float, default=10.0)
-parser.add_argument('--numsteps', type = int, default=10000)
+parser.add_argument('--numsteps', type = int, default=101)
 parser.add_argument('--numsamples', type = int, default=256)
 parser.add_argument('--testing_sample', type = int, default=2**15)
 parser.add_argument('--seed', type = int, default=3)
-parser.add_argument('--model_type', type = str, default="tensor_gru")
+parser.add_argument('--model_type', type = str, default="TQS")
 parser.add_argument('--H_type', type = str, default="cluster")
 parser.add_argument('--basis_rotation', type = bool, default=True)
+parser.add_argument('--previous_training', type = bool, default=True)
 parser.add_argument('--dmrg', type = bool, default=False)
 parser.add_argument('--RWKV_layer', type = int, default=2)
 parser.add_argument('--RWKV_emb', type = int, default = 16)
@@ -53,6 +54,7 @@ if H_type == "ES":
 elif H_type == "cluster":
     from tools.Hamiltonian_1dcluster import *
 basis_rotation = args.basis_rotation
+previous_training = args.previous_training
 dmrg = args.dmrg
 RWKV_layer = args.RWKV_layer
 RWKV_hidden = args.RWKV_hidden
@@ -65,13 +67,34 @@ TQS_head = args.TQS_head
 eval_steps = int(testing_sample/numsamples)
 input_size = 2 ** p
 key = PRNGKey(args.seed)
-meanEnergy=[]
-varEnergy=[]
+
 eval_meanEnergy=[]
 eval_varEnergy=[]
 N = L
-
 angle_list = [0., 0.05*jnp.pi, 0.1*jnp.pi, 0.15*jnp.pi, 0.20*jnp.pi, 0.25*jnp.pi, 0.3*jnp.pi, 0.35*jnp.pi, 0.4*jnp.pi, 0.45*jnp.pi, 0.5*jnp.pi]
+a = 0
+if (model_type == "tensor_gru"):
+    if previous_training == True:
+        meanEnergy = jnp.load(f"result/meanE_1DRNN_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load(f"result/varE_1DRNN_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+    else:
+        meanEnergy = [[] for i in range(len(angle_list))]
+        varEnergy = [[] for i in range(len(angle_list))]
+elif (model_type == "RWKV"):
+    if previous_training == True:
+        meanEnergy = jnp.load(f"result/meanE_1DRWKV_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load(f"result/varE_1DRWKV_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+    else:
+        meanEnergy = [[] for i in range(len(angle_list))]
+        varEnergy = [[] for i in range(len(angle_list))]
+elif (model_type == "TQS"):
+    if previous_training == True:
+        meanEnergy = jnp.load("result/meanE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load("result/varE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
+    else:
+        meanEnergy = [[] for i in range(len(angle_list))]
+        varEnergy = [[] for i in range(len(angle_list))]
+
 for angle in (angle_list):
     evalmeanE = 0
     evalvarE = 0
@@ -79,17 +102,34 @@ for angle in (angle_list):
     x, y = jnp.cos(angle), jnp.sin(angle)
     key, subkey = split(key, 2)
     if (model_type == "tensor_gru"):
-        params = init_tensor_gru_params(input_size, units, L, key)
+        if previous_training == True:
+            with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+                params = pickle.load(f)
+        else:
+            params = init_tensor_gru_params(input_size, units, L, key)
         fixed_params = N, p, units
         batch_sample_prob = jax.jit(vmap(sample_prob, (None, None, 0, None)), static_argnames=['fixed_params'])
         batch_log_amp = jax.jit(vmap(log_amp, (0, None, None, None)), static_argnames=['fixed_params'])
+
     elif (model_type == "RWKV"):
-        params = init_RWKV_params(RWKV_emb, RWKV_hidden, RWKV_layer, RWKV_ff, input_size, L, key)
+        if previous_training == True:
+            with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+                params = pickle.load(f)
+
+        else:
+            params = init_RWKV_params(RWKV_emb, RWKV_hidden, RWKV_layer, RWKV_ff, input_size, L, key)
+
         fixed_params = N, p, RWKV_hidden, RWKV_layer, RWKV_emb
         batch_sample_prob = jax.jit(vmap(sample_prob_RWKV, (None, None, 0, None)), static_argnames=['fixed_params'])
         batch_log_amp = jax.jit(vmap(log_amp_RWKV, (0, None, None, None)), static_argnames=['fixed_params'])
+
     elif (model_type == "TQS"):
-        params = init_TQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
+        if previous_training == True:
+            with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_layer{TQS_layer}_units{TQS_units}_head{TQS_head}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl","rb") as f:
+                params = pickle.load(f)
+        else:
+            params = init_TQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
+
         fixed_params = N, p, TQS_layer
         batch_sample_prob = jax.jit(vmap(sample_prob_TQS, (None, None, 0, None)), static_argnames=['fixed_params'])
         batch_log_amp = jax.jit(vmap(log_amp_TQS, (0, None, None, None)), static_argnames=['fixed_params'])
@@ -100,9 +140,14 @@ for angle in (angle_list):
     ang = round(angle, 3)
 
     if dmrg == True:
-        M0 = jnp.load("DMRG/mps_tensors/tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-        M = jnp.load("DMRG/mps_tensors/tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-        Mlast = jnp.load("DMRG/mps_tensors/tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        if H_type == "ES":
+            M0 = jnp.load("DMRG/mps_tensors/ES_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+            M = jnp.load("DMRG/mps_tensors/ES_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+            Mlast = jnp.load("DMRG/mps_tensors/ES_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        else:
+            M0 = jnp.load("DMRG/mps_tensors/cluster_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+            M = jnp.load("DMRG/mps_tensors/cluster_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+            Mlast = jnp.load("DMRG/mps_tensors/cluster_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
         batch_log_phase_dmrg = jax.jit(vmap(log_phase_dmrg, (0, None, None, None)))
     else:
         M0, M, Mlast = None, None, None
@@ -166,8 +211,8 @@ for angle in (angle_list):
         meanE,  varE = jnp.mean(Eloc), jnp.var(Eloc)
 
         if it<numsteps:
-            meanEnergy.append(meanE)
-            varEnergy.append(varE)
+            meanEnergy[a].append(complex(meanE))
+            varEnergy[a].append(float(varE))
             if (it+1)%50==0 or it==0:
                 print("learning_rate =", lr)
                 print("Magnetization =", jnp.mean(jnp.sum(2*samples-1, axis = (1))))
@@ -182,7 +227,7 @@ for angle in (angle_list):
             params = optax.apply_updates(params, updates)
             if not os.path.exists('./params/'):
                 os.mkdir('./params/')
-            if (it%500 == 0):
+            if (it%100 == 0):
                 params_dict = jax.tree_util.tree_leaves(params)
                 if (model_type == "tensor_gru"):
                     with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "wb") as f:
@@ -198,22 +243,23 @@ for angle in (angle_list):
             evalvarE += varE/eval_steps**2
     eval_meanEnergy.append(evalmeanE)
     eval_varEnergy.append(evalvarE)
+    a += 1
 
 if not os.path.exists('./result/'):
     os.mkdir('./result/')
 if model_type == "tensor_gru":
-    jnp.save("result/meanE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(meanEnergy))
-    jnp.save("result/varE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(varEnergy))
-    jnp.save("result/evalmeanE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(eval_meanEnergy))
-    jnp.save("result/evalvarE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(eval_varEnergy))
+    jnp.save("result/meanE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+str(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(meanEnergy).ravel())
+    jnp.save("result/varE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+str(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(varEnergy).ravel())
+    jnp.save("result/evalmeanE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+str(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(eval_meanEnergy))
+    jnp.save("result/evalvarE_1DRNN"+"_Htype"+str(H_type)+"_L"+str(L)+"_patch"+str(p)+"_units"+str(units)+"_batch"+str(numsamples)+"_dmrg"+str(dmrg)+"_seed"+str(args.seed)+".npy", jnp.array(eval_varEnergy))
 elif model_type == "RWKV":
-    jnp.save("result/meanE_1DRWKV"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer"+ str(RWKV_layer) +"_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy))
-    jnp.save("result/varE_1DRWKV"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer"+ str(RWKV_layer) +"_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy))
-    jnp.save("result/evalmeanE_1DRWKV"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer"+ str(RWKV_layer) +"_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
-    jnp.save("result/evalvarE_1DRWKV" + "_Htype" + str(H_type) + "_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer" + str(RWKV_layer) + "_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
+    jnp.save("result/meanE_1DRWKV"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer"+ str(RWKV_layer) +"_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy).ravel())
+    jnp.save("result/varE_1DRWKV"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer"+ str(RWKV_layer) +"_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy).ravel())
+    jnp.save("result/evalmeanE_1DRWKV"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer"+ str(RWKV_layer) +"_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
+    jnp.save("result/evalvarE_1DRWKV" + "_Htype" + str(H_type) + "_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer" + str(RWKV_layer) + "_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
 
 elif model_type == "TQS":
-    jnp.save("result/meanE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy))
-    jnp.save("result/varE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy))
-    jnp.save("result/evalmeanE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
-    jnp.save("result/evalvarE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples)+"_dmrg"+(dmrg) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
+    jnp.save("result/meanE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy).ravel())
+    jnp.save("result/varE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy).ravel())
+    jnp.save("result/evalmeanE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
+    jnp.save("result/evalvarE_1DTQS"+"_Htype"+str(H_type)+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples)+"_dmrg"+str(dmrg) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
