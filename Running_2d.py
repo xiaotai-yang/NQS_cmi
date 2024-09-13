@@ -81,8 +81,8 @@ if (model_type == "tensor_gru"):
         varEnergy = [[] for i in range(len(angle_list))]
 elif (model_type == "RWKV"):
     if previous_training == True:
-        meanEnergy = jnp.load(f"result/meanE_2DRWKV_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
-        varEnergy = jnp.load(f"result/varE_2DRWKV_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+        meanEnergy = jnp.load(f"result/meanE_2DRWKV_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load(f"result/varE_2DRWKV_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).reshape(len(angle_list), -1).tolist()
     else:
         meanEnergy = [[] for i in range(len(angle_list))]
         varEnergy = [[] for i in range(len(angle_list))]
@@ -220,18 +220,18 @@ for angle in (angle_list):
 if not os.path.exists('./result/'):
     os.mkdir('./result/')
 if model_type == "tensor_gru":
-    jnp.save("result/meanE_2DRNN" + "_L" + str(L) + "_patch" + str(p) + "_units" + str(units) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy))
-    jnp.save("result/varE_2DRNN"  + "_L" + str(L) + "_patch" + str(p) + "_units" + str(units) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy))
+    jnp.save("result/meanE_2DRNN" + "_L" + str(L) + "_patch" + str(p) + "_units" + str(units) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy).ravel())
+    jnp.save("result/varE_2DRNN"  + "_L" + str(L) + "_patch" + str(p) + "_units" + str(units) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy).ravel())
     jnp.save("result/evalmeanE_1DRNN"  + "_L" + str(L) + "_patch" + str(p) + "_units" + str(units) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
     jnp.save("result/evalvarE_1DRNN"  + "_L" + str(L) + "_patch" + str(p) + "_units" + str(units) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
 elif model_type == "RWKV":
-    jnp.save("result/meanE_2DRWKV"  + "_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer" + str(RWKV_layer) + "_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy))
-    jnp.save("result/varE_2DRWKV" + "_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer" + str(RWKV_layer) + "_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy))
+    jnp.save("result/meanE_2DRWKV"  + "_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer" + str(RWKV_layer) + "_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy).ravel())
+    jnp.save("result/varE_2DRWKV" + "_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer" + str(RWKV_layer) + "_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy).ravel())
     jnp.save("result/evalmeanE_1DRWKV"+"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer"+ str(RWKV_layer) +"_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
     jnp.save("result/evalvarE_1DRWKV" +"_L" + str(L) + "_patch" + str(p) + "_emb" + str(RWKV_emb) + "_layer" + str(RWKV_layer) + "_hidden" + str(RWKV_hidden) + "_ff" + str(RWKV_ff) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
 
 elif model_type == "TQS":
-    jnp.save("result/meanE_2DTQS"  + "_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy))
-    jnp.save("result/varE_2DTQS" + "_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy))
+    jnp.save("result/meanE_2DTQS"  + "_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy).ravel())
+    jnp.save("result/varE_2DTQS" + "_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy).ravel())
     jnp.save("result/evalmeanE_2DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
     jnp.save("result/evalvarE_2DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
