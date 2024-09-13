@@ -227,7 +227,7 @@ for angle in (angle_list):
             params = optax.apply_updates(params, updates)
             if not os.path.exists('./params/'):
                 os.mkdir('./params/')
-            if (it%100 == 0):
+            if (it%500 == 0):
                 params_dict = jax.tree_util.tree_leaves(params)
                 if (model_type == "tensor_gru"):
                     with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "wb") as f:

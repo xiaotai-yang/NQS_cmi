@@ -21,12 +21,13 @@ parser.add_argument('--numunits', type = int, default=32)
 parser.add_argument('--lr', type = float, default=2e-4)
 parser.add_argument('--gradient_clip', type = bool, default=True)
 parser.add_argument('--gradient_clipvalue', type = float, default=10.0)
-parser.add_argument('--numsteps', type = int, default=10000)
+parser.add_argument('--numsteps', type = int, default=100)
 parser.add_argument('--numsamples', type = int, default=64)
 parser.add_argument('--testing_sample', type = int, default=2**15)
 parser.add_argument('--seed', type = int, default=3)
 parser.add_argument('--model_type', type = str, default="RWKV")
 parser.add_argument('--basis_rotation', type = bool, default=True)
+parser.add_argument('--previous_training', type = bool, default = False)
 parser.add_argument('--RWKV_layer', type = int, default=2)
 parser.add_argument('--RWKV_emb', type = int, default = 6)
 parser.add_argument('--RWKV_hidden', type = int, default=32)
@@ -53,6 +54,7 @@ numsteps = args.numsteps
 testing_sample = args.testing_sample
 model_type = args.model_type
 basis_rotation = args.basis_rotation
+previous_training = args.previous_training
 RWKV_layer = args.RWKV_layer
 RWKV_hidden = args.RWKV_hidden
 RWKV_ff = args.RWKV_ff
@@ -68,24 +70,59 @@ meanEnergy=[]
 varEnergy=[]
 eval_meanEnergy=[]
 eval_varEnergy=[]
+angle_list = [0.0*jnp.pi, 0.05*jnp.pi, 0.1*jnp.pi, 0.15*jnp.pi, 0.20*jnp.pi, 0.25*jnp.pi, 0.3*jnp.pi, 0.35*jnp.pi, 0.4*jnp.pi, 0.45*jnp.pi, 0.5*jnp.pi]
+a = 0
+if (model_type == "tensor_gru"):
+    if previous_training == True:
+        meanEnergy = jnp.load(f"result/meanE_2DRNN_L{L}_patch{p}_units{units}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load(f"result/varE_2DRNN_L{L}_patch{p}_units{units}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+    else:
+        meanEnergy = [[] for i in range(len(angle_list))]
+        varEnergy = [[] for i in range(len(angle_list))]
+elif (model_type == "RWKV"):
+    if previous_training == True:
+        meanEnergy = jnp.load(f"result/meanE_2DRWKV_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load(f"result/varE_2DRWKV_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+    else:
+        meanEnergy = [[] for i in range(len(angle_list))]
+        varEnergy = [[] for i in range(len(angle_list))]
+elif (model_type == "TQS"):
+    if previous_training == True:
+        meanEnergy = jnp.load("result/meanE_1DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load("result/varE_1DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
+    else:
+        meanEnergy = [[] for i in range(len(angle_list))]
+        varEnergy = [[] for i in range(len(angle_list))]
 
-for angle in (0.5*jnp.pi, 0.05*jnp.pi, 0.1*jnp.pi, 0.15*jnp.pi, 0.20*jnp.pi, 0.25*jnp.pi, 0.3*jnp.pi, 0.35*jnp.pi, 0.4*jnp.pi, 0.45*jnp.pi, 0.5*jnp.pi):
+for angle in (angle_list):
     evalmeanE = 0
     evalvarE = 0
     x, y = jnp.cos(angle), jnp.sin(angle)
     key, subkey = split(key, 2)
     if (model_type == "tensor_gru"):
-        params = init_2dtensor_gru_params(input_size, units, Ny, Nx, key)
+        if previous_training == True:
+            with open(f"params/params_model1D{model_type}_L{L}_patch{p}_units{units}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+                params = pickle.load(f)
+        else:
+            params = init_2dtensor_gru_params(input_size, units, Ny, Nx, key)
         fixed_params = Ny, Nx, py, px, units
         batch_sample_prob = jax.jit(vmap(sample_prob, (None, None, 0)), static_argnames=['fixed_params'])
         batch_log_amp = jax.jit(vmap(log_amp, (0, None, None)), static_argnames=['fixed_params'])
     elif (model_type == "RWKV"):
-        params = init_2DRWKV_params(input_size, RWKV_emb, RWKV_hidden, RWKV_layer, RWKV_ff, Ny, Nx, key)
+        if previous_training == True:
+            with open(f"params/params_model2D{model_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+                params = pickle.load(f)
+        else:
+            params = init_2DRWKV_params(input_size, RWKV_emb, RWKV_hidden, RWKV_layer, RWKV_ff, Ny, Nx, key)
         fixed_params = Ny, Nx, py, px, RWKV_layer
         batch_sample_prob = jax.jit(vmap(sample_prob_2DRWKV, (None, None, 0)), static_argnames=['fixed_params'])
         batch_log_amp = jax.jit(vmap(log_amp_2DRWKV, (0, None, None)), static_argnames=['fixed_params'])
     elif (model_type == "TQS"):
-        params = init_2DTQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
+        if previous_training == True :
+            with open( f"params/params_model2D{model_type}_layer{TQS_layer}_units{TQS_units}_head{TQS_head}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+                params = pickle.load(f)
+        else:
+            params = init_2DTQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
         fixed_params = Ny, Nx, py, px, TQS_layer
         batch_sample_prob = jax.jit(vmap(sample_prob_TQS, (None, None, 0, None)), static_argnames=['fixed_params'])
         batch_log_amp = jax.jit(vmap(log_amp_TQS, (0, None, None, None)), static_argnames=['fixed_params'])
@@ -140,8 +177,8 @@ for angle in (0.5*jnp.pi, 0.05*jnp.pi, 0.1*jnp.pi, 0.15*jnp.pi, 0.20*jnp.pi, 0.2
         meanE, varE = jnp.mean(Eloc), jnp.var(Eloc)
 
         if it<numsteps:
-            meanEnergy.append(meanE)
-            varEnergy.append(varE)
+            meanEnergy[a].append(meanE)
+            varEnergy[a].append(varE)
 
             if (it + 1) % 50 == 0 or it == 0:
                 print("learning_rate =", lr)
@@ -159,28 +196,27 @@ for angle in (0.5*jnp.pi, 0.05*jnp.pi, 0.1*jnp.pi, 0.15*jnp.pi, 0.20*jnp.pi, 0.2
             if not os.path.exists('./params/'):
                 os.mkdir('./params/')
             if (it % 500 == 0):
-                params_dict = jax.tree_util.tree_leaves(params)
                 if (model_type == "tensor_gru"):
                     with open(
-                            f"params/params_model1D{model_type}_L{L}_patch{p}_units{units}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl",
+                            f"params/params_model2D{model_type}_L{L}_patch{p}_units{units}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl",
                             "wb") as f:
-                        pickle.dump(params_dict, f)
+                        pickle.dump(params, f)
                 if (model_type == "RWKV"):
                     with open(
-                            f"params/params_model1D{model_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl",
+                            f"params/params_model2D{model_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl",
                             "wb") as f:
-                        pickle.dump(params_dict, f)
+                        pickle.dump(params, f)
                 if (model_type == "TQS"):
                     with open(
                             f"params/params_model2D{model_type}_layer{TQS_layer}_units{TQS_units}_head{TQS_head}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl",
                             "wb") as f:
-                        pickle.dump(params_dict, f)
+                        pickle.dump(params, f)
         else:
             evalmeanE += meanE / eval_steps
             evalvarE += varE / eval_steps ** 2
     eval_meanEnergy.append(evalmeanE)
     eval_varEnergy.append(evalvarE)
-
+    a += 1
 if not os.path.exists('./result/'):
     os.mkdir('./result/')
 if model_type == "tensor_gru":
@@ -197,5 +233,5 @@ elif model_type == "RWKV":
 elif model_type == "TQS":
     jnp.save("result/meanE_2DTQS"  + "_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(meanEnergy))
     jnp.save("result/varE_2DTQS" + "_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(varEnergy))
-    jnp.save("result/evalmeanE_1DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
-    jnp.save("result/evalvarE_1DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
+    jnp.save("result/evalmeanE_2DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_meanEnergy))
+    jnp.save("result/evalvarE_2DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy", jnp.array(eval_varEnergy))
