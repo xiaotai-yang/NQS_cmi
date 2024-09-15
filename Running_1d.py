@@ -220,9 +220,11 @@ for angle in (angle_list):
                 print("learning_rate =", lr)
                 print("Magnetization =", jnp.mean(jnp.sum(2*samples-1, axis = (1))))
                 print('mean(E): {0}, varE: {1}, #samples {2}, #Step {3} \n\n'.format(meanE,varE,numsamples, it+1))
-                grads_norm = jnp.linalg.norm(jax.flatten.util.ravel_pytree(grads)[0])
-                print("grad_norm:", grads_norm)
-
+                grads_flatten = jax.tree_util.tree_flatten(grads)[0]
+                grad_norm = 0
+                for i in grads_flatten:
+                   grad_norm += jnp.linalg.norm(i)
+                print("grad_norm:", grad_norm)
 
             # Update the optimizer state and the parameters
             updates, optimizer_state = optimizer.update(grads, optimizer_state, params)
@@ -230,16 +232,15 @@ for angle in (angle_list):
             if not os.path.exists('./params/'):
                 os.mkdir('./params/')
             if (it%500 == 0):
-                params_dict = jax.tree_util.tree_leaves(params)
                 if (model_type == "tensor_gru"):
                     with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "wb") as f:
-                        pickle.dump(params_dict, f)
+                        pickle.dump(params, f)
                 if (model_type == "RWKV"):
                     with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "wb") as f:
-                        pickle.dump(params_dict, f)
+                        pickle.dump(params, f)
                 if (model_type == "TQS"):
                     with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_layer{TQS_layer}_units{TQS_units}_head{TQS_head}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "wb") as f:
-                        pickle.dump(params_dict, f)
+                        pickle.dump(params, f)
         else:
             evalmeanE += meanE/eval_steps
             evalvarE += varE/eval_steps**2

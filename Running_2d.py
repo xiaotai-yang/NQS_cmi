@@ -193,8 +193,11 @@ for angle in (angle_list):
                 print("learning_rate =", lr)
                 print("Magnetization =", jnp.mean(jnp.sum(2 * samples - 1, axis=(1))))
                 print('mean(E): {0}, varE: {1}, #samples {2}, #Step {3} \n\n'.format(meanE, varE, numsamples, it + 1))
-                grads_norm = jnp.linalg.norm(jax.flatten.util.ravel_pytree(grads)[0])
-                print("grad_norm:", grads_norm)
+                grads_flatten = jax.tree_util.tree_flatten(grads)[0]
+                grad_norm = 0
+                for i in grads_flatten:
+                    grad_norm += jnp.linalg.norm(i)
+                print("grad_norm:", grad_norm)
             # Update the optimizer state and the parameters
             updates, optimizer_state = optimizer.update(grads, optimizer_state, params)
             params = optax.apply_updates(params, updates)
