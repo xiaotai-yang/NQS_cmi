@@ -128,7 +128,7 @@ for angle in (angle_list):
             with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_layer{TQS_layer}_units{TQS_units}_head{TQS_head}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl","rb") as f:
                 params = pickle.load(f)
         else:
-            params = init_TQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
+            params = init_1DTQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
 
         fixed_params = N, p, TQS_layer
         batch_sample_prob = jax.jit(vmap(sample_prob_TQS, (None, None, 0, None)), static_argnames=['fixed_params'])
@@ -213,14 +213,16 @@ for angle in (angle_list):
         if it<numsteps:
             meanEnergy[a].append(complex(meanE))
             varEnergy[a].append(float(varE))
+            grads = grad_f(params, fixed_params, samples_grad, Eloc, dmrg, M0, M, Mlast)
+            if gradient_clip == True:
+                grads = jax.tree.map(clip_grad, grads)
             if (it+1)%50==0 or it==0:
                 print("learning_rate =", lr)
                 print("Magnetization =", jnp.mean(jnp.sum(2*samples-1, axis = (1))))
                 print('mean(E): {0}, varE: {1}, #samples {2}, #Step {3} \n\n'.format(meanE,varE,numsamples, it+1))
+                grads_norm = jnp.linalg.norm(jax.flatten.util.ravel_pytree(grads)[0])
+                print("grad_norm:", grads_norm)
 
-            grads = grad_f(params, fixed_params, samples_grad, Eloc, dmrg, M0, M, Mlast)
-            if gradient_clip == True:
-                grads = jax.tree.map(clip_grad, grads)
 
             # Update the optimizer state and the parameters
             updates, optimizer_state = optimizer.update(grads, optimizer_state, params)

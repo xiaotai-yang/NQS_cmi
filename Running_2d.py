@@ -181,18 +181,20 @@ for angle in (angle_list):
         meanE, varE = jnp.mean(Eloc), jnp.var(Eloc)
 
         if it<numsteps:
-            meanEnergy[a].append(meanE)
-            varEnergy[a].append(varE)
+            meanEnergy[a].append(complex(meanE))
+            varEnergy[a].append(float(varE))
 
-            if (it + 1) % 50 == 0 or it == 0:
-                print("learning_rate =", lr)
-                print("Magnetization =", jnp.mean(jnp.sum(2 * samples - 1, axis=(1))))
-                print('mean(E): {0}, varE: {1}, #samples {2}, #Step {3} \n\n'.format(meanE, varE, numsamples, it + 1))
 
             grads = grad_f(params, fixed_params, samples, Eloc)
             if gradient_clip == True:
                 grads = jax.tree.map(clip_grad, grads)
 
+            if (it + 1) % 50 == 0 or it == 0:
+                print("learning_rate =", lr)
+                print("Magnetization =", jnp.mean(jnp.sum(2 * samples - 1, axis=(1))))
+                print('mean(E): {0}, varE: {1}, #samples {2}, #Step {3} \n\n'.format(meanE, varE, numsamples, it + 1))
+                grads_norm = jnp.linalg.norm(jax.flatten.util.ravel_pytree(grads)[0])
+                print("grad_norm:", grads_norm)
             # Update the optimizer state and the parameters
             updates, optimizer_state = optimizer.update(grads, optimizer_state, params)
             params = optax.apply_updates(params, updates)
