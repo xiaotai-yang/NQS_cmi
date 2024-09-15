@@ -25,7 +25,7 @@ parser.add_argument('--numsteps', type = int, default=100)
 parser.add_argument('--numsamples', type = int, default=64)
 parser.add_argument('--testing_sample', type = int, default=2**15)
 parser.add_argument('--seed', type = int, default=3)
-parser.add_argument('--model_type', type = str, default="RWKV")
+parser.add_argument('--model_type', type = str, default="TQS")
 parser.add_argument('--basis_rotation', type = bool, default=True)
 parser.add_argument('--previous_training', type = bool, default = False)
 parser.add_argument('--RWKV_layer', type = int, default=2)
@@ -33,8 +33,8 @@ parser.add_argument('--RWKV_emb', type = int, default = 6)
 parser.add_argument('--RWKV_hidden', type = int, default=32)
 parser.add_argument('--RWKV_ff', type = int, default=512)
 parser.add_argument('--TQS_layer', type = int, default=2)
-parser.add_argument('--TQS_ff', type = int, default=512)
-parser.add_argument('--TQS_units', type = int, default=64)
+parser.add_argument('--TQS_ff', type = int, default=64)
+parser.add_argument('--TQS_units', type = int, default=16)
 parser.add_argument('--TQS_head', type = int, default=4)
 
 args = parser.parse_args()
@@ -88,8 +88,8 @@ elif (model_type == "RWKV"):
         varEnergy = [[] for i in range(len(angle_list))]
 elif (model_type == "TQS"):
     if previous_training == True:
-        meanEnergy = jnp.load("result/meanE_1DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
-        varEnergy = jnp.load("result/varE_1DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) +"_dmrg"+str(dmrg)+ "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
+        meanEnergy = jnp.load("result/meanE_2DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load("result/varE_2DTQS"+"_L" + str(L) + "_patch" + str(p) + "_layer" + str(TQS_layer) + "_ff" + str(TQS_ff) + "_units" + str(TQS_units) + "_head" + str(TQS_head) + "_batch" + str(numsamples) + "_seed" + str(args.seed) + ".npy").reshape(len(angle_list), -1).tolist()
     else:
         meanEnergy = [[] for i in range(len(angle_list))]
         varEnergy = [[] for i in range(len(angle_list))]
@@ -123,9 +123,9 @@ for angle in (angle_list):
                 params = pickle.load(f)
         else:
             params = init_2DTQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
-        fixed_params = Ny, Nx, py, px, TQS_layer
-        batch_sample_prob = jax.jit(vmap(sample_prob_TQS, (None, None, 0, None)), static_argnames=['fixed_params'])
-        batch_log_amp = jax.jit(vmap(log_amp_TQS, (0, None, None, None)), static_argnames=['fixed_params'])
+        fixed_params = Ny, Nx, py, px, TQS_layer, TQS_units
+        batch_sample_prob = jax.jit(vmap(sample_prob_2DTQS, (None, None, 0)), static_argnames=['fixed_params'])
+        batch_log_amp = jax.jit(vmap(log_amp_2DTQS, (0, None, None)), static_argnames=['fixed_params'])
 
     optimizer = optax.adam(learning_rate=lr)
     optimizer_state = optimizer.init(params)
@@ -167,6 +167,8 @@ for angle in (angle_list):
                                          batch_new_coe_2d(samples, off_diag_corner_coe, yloc_corner, zloc_corner, basis_rotation)), axis=1).reshape(numsamples, -1)
 
         sigmas = jnp.transpose(sigmas.reshape(total_samples, Ny, py, Nx, px), (0, 1, 3, 2, 4))
+        if model_type == "TQS":
+            sigmas = sigmas.reshape(-1, Ny*Nx, py*px)
         log_all_amp = batch_log_amp(sigmas, params, fixed_params)
         log_diag_amp = jnp.repeat(sample_log_amp, (jnp.ones(numsamples)*(matrixelements.shape[1])).astype(int), axis=0)
         amp = jnp.exp(log_all_amp.ravel()-log_diag_amp).reshape(numsamples, -1)
@@ -174,6 +176,8 @@ for angle in (angle_list):
         meanE, varE = jnp.mean(Eloc), jnp.var(Eloc)
 
         samples = jnp.transpose(samples.reshape(numsamples, Ny, py, Nx, px), (0, 1, 3, 2, 4))
+        if model_type == "TQS":
+            samples = samples.reshape(-1, Ny*Nx, py*px)
         meanE, varE = jnp.mean(Eloc), jnp.var(Eloc)
 
         if it<numsteps:
