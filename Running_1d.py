@@ -23,15 +23,16 @@ parser.add_argument('--numsteps', type = int, default=101)
 parser.add_argument('--numsamples', type = int, default=256)
 parser.add_argument('--testing_sample', type = int, default=2**15)
 parser.add_argument('--seed', type = int, default=3)
-parser.add_argument('--model_type', type = str, default="TQS")
+parser.add_argument('--model_type', type = str, default="RWKV")
 parser.add_argument('--H_type', type = str, default="cluster")
 parser.add_argument('--basis_rotation', type = bool, default=True)
-parser.add_argument('--previous_training', type = bool, default=True)
+parser.add_argument('--previous_training', type = bool, default=False)
 parser.add_argument('--dmrg', type = bool, default=False)
-parser.add_argument('--RWKV_layer', type = int, default=2)
-parser.add_argument('--RWKV_emb', type = int, default = 16)
-parser.add_argument('--RWKV_hidden', type = int, default=32)
-parser.add_argument('--RWKV_ff', type = int, default=512)
+parser.add_argument('--RWKV_layer', type = int, default=3)
+parser.add_argument('--RWKV_emb', type = int, default = 32)
+parser.add_argument('--RWKV_hidden', type = int, default=128)
+parser.add_argument('--RWKV_head', type = int, default=4)
+parser.add_argument('--RWKV_ff', type = int, default=128)
 parser.add_argument('--TQS_layer', type = int, default=2)
 parser.add_argument('--TQS_ff', type = int, default=512)
 parser.add_argument('--TQS_units', type = int, default=64)
@@ -57,6 +58,7 @@ basis_rotation = args.basis_rotation
 previous_training = args.previous_training
 dmrg = args.dmrg
 RWKV_layer = args.RWKV_layer
+RWKV_head = args.RWKV_head
 RWKV_hidden = args.RWKV_hidden
 RWKV_ff = args.RWKV_ff
 RWKV_emb = args.RWKV_emb
@@ -82,8 +84,8 @@ if (model_type == "tensor_gru"):
         varEnergy = [[] for i in range(len(angle_list))]
 elif (model_type == "RWKV"):
     if previous_training == True:
-        meanEnergy = jnp.load(f"result/meanE_1DRWKV_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
-        varEnergy = jnp.load(f"result/varE_1DRWKV_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+        meanEnergy = jnp.load(f"result/meanE_1DRWKV6_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_head{RWKV_head}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
+        varEnergy = jnp.load(f"result/varE_1DRWKV6_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_head{RWKV_head}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_seed{args.seed}.npy").reshape(len(angle_list), -1).tolist()
     else:
         meanEnergy = [[] for i in range(len(angle_list))]
         varEnergy = [[] for i in range(len(angle_list))]
@@ -113,13 +115,13 @@ for angle in (angle_list):
 
     elif (model_type == "RWKV"):
         if previous_training == True:
-            with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+            with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_head{RWKV_head}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
                 params = pickle.load(f)
 
         else:
-            params = init_RWKV_params(RWKV_emb, RWKV_hidden, RWKV_layer, RWKV_ff, input_size, L, key)
+            params = init_RWKV_params(input_size, RWKV_emb, RWKV_hidden, RWKV_head, RWKV_ff, RWKV_layer, key)
 
-        fixed_params = N, p, RWKV_hidden, RWKV_layer, RWKV_emb
+        fixed_params = N, p, RWKV_layer, RWKV_head
         batch_sample_prob = jax.jit(vmap(sample_prob_RWKV, (None, None, 0, None)), static_argnames=['fixed_params'])
         batch_log_amp = jax.jit(vmap(log_amp_RWKV, (0, None, None, None)), static_argnames=['fixed_params'])
 
@@ -178,6 +180,7 @@ for angle in (angle_list):
     grad_f = jax.jit(jax.grad(compute_cost), static_argnums=(1, 4))
 
     for it in range(numsteps+eval_steps):
+        print(it)
         key, subkey = split(subkey, 2)
         key_ = split(key, numsamples)
         samples, sample_log_amp = batch_sample_prob(params, fixed_params, key_, dmrg)

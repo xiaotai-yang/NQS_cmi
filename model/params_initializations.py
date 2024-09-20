@@ -3,8 +3,10 @@ import jax.numpy as jnp
 from jax import grad, jit, vmap
 import jax.random as random
 from jax.random import PRNGKey, split, categorical
-from jax.nn.initializers import he_normal, he_uniform, glorot_normal, glorot_uniform
-
+from jax.nn.initializers import he_normal, he_uniform, glorot_normal, glorot_uniform, orthogonal
+re = jnp.repeat
+ru = jax.random.uniform
+gu = glorot_uniform()
 def random_layer_params(N, m, n, key):
     w_key, b_key = random.split(key)
     return  (2*random.uniform(w_key, (N, m, n))-1)/jnp.sqrt((m+n)/2),  (2*random.normal(b_key, (N, m))-1)/jnp.sqrt((m+n)/2)
@@ -51,41 +53,65 @@ def init_2dtensor_gru_params(input_size, units, Ny, Nx, key):
 
     return (Wu, bu, Wr, br, Ws, bs, Wamp, bamp, Wphase, bphase)
 
-def init_RWKV_params(emb_size, h_size, num_layer, out_h_size, out_size, N, key):
-    (key, emb_key, init_x_key, init_y_key, t_last_x1_key,
-     c_last_x1_key, key_tlast_x, key_c_wv,  prob1_key, phase1_key,
-     prob2_key, phase2_key, prob3_key, phase3_key) = split(key, 14)
+def init_RWKV_params(input_size, emb_size, h_size, head, ff_size, num_layer, key):
 
-    x_init = random.uniform(init_x_key, (emb_size,), minval=-1e-4, maxval=1e-4)
-    t_init = random.uniform(t_last_x1_key, (num_layer, emb_size), minval=-1e-4, maxval=1e-4)
-    c_init = random.uniform(c_last_x1_key, (num_layer, emb_size), minval=-1e-4, maxval=1e-4)
-    wln_in, bln_in, wln_out, bln_out = jnp.ones((N, emb_size)), jnp.zeros((N, emb_size)), jnp.ones((N, emb_size)), jnp.zeros((N, emb_size))  #in&out layer_norm params
-    wln, bln = jnp.ones((2, N, num_layer, emb_size)), jnp.zeros((2, N, num_layer, emb_size))  #time&channel layer_norm params
+    (k_, k0, k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12, k13, k14) = split(key, 16)
+    decay_size = 64
+    D = h_size // head
+    r0 = jnp.arange(num_layer)/(num_layer-1)
+    r1 = 1 - jnp.arange(num_layer)/num_layer
+
+    wemb = ru(k_, (input_size, emb_size), minval = -5e-4, maxval = 5e-4)
+
+    # Initialization parameters
+    x_init = ru(k0, (emb_size), minval = -5e-4, maxval = 5e-4)
+    last_x_init = ru(k1, (num_layer, emb_size), minval = -5e-4, maxval = 5e-4)
+    t_init = ru(k2, (num_layer, head, D, D), minval = -5e-4, maxval = 5e-4)
+    c_init = ru(k3, (num_layer, emb_size), minval = -5e-4, maxval = 5e-4)
+    init_params = (x_init, last_x_init, t_init, c_init)
 
     # time mixing params
-    decay = jnp.tile(-5 + jnp.array([8*(jnp.arange(h_size)/(h_size-1))**(0.7 + 1.3*i/(num_layer-1)) for i in range(num_layer)]), (N, 1, 1))
-    bonus = jnp.tile(0.5*(jnp.arange(h_size)%3-1)+jnp.log(0.3), (N, num_layer, 1))
-    t_mix_k = jnp.tile(jnp.array([(jnp.arange(emb_size) / emb_size) ** (1 - i / num_layer) for i in range(num_layer)]), (N, 1, 1))
-    t_mix_v = t_mix_k + jnp.transpose(jnp.tile(jnp.arange(num_layer) * 0.3 / (num_layer - 1), (N, emb_size, 1)), (0, 2, 1))
-    t_mix_r = 0.5 * t_mix_k
-    t_wk, t_wv, t_wr = jnp.zeros((N, num_layer, h_size, emb_size)), jnp.zeros((N, num_layer, h_size, emb_size)), jnp.zeros((N, num_layer, h_size, emb_size))
-    t_wout = random.normal(key_tlast_x, (N, num_layer, emb_size, h_size))*jnp.sqrt(h_size/emb_size) #since last_x is twice larger than x
+    # m are of the shape (num_layer, head, D)
+    base = (jnp.arange(emb_size) / emb_size) [None, :]
+    base1 = (jnp.arange(h_size)/(h_size-1))
+    mx_t = 1 - re(base, num_layer, axis = 0) ** (r1)[:, None]
+    mw_t = 1 - re(base, num_layer, axis = 0) ** (r1)[:, None]
+    mk_t = 1 - re(base, num_layer, axis = 0) ** (r1)[:, None]
+    mv_t = 1 - re(base, num_layer, axis = 0) ** (r1)[:, None] + 0.3 * r0[:, None]
+    mr_t = 1 - re(base, num_layer, axis = 0) ** (r1 * 0.5)[:, None]
+    mg_t = 1 - re(base, num_layer, axis = 0) ** (r1 * 0.5)[:, None]
+
+    u = (r0[:, None] @ (1 - base1 + 0.1 * ((jnp.arange(h_size) + 1) % 3))[None, :]).reshape(num_layer, head, D)
+    decay = -6 + 5 * re(base1[None, :], num_layer, axis = 0) ** ((0.7 + 1.3 * r0)[:, None])
+
+    Ax, Bx = jnp.zeros((num_layer, emb_size, 5, 64)), ru(k4, (num_layer, 5, 64, emb_size), minval=-1e-2, maxval=1e-2)
+    Wk_t, Wv_t, Wr_t, Wg_t, Wo_t = gu(k4, (num_layer, emb_size, h_size)), gu(k5, (num_layer, emb_size, h_size)), gu(k6, (num_layer, emb_size, h_size)), gu(k7, (num_layer, emb_size, h_size)), gu(k8, (num_layer, h_size, emb_size))
+    Ww_t, Wd = jnp.zeros((num_layer, emb_size, decay_size)), ru(k9, (num_layer, decay_size, h_size), minval=-1e-2, maxval=1e-2)
+    # WKV GroupNorm weights initialized with constant value ((l + i) / L)^0.7
+    wln_t, bln_t = re(re((((1 + jnp.arange(num_layer))/num_layer) ** (0.7))[:, None], head, -1)[..., None], D, -1) , jnp.zeros((num_layer, head, D))
+    t_params = mx_t, mw_t, mk_t, mv_t, mr_t, mg_t, Ww_t, Wk_t, Wv_t, Wr_t, Wg_t, Wo_t, Wd, Ax, Bx, decay, u, wln_t, bln_t
 
     # channel mixing params
-    c_mix_k =  jnp.tile(jnp.array([(jnp.arange(emb_size) / emb_size) ** (1 - i / num_layer) for i in range(num_layer)]), (N, 1, 1))
-    c_mix_r =  jnp.tile(jnp.array([(jnp.arange(emb_size) / emb_size) ** (1 - i / num_layer) for i in range(num_layer)]), (N, 1, 1))
-    c_wr, c_wv, c_wk = jnp.zeros((N, num_layer, emb_size, emb_size)), jnp.sqrt(h_size/emb_size)*random.normal(key_c_wv, (N, num_layer, emb_size, emb_size)), jnp.zeros((N, num_layer, emb_size, emb_size))
-
+    mr_c = 1 - re(base, num_layer, axis = 0) ** (r1)[:, None]
+    mk_c = 1 - re(base, num_layer, axis = 0) ** (r1)[:, None]
+    Wk_c = gu(k11, (num_layer, emb_size, 4*emb_size))
+    Wv_c = gu(k12, (num_layer, 4*emb_size, emb_size))
+    Wr_c = gu(k13, (num_layer, emb_size, emb_size))
+    c_params = mr_c, mk_c, Wk_c, Wv_c, Wr_c
     # output params
-    whead, bhead = jnp.tile(jnp.eye(emb_size), (N, 1, 1)), jnp.zeros((N, emb_size))
-    wprob1, bprob1  = random.uniform(prob1_key, (out_h_size, emb_size))*jnp.sqrt(6/(emb_size)), jnp.zeros((out_h_size))
-    wphase1, bphase1 = random.uniform(phase1_key, (out_h_size, emb_size))*jnp.sqrt(6/(emb_size)), jnp.zeros((out_h_size))
-    wprob2, bprob2 = jnp.zeros((out_size, out_h_size)), jnp.zeros((out_size))
-    wphase2, bphase2 = jnp.zeros((out_size, out_h_size)), jnp.zeros((out_size))
-    RWKV_cell_params = wln[0], bln[0], wln[1], bln[1], decay, bonus, t_mix_k, t_mix_v, t_mix_r, t_wk, t_wv, t_wr, t_wout, c_mix_k, c_mix_r, c_wk, c_wv, c_wr
 
-    return (x_init, t_init, c_init, wln_in, bln_in, wln_out, bln_out, whead, bhead, wprob1, bprob1, wphase1, bphase1, wprob2, bprob2, wphase2, bphase2, RWKV_cell_params)
+    whead, bhead = orthogonal(scale = 0.5)(k12, (2 * emb_size, emb_size)), jnp.zeros((2 * emb_size))
+    wprob1, bprob1 = gu(k13, (ff_size, 2 * emb_size)), jnp.zeros((ff_size))
+    wphase1, bphase1 = gu(k14, (ff_size, 2 * emb_size)), jnp.zeros((ff_size))
+    wprob2, bprob2 = jnp.zeros((input_size, ff_size)), jnp.zeros((input_size))
+    wphase2, bphase2 = jnp.zeros((input_size, ff_size)), jnp.zeros((input_size))
+    wln_in, bln_in, wln_out, bln_out = jnp.ones(emb_size), jnp.zeros(emb_size), jnp.ones(emb_size), jnp.zeros(emb_size)  # in&out layer_norm params
+    step_params = wln_in, bln_in, whead, bhead, wln_out, bln_out, wprob1, bprob1, wphase1, bphase1, wprob2, bprob2, wphase2, bphase2
 
+    wln_i, bln_i, wln_m, bln_m = jnp.ones((num_layer, emb_size)), jnp.zeros((num_layer, emb_size)), jnp.ones((num_layer, emb_size)), jnp.zeros((num_layer, emb_size))  # in&out layer_norm params
+    cell_params = wln_i, bln_i, wln_m, bln_m
+
+    return (wemb, init_params, step_params, t_params, c_params, cell_params)
 def init_2DRWKV_params(input_size, emb_size, h_size,  num_layer, ff_size, Ny, Nx, key):
     (key, emb_key, init_x_key, init_y_key, t_last_x1_key, t_last_x2_key, t_last_y1s_key, t_last_y1e_key, t_last_y2_key,  key_tout, key_txout, key_talpha_out,
      c_last_x1_key, c_last_x2_key, c_last_y1s_key, c_last_y1e_key, c_last_y2_key, key_tbeta_out, key_tlast_x, key_c_wv, key_clast_x, key_cxout, key_whead) = split(key, 23)

@@ -14,20 +14,22 @@ import itertools
 jax.config.update("jax_enable_x64", False)
 parser = argparse.ArgumentParser()
 parser.add_argument('--L', type = int, default = 64)
-parser.add_argument('--numsamples', type = int, default=256)
-parser.add_argument('--alpha', type = int, default=4)
+parser.add_argument('--numsamples', type = int, default=8192)
+parser.add_argument('--alpha', type = int, default=16)
+parser.add_argument('--nchain_per_rank', type = int, default=512)
+
 
 args = parser.parse_args()
 L = args.L
 N = L
 numsamples = args.numsamples
 alpha = args.alpha
+nchain_per_rank = args.nchain_per_rank
 
 hi = nk.hilbert.Spin(s=1 / 2, N=N)
 g = nk.graph.Hypercube(length=N, n_dim=1, pbc=False)
-angle_list = [0, 0.05 * jnp.pi, 0.10 * jnp.pi, 0.15 * jnp.pi, 0.2 * jnp.pi, 0.25 * jnp.pi, 0.3 * jnp.pi, 0.35 * jnp.pi,
+angle_list = [0.0 * jnp.pi, 0.05 * jnp.pi, 0.10 * jnp.pi, 0.15 * jnp.pi, 0.2 * jnp.pi, 0.25 * jnp.pi, 0.3 * jnp.pi, 0.35 * jnp.pi,
               0.4 * jnp.pi, 0.45 * jnp.pi, 0.5 * jnp.pi]
-
 a = 0
 
 for angle in angle_list:
@@ -52,21 +54,23 @@ for angle in angle_list:
     h += np.cos(angle) * np.sin(angle) * sigmax(hi, j) @ sigmax(hi, j+1)
     h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, j) @ sigmaz(hi, j+1)
     h += np.sin(angle) ** 2  * sigmax(hi, j) @ sigmaz(hi, j+1)
-    H = h.to_sparse()
-    eigvec, eigval = eigsh(H, k=1, which='SA')
-    print(eigval)
     # RBM ansatz with alpha=1
-    ma = nk.models.RBM(alpha=4, param_dtype=complex)
-    sa = nk.sampler.MetropolisLocal(hilbert=hi, n_chains=16)
-    schedule = optax.warmup_cosine_decay_schedule(0.001, peak_value=0.01, warmup_steps = 100, decay_steps = 5000, end_value = 2e-4)
-    # Optimizer
+    ma = nk.models.RBM(alpha=alpha, param_dtype=complex)
+    sa = nk.sampler.MetropolisLocal(hilbert=hi,
+                                    n_chains_per_rank = nchain_per_rank)
+    schedule = optax.warmup_cosine_decay_schedule(init_value=5e-4,
+                                                  peak_value=5e-3,
+                                                  warmup_steps=500,
+                                                  decay_steps=4500,
+                                                  end_value=2e-4)    # Optimizer
     op = nk.optimizer.Sgd(learning_rate=schedule)
 
     # Stochastic Reconfiguration
-    sr = nk.optimizer.SR(diag_shift = optax.linear_schedule(0.03, 0.005, 1000))
-
+    sr = nk.optimizer.SR(diag_shift=optax.linear_schedule(init_value=0.03,
+                                                          end_value=0.001,
+                                                          transition_steps=1000))
     # The variational state
-    vs = nk.vqs.MCState(sa, ma, n_samples=numsamples)
+    vs = nk.vqs.MCState(sa, ma, n_samples=numsamples, chunk_size = 4096)
     # The ground-state optimization loop
     gs = nk.VMC(
         hamiltonian=h,
