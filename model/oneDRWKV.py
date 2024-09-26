@@ -1,4 +1,4 @@
-
+import jax
 import jax.numpy as jnp
 import jax.nn as nn
 from jax import lax
@@ -10,23 +10,26 @@ from jax.lax import scan
 
 def rms_norm_R(x, w, b):
     return x/(jnp.sqrt(jnp.sum(x**2) + 1e-10)) * w + b
-
+@jax.jit
 def layer_norm_R(x, w, b):
     mean = jnp.mean(x)
     std =  jnp.sqrt((jnp.sum((x - mean)**2) + 1e-10)/(x.size-1))
     return (x - mean)/ std * w + b
-
+@jax.jit
 def group_norm_R(x, w, b):
     mean = jnp.mean(x, axis=1, keepdims=True)
     std =  jnp.sqrt((jnp.sum((x - mean)**2, axis=1, keepdims=True) + 1e-10)/(x.shape[1]-1))
     return (x - mean)/ std * w + b
+@jax.jit
 def lora(x, lam, A, B):
     return lam + nn.tanh(x @ A) @ B
-
+@jax.jit
 def lerp(a, b, mu):
     return a + (b - a) * mu
+@jax.jit
 def ddlerp(a, b, m1, m2, A, B):
     return a + (b - a) * (m1 + nn.tanh((a + (b - a) * m2) @ A) @ B)
+@partial(jax.jit, static_argnums=(3,))
 def time_mixing(x, t_state, t_params, head):
     mx_t, mw_t, mk_t, mv_t, mr_t, mg_t, Ww_t, Wk_t, Wv_t, Wr_t, Wg_t, Wo_t, Wd, Ax, Bx, decay, u, wln_t, bln_t = t_params
     last_x, state = t_state
@@ -47,7 +50,7 @@ def time_mixing(x, t_state, t_params, head):
     state = batch_multiply(w, state) + kv
 
     return batch_multiply(nn.silu(g), wkv).ravel() @ Wo_t, (x, state)
-
+@jax.jit
 def channel_mixing(x, c_states, c_params):
     mr_c, mk_c, Wk_c, Wv_c, Wr_c = c_params
     last_x = c_states
@@ -58,57 +61,50 @@ def channel_mixing(x, c_states, c_params):
 
     return nn.sigmoid(r) * v, x
 
-def RWKV_step(x, t_states, c_states, num_layer, RWKV_net_params, head):
-    step_params, t_params, c_params, cell_params= RWKV_net_params
+
+@partial(jax.jit, static_argnums=(5,))
+def RWKV_step(x, t_states, c_states, layer, RWKV_net_params, head):
+    step_params, t_params, c_params, cell_params = RWKV_net_params
     wln_in, bln_in, whead, bhead, wln_out, bln_out, wprob1, bprob1, wphase1, bphase1, wprob2, bprob2, wphase2, bphase2 = step_params
     x = layer_norm_R(x, wln_in, bln_in)
-    x , y = lax.scan(partial(RWKV_cell,
-                             t_params = t_params,
-                             c_params = c_params,
-                             cell_params = cell_params,
-                             cell_t_states = t_states,
-                             cell_c_states = c_states,
-                             head = head)
-                     , x, jnp.arange(num_layer))
+    def scan_fun(carry, i):
+        x = carry
+        wln_i, bln_i, wln_m, bln_m = cell_params
+        t_params_i = tuple(t[i] for t in t_params)
+        c_params_i = tuple(t[i] for t in c_params)
+        layer_t_states = tuple(t[i] for t in t_states)
+        layer_c_states = c_states[i]
+
+        x_ = layer_norm_R(x, wln_i[i], bln_i[i])
+        dx, output_t_states = time_mixing(x_, layer_t_states, t_params_i, head)
+        x = x + dx
+        x_ = layer_norm_R(x, wln_m[i], bln_m[i])
+        dx, output_c_states = channel_mixing(x_, layer_c_states, c_params_i)
+        x = x + dx
+        return x, (output_t_states[0], output_t_states[1], output_c_states)
+
+    x, y = lax.scan(scan_fun, x, layer)
     last_x_state, t_state, c_states = y
     x = whead @ layer_norm_R(x, wln_out, bln_out) + bhead
     prob = nn.softmax(wprob2 @ nn.relu(wprob1 @ x + bprob1) + bprob2)
-    phase = jnp.pi*nn.soft_sign(wphase2 @ nn.relu(wphase1 @ x + bphase1) + bphase2)
+    phase = jnp.pi * nn.soft_sign(wphase2 @ nn.relu(wphase1 @ x + bphase1) + bphase2)
     return x, last_x_state, t_state, c_states, prob, phase
 
-def RWKV_cell(carry, i, t_params, c_params, cell_params, cell_t_states, cell_c_states, head):
-    # carry = (x, t_states, c_states)
-    x = carry
-    wln_i, bln_i, wln_m, bln_m = cell_params
-    t_params_i = tuple(t[i] for t in t_params)
-    c_params_i = tuple(t[i] for t in c_params)
-    layer_t_states = tuple(t[i] for t in cell_t_states)
-    layer_c_states = cell_c_states[i]
-
-    x_ = layer_norm_R(x, wln_i[i], bln_i[i])
-    dx, output_t_states = time_mixing(x_, layer_t_states, t_params_i, head)
-    x = x + dx
-    x_ = layer_norm_R(x, wln_m[i], bln_m[i])
-    dx, output_c_states = channel_mixing(x_, layer_c_states, c_params_i)
-    x = x + dx
-    # carry need to be modified
-    return x, (output_t_states[0], output_t_states[1], output_c_states)
-
-def sample_prob_RWKV(params, fixed_params, key, dmrg):
+@partial(jax.jit, static_argnums=(1,))
+def sample_prob_RWKV(params, fixed_params, key, setting):
 
     def scan_fun(carry, n):
         input, last_x, last_t, last_c, key = carry
-        x, last_x, last_t, last_c, out_prob, out_phase = RWKV_step(input, (last_x, last_t), last_c, num_layer, RWKV_net_params, head)
+        x, last_x, last_t, last_c, out_prob, out_phase = RWKV_step(input, (last_x, last_t), last_c, layer, RWKV_net_params, head)
         key, subkey = split(key)
         block_sample = categorical(subkey, jnp.log(out_prob))
         prob, phase = out_prob[block_sample], out_phase[block_sample]
         input = wemb[block_sample]
 
         return (input, last_x, last_t, last_c, key), (block_sample, prob, phase)
-
-    N, p, num_layer, head = fixed_params
+    dmrg, n_indices, layer = setting
+    N, p, head = fixed_params
     int_to_binary = partial(int_to_binary_array, num_bits=p)
-    n_indices = jnp.array([i for i in range(N)])
     wemb = params[0]
     xi, last_xi, ti, ci = params[1]
     RWKV_net_params = params[2:]
@@ -120,20 +116,20 @@ def sample_prob_RWKV(params, fixed_params, key, dmrg):
     samples_log_amp = lax.cond(dmrg, lambda x: samples_log_amp, lambda x: samples_log_amp + phase * 1j, None)
 
     return samples, samples_log_amp
-
-def log_amp_RWKV(samples, params, fixed_params, dmrg):
+@partial(jax.jit, static_argnums=(2,))
+def log_amp_RWKV(samples, params, fixed_params, setting):
     def scan_fun(carry, n):
         input, last_x, last_t, last_c = carry
-        x, last_x, last_t, last_c, out_prob, out_phase = RWKV_step(input, (last_x, last_t), last_c, num_layer, RWKV_net_params, head)
+        x, last_x, last_t, last_c, out_prob, out_phase = RWKV_step(input, (last_x, last_t), last_c, layer, RWKV_net_params, head)
         block_sample = binary_to_int(samples[n])
         prob, phase = out_prob[block_sample], out_phase[block_sample]
         input = wemb[block_sample]
 
         return (input, last_x, last_t, last_c), (block_sample, prob, phase)
 
-    N, p, num_layer, head = fixed_params
+    dmrg, n_indices, layer = setting
+    N, p, head = fixed_params
     wemb = params[0]
-    n_indices = jnp.array([i for i in range(N)])
     binary_to_int = partial(binary_array_to_int, num_bits=p)
     RWKV_net_params = params[2:]
     __, (samples, probs, phase) = scan(scan_fun, params[1], n_indices)

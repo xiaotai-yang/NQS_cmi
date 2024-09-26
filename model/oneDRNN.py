@@ -25,7 +25,7 @@ def tensor_gru_rnn_step(local_inputs, local_states, params):  # local_input is a
     return new_state, prob, phase
 
 
-def sample_prob(params, fixed_params, key, dmrg):
+def sample_prob(params, fixed_params, key, setting):
 
     def scan_fun(carry, indices):
         n = indices
@@ -39,9 +39,9 @@ def sample_prob(params, fixed_params, key, dmrg):
         return (state, input, key, params), (block_sample, prob, phase)
 
     N, p, units = fixed_params
+    dmrg, n_indices = setting
     wemb = jnp.eye(2**p)
     int_to_binary = partial(int_to_binary_array, num_bits=p)
-    n_indices = jnp.array([i for i in range(N)])
     input_init, state_init = jnp.zeros(2**p), jnp.zeros((units))
     init = state_init, input_init, key, params
 
@@ -53,7 +53,7 @@ def sample_prob(params, fixed_params, key, dmrg):
 
     return samples, sample_amp
 
-def log_amp(sample, params, fixed_params, dmrg):
+def log_amp(sample, params, fixed_params, setting):
     # samples : (num_samples, Ny, Nx)
     def scan_fun(carry, indices):
         n = indices
@@ -69,9 +69,9 @@ def log_amp(sample, params, fixed_params, dmrg):
 
     #initialization
     N, p, units = fixed_params
+    dmrg, n_indices = setting
     wemb = jnp.eye(2 ** p)
     binary_to_int = partial(binary_array_to_int, num_bits=p)
-    n_indices = jnp.array([i for i in range(N)])
     state_init, input_init = jnp.zeros((units)), jnp.zeros(2**p)
     init = state_init, input_init, sample, params
 

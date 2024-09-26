@@ -64,7 +64,7 @@ def init_RWKV_params(input_size, emb_size, h_size, head, ff_size, num_layer, key
     wemb = ru(k_, (input_size, emb_size), minval = -5e-4, maxval = 5e-4)
 
     # Initialization parameters
-    x_init = ru(k0, (emb_size), minval = -5e-4, maxval = 5e-4)
+    x_init = ru(k0, (emb_size,), minval = -5e-4, maxval = 5e-4)
     last_x_init = ru(k1, (num_layer, emb_size), minval = -5e-4, maxval = 5e-4)
     t_init = ru(k2, (num_layer, head, D, D), minval = -5e-4, maxval = 5e-4)
     c_init = ru(k3, (num_layer, emb_size), minval = -5e-4, maxval = 5e-4)

@@ -1,7 +1,7 @@
 import jax.numpy as jnp
 import jax.lax as lax
 from functools import partial
-
+import jax
 def int_to_binary_array(x, num_bits):
     """
     Converts an array of integers to their binary representation arrays with a fixed number of bits.
@@ -43,6 +43,25 @@ def binary_array_to_int(binary_array, num_bits):
     return decimals
 
 def log_phase_dmrg(samples, M0, M, Mlast):
+    def scan_fun(vec, indices):
+        n = indices
+        vec = M[samples[n+1],:,:,n] @ vec
+        return vec, None
+    vec_init = M0[samples[0]]
+    vec_last = Mlast[samples[-1]]
+    N = samples.shape[0]
+    n_indices = jnp.arange(N-2)
+    amp_last, _ = lax.scan(scan_fun, vec_init, n_indices)
+    amp = jnp.dot(amp_last, vec_last)
+    sign = amp / jnp.abs(amp)
+    log_phase = lax.cond(jnp.abs(amp)>1e-12, lambda x:(-sign+1)/2*jnp.pi*1j, lambda x: 0.+0.*1j, None)
+    return log_phase
+
+def log_phase_dmrg(samples, M0, M, Mlast, netket = False):
+    samples = lax.cond(netket,
+                       lambda x: ((x+1)/2).astype(jnp.int32),
+                       lambda x: x.astype(jnp.int32),
+                       samples)
     def scan_fun(vec, indices):
         n = indices
         vec = M[samples[n+1],:,:,n] @ vec

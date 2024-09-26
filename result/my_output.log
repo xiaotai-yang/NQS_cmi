@@ -1,0 +1,3667 @@
+Running task with value: 1.570796326600
+mean(E): (-60.73177719116211-0.015683773905038834j), varE: 0.41377225518226624, #samples 256, #Step 44700 
+
+
+grad_norm: 5.278837
+learning_rate = 0.0002
+Magnetization = 1.046875
+mean(E): (-60.758811950683594-0.05100121721625328j), varE: 0.4026085138320923, #samples 256, #Step 44800 
+
+
+grad_norm: 5.7520366
+learning_rate = 0.0002
+Magnetization = 0.6953125
+mean(E): (-60.736785888671875-0.02339501678943634j), varE: 0.339794784784317, #samples 256, #Step 44900 
+
+
+grad_norm: 4.035862
+learning_rate = 0.0002
+Magnetization = 1.484375
+mean(E): (-60.860107421875-0.06386841833591461j), varE: 0.36912357807159424, #samples 256, #Step 45000 
+
+
+grad_norm: 4.6089635
+learning_rate = 0.0002
+Magnetization = 0.375
+mean(E): (-60.72581481933594-0.08411619067192078j), varE: 0.2500518560409546, #samples 256, #Step 45100 
+
+
+grad_norm: 3.1867046
+learning_rate = 0.0002
+Magnetization = 0.7421875
+mean(E): (-60.75489807128906-0.04012227803468704j), varE: 0.48969754576683044, #samples 256, #Step 45200 
+
+
+grad_norm: 5.719533
+learning_rate = 0.0002
+Magnetization = 1.4453125
+mean(E): (-60.762969970703125-0.03087456338107586j), varE: 0.24113452434539795, #samples 256, #Step 45300 
+
+
+grad_norm: 4.3473873
+learning_rate = 0.0002
+Magnetization = 1.1484375
+mean(E): (-60.752498626708984-0.04274948686361313j), varE: 0.4536357820034027, #samples 256, #Step 45400 
+
+
+grad_norm: 5.4998884
+learning_rate = 0.0002
+Magnetization = 0.3515625
+mean(E): (-60.803672790527344-0.053386326879262924j), varE: 0.5899596214294434, #samples 256, #Step 45500 
+
+
+grad_norm: 6.29848
+learning_rate = 0.0002
+Magnetization = 0.453125
+mean(E): (-60.78886413574219-0.033333539962768555j), varE: 0.24637027084827423, #samples 256, #Step 45600 
+
+
+grad_norm: 3.4985569
+learning_rate = 0.0002
+Magnetization = 0.703125
+mean(E): (-60.7003173828125-0.018963169306516647j), varE: 0.5152316093444824, #samples 256, #Step 45700 
+
+
+grad_norm: 5.470072
+learning_rate = 0.0002
+Magnetization = 1.203125
+mean(E): (-60.7628173828125-0.05970219522714615j), varE: 0.233371764421463, #samples 256, #Step 45800 
+
+
+grad_norm: 3.042942
+learning_rate = 0.0002
+Magnetization = 1.2265625
+mean(E): (-60.75395202636719-0.08560055494308472j), varE: 0.5520007610321045, #samples 256, #Step 45900 
+
+
+grad_norm: 5.212384
+learning_rate = 0.0002
+Magnetization = 1.09375
+mean(E): (-60.719093322753906-0.047091156244277954j), varE: 0.362859308719635, #samples 256, #Step 46000 
+
+
+grad_norm: 4.3325295
+learning_rate = 0.0002
+Magnetization = 1.96875
+mean(E): (-60.77490234375-0.0430242121219635j), varE: 0.8759799003601074, #samples 256, #Step 46100 
+
+
+grad_norm: 6.412589
+learning_rate = 0.0002
+Magnetization = 0.453125
+mean(E): (-60.80119705200195-0.04963250458240509j), varE: 0.34885305166244507, #samples 256, #Step 46200 
+
+
+grad_norm: 4.43523
+learning_rate = 0.0002
+Magnetization = 1.921875
+mean(E): (-60.483489990234375-0.032704487442970276j), varE: 5.843596458435059, #samples 256, #Step 46300 
+
+
+grad_norm: 24.599276
+learning_rate = 0.0002
+Magnetization = 1.3984375
+mean(E): (-60.82052993774414-0.019183451309800148j), varE: 0.3492908775806427, #samples 256, #Step 46400 
+
+
+grad_norm: 4.2036304
+learning_rate = 0.0002
+Magnetization = 0.3203125
+mean(E): (-60.76490020751953-0.05354722589254379j), varE: 0.46638697385787964, #samples 256, #Step 46500 
+
+
+grad_norm: 5.7580338
+learning_rate = 0.0002
+Magnetization = 0.34375
+mean(E): (-60.69633102416992-0.0817524790763855j), varE: 0.779839038848877, #samples 256, #Step 46600 
+
+
+grad_norm: 7.3384266
+learning_rate = 0.0002
+Magnetization = 1.2890625
+mean(E): (-60.734214782714844-0.04648660123348236j), varE: 0.35514479875564575, #samples 256, #Step 46700 
+
+
+grad_norm: 3.9727485
+learning_rate = 0.0002
+Magnetization = 0.640625
+mean(E): (-60.69450378417969-0.0425480380654335j), varE: 0.7155900597572327, #samples 256, #Step 46800 
+
+
+grad_norm: 6.2347345
+learning_rate = 0.0002
+Magnetization = 1.0078125
+mean(E): (-60.846153259277344-0.059648364782333374j), varE: 0.26832184195518494, #samples 256, #Step 46900 
+
+
+grad_norm: 4.2794995
+learning_rate = 0.0002
+Magnetization = 0.3203125
+mean(E): (-60.627586364746094-0.10146871209144592j), varE: 0.8720090389251709, #samples 256, #Step 47000 
+
+
+grad_norm: 8.293043
+learning_rate = 0.0002
+Magnetization = 0.9375
+mean(E): (-60.72660827636719-0.031620413064956665j), varE: 0.4070519208908081, #samples 256, #Step 47100 
+
+
+grad_norm: 4.878732
+learning_rate = 0.0002
+Magnetization = 1.3203125
+mean(E): (-60.74278259277344-0.02721267007291317j), varE: 0.4954856038093567, #samples 256, #Step 47200 
+
+
+grad_norm: 6.2863417
+learning_rate = 0.0002
+Magnetization = 0.40625
+mean(E): (-60.84566116333008-0.00032090209424495697j), varE: 2.8346662521362305, #samples 256, #Step 47300 
+
+
+grad_norm: 20.363874
+learning_rate = 0.0002
+Magnetization = 0.6953125
+mean(E): (-60.70318603515625-0.06815776973962784j), varE: 0.5804665684700012, #samples 256, #Step 47400 
+
+
+grad_norm: 6.054511
+learning_rate = 0.0002
+Magnetization = -0.0390625
+mean(E): (-60.749549865722656-0.04632085561752319j), varE: 0.4012717008590698, #samples 256, #Step 47500 
+
+
+grad_norm: 4.608678
+learning_rate = 0.0002
+Magnetization = 0.8671875
+mean(E): (-60.76094055175781-0.049156781286001205j), varE: 0.36186352372169495, #samples 256, #Step 47600 
+
+
+grad_norm: 3.5808866
+learning_rate = 0.0002
+Magnetization = 0.1171875
+mean(E): (-60.74003601074219-0.019018035382032394j), varE: 0.24120035767555237, #samples 256, #Step 47700 
+
+
+grad_norm: 3.6062627
+learning_rate = 0.0002
+Magnetization = 0.8671875
+mean(E): (-60.73820877075195-0.0597853846848011j), varE: 0.47695598006248474, #samples 256, #Step 47800 
+
+
+grad_norm: 4.79118
+learning_rate = 0.0002
+Magnetization = 0.90625
+mean(E): (-60.682960510253906-0.05792135000228882j), varE: 0.44979721307754517, #samples 256, #Step 47900 
+
+
+grad_norm: 4.1844435
+learning_rate = 0.0002
+Magnetization = 0.265625
+mean(E): (-60.80828857421875-0.02749292179942131j), varE: 0.5811418294906616, #samples 256, #Step 48000 
+
+
+grad_norm: 8.843609
+learning_rate = 0.0002
+Magnetization = 0.921875
+mean(E): (-60.8093147277832-0.05247235298156738j), varE: 0.2768101692199707, #samples 256, #Step 48100 
+
+
+grad_norm: 3.4205453
+learning_rate = 0.0002
+Magnetization = 0.4765625
+mean(E): (-60.77838134765625-0.055387597531080246j), varE: 0.8525822162628174, #samples 256, #Step 48200 
+
+
+grad_norm: 7.44666
+learning_rate = 0.0002
+Magnetization = 0.734375
+mean(E): (-60.80615997314453-0.05820370465517044j), varE: 0.20762783288955688, #samples 256, #Step 48300 
+
+
+grad_norm: 2.9975915
+learning_rate = 0.0002
+Magnetization = 0.59375
+mean(E): (-60.70854187011719-0.07343542575836182j), varE: 0.49554216861724854, #samples 256, #Step 48400 
+
+
+grad_norm: 5.798163
+learning_rate = 0.0002
+Magnetization = 1.2421875
+mean(E): (-60.773155212402344-0.056595612317323685j), varE: 0.5074309706687927, #samples 256, #Step 48500 
+
+
+grad_norm: 5.7042456
+learning_rate = 0.0002
+Magnetization = 0.4765625
+mean(E): (-60.758583068847656-0.06726459413766861j), varE: 0.37002843618392944, #samples 256, #Step 48600 
+
+
+grad_norm: 4.583743
+learning_rate = 0.0002
+Magnetization = 1.6875
+mean(E): (-60.792484283447266-0.03101325035095215j), varE: 0.2896856963634491, #samples 256, #Step 48700 
+
+
+grad_norm: 4.2425995
+learning_rate = 0.0002
+Magnetization = 1.171875
+mean(E): (-60.803375244140625-0.016395511105656624j), varE: 0.8123221397399902, #samples 256, #Step 48800 
+
+
+grad_norm: 7.647658
+learning_rate = 0.0002
+Magnetization = 0.4296875
+mean(E): (-60.742347717285156-0.08196322619915009j), varE: 0.7143840193748474, #samples 256, #Step 48900 
+
+
+grad_norm: 7.6283197
+learning_rate = 0.0002
+Magnetization = 0.5078125
+mean(E): (-60.75658416748047-0.0655716136097908j), varE: 0.37320590019226074, #samples 256, #Step 49000 
+
+
+grad_norm: 4.7073073
+learning_rate = 0.0002
+Magnetization = 1.25
+mean(E): (-60.769569396972656-0.046530649065971375j), varE: 0.23743557929992676, #samples 256, #Step 49100 
+
+
+grad_norm: 3.1211615
+learning_rate = 0.0002
+Magnetization = 0.6484375
+mean(E): (-60.77696228027344-0.036554280668497086j), varE: 0.521458089351654, #samples 256, #Step 49200 
+
+
+grad_norm: 6.4889297
+learning_rate = 0.0002
+Magnetization = 0.640625
+mean(E): (-63.97962188720703-0.0076234606094658375j), varE: 0.0047609820030629635, #samples 256, #Step 58100 
+
+
+grad_norm: 0.46554005
+learning_rate = 0.0002
+Magnetization = -0.6875
+mean(E): (-63.9829216003418-0.00654467660933733j), varE: 0.007288727909326553, #samples 256, #Step 58200 
+
+
+grad_norm: 0.6025985
+learning_rate = 0.0002
+Magnetization = 0.2421875
+mean(E): (-63.97815704345703-0.00345236505381763j), varE: 0.005093709100037813, #samples 256, #Step 58300 
+
+
+grad_norm: 0.44091088
+learning_rate = 0.0002
+Magnetization = 0.265625
+mean(E): (-63.98234558105469-0.0015658946940675378j), varE: 0.0041449605487287045, #samples 256, #Step 58400 
+
+
+grad_norm: 0.377953
+learning_rate = 0.0002
+Magnetization = -0.3984375
+mean(E): (-63.981361389160156+0.0018866532482206821j), varE: 0.003600277006626129, #samples 256, #Step 58500 
+
+
+grad_norm: 0.4027348
+learning_rate = 0.0002
+Magnetization = -0.546875
+mean(E): (-63.98490905761719-0.006140946876257658j), varE: 0.0039153569377958775, #samples 256, #Step 58600 
+
+
+grad_norm: 0.41657946
+learning_rate = 0.0002
+Magnetization = -0.6953125
+mean(E): (-63.98051452636719-0.0030177230946719646j), varE: 0.004201191943138838, #samples 256, #Step 58700 
+
+
+grad_norm: 0.40928745
+learning_rate = 0.0002
+Magnetization = -0.25
+mean(E): (-63.98090362548828-0.013389501720666885j), varE: 0.005746571347117424, #samples 256, #Step 58800 
+
+
+grad_norm: 0.5120862
+learning_rate = 0.0002
+Magnetization = -0.90625
+mean(E): (-63.98463439941406-0.0031658767256885767j), varE: 0.005476611200720072, #samples 256, #Step 58900 
+
+
+grad_norm: 0.5321093
+learning_rate = 0.0002
+Magnetization = -0.109375
+mean(E): (-63.98165512084961+0.004792997147887945j), varE: 0.004530147183686495, #samples 256, #Step 59000 
+
+
+grad_norm: 0.3989105
+learning_rate = 0.0002
+Magnetization = 0.265625
+mean(E): (-63.9801139831543+0.002078429562970996j), varE: 0.00391203910112381, #samples 256, #Step 59100 
+
+
+grad_norm: 0.4425032
+learning_rate = 0.0002
+Magnetization = -0.3125
+mean(E): (-63.98528289794922-0.0010529104620218277j), varE: 0.004111694172024727, #samples 256, #Step 59200 
+
+
+grad_norm: 0.40883023
+learning_rate = 0.0002
+Magnetization = 0.015625
+mean(E): (-63.98578643798828-0.0040613566525280476j), varE: 0.00433693639934063, #samples 256, #Step 59300 
+
+
+grad_norm: 0.44952613
+learning_rate = 0.0002
+Magnetization = 0.109375
+mean(E): (-63.980995178222656-0.0013798597501590848j), varE: 0.005337814800441265, #samples 256, #Step 59400 
+
+
+grad_norm: 0.45662698
+learning_rate = 0.0002
+Magnetization = -0.375
+mean(E): (-63.98388671875+0.0003399103879928589j), varE: 0.005752316676080227, #samples 256, #Step 59500 
+
+
+grad_norm: 0.5411379
+learning_rate = 0.0002
+Magnetization = -0.28125
+mean(E): (-63.98046112060547-0.003249057801440358j), varE: 0.004149467684328556, #samples 256, #Step 59600 
+
+
+grad_norm: 0.42845
+learning_rate = 0.0002
+Magnetization = 0.390625
+mean(E): (-63.98493194580078-0.005406217649579048j), varE: 0.004398526158183813, #samples 256, #Step 59700 
+
+
+grad_norm: 0.45160514
+learning_rate = 0.0002
+Magnetization = 0.1875
+mean(E): (-63.98175048828125+0.00019467656966298819j), varE: 0.00408976711332798, #samples 256, #Step 59800 
+
+
+grad_norm: 0.4286783
+learning_rate = 0.0002
+Magnetization = 0.3515625
+mean(E): (-63.98189163208008-0.007209866773337126j), varE: 0.00328495423309505, #samples 256, #Step 59900 
+
+
+grad_norm: 0.38238314
+learning_rate = 0.0002
+Magnetization = 0.59375
+mean(E): (-63.98459243774414+0.0032660658471286297j), varE: 0.0032852161675691605, #samples 256, #Step 60000 
+
+
+grad_norm: 0.36491287
+mean(E): (-63.98601150512695-0.05198582261800766j), varE: 0.0029388372786343098, #samples 256, #Step 58100 
+
+
+grad_norm: 0.37075466
+learning_rate = 0.0002
+Magnetization = -0.8203125
+mean(E): (-63.982810974121094-0.061116911470890045j), varE: 0.003399807494133711, #samples 256, #Step 58200 
+
+
+grad_norm: 0.415766
+learning_rate = 0.0002
+Magnetization = 0.6328125
+mean(E): (-63.98273849487305-0.04476826637983322j), varE: 0.004209441132843494, #samples 256, #Step 58300 
+
+
+grad_norm: 0.43545538
+learning_rate = 0.0002
+Magnetization = 0.046875
+mean(E): (-63.98426818847656-0.049011293798685074j), varE: 0.00397596787661314, #samples 256, #Step 58400 
+
+
+grad_norm: 0.4580716
+learning_rate = 0.0002
+Magnetization = 0.09375
+mean(E): (-63.983482360839844-0.05488446354866028j), varE: 0.005105934105813503, #samples 256, #Step 58500 
+
+
+grad_norm: 0.4833125
+learning_rate = 0.0002
+Magnetization = -0.3828125
+mean(E): (-63.984195709228516-0.05543551966547966j), varE: 0.003979664295911789, #samples 256, #Step 58600 
+
+
+grad_norm: 0.46310616
+learning_rate = 0.0002
+Magnetization = -0.6875
+mean(E): (-63.9852294921875-0.0472291074693203j), varE: 0.0027863187715411186, #samples 256, #Step 58700 
+
+
+grad_norm: 0.37614292
+learning_rate = 0.0002
+Magnetization = -0.46875
+mean(E): (-63.983055114746094-0.04597226902842522j), varE: 0.002464114222675562, #samples 256, #Step 58800 
+
+
+grad_norm: 0.30389258
+learning_rate = 0.0002
+Magnetization = -0.515625
+mean(E): (-63.98248291015625-0.05351737141609192j), varE: 0.0029155914671719074, #samples 256, #Step 58900 
+
+
+grad_norm: 0.37487957
+learning_rate = 0.0002
+Magnetization = -0.0625
+mean(E): (-63.98374938964844-0.04728403687477112j), varE: 0.004057169426232576, #samples 256, #Step 59000 
+
+
+grad_norm: 0.46983117
+learning_rate = 0.0002
+Magnetization = -0.015625
+mean(E): (-63.98194122314453-0.062162648886442184j), varE: 0.005360914394259453, #samples 256, #Step 59100 
+
+
+grad_norm: 0.54829687
+learning_rate = 0.0002
+Magnetization = -0.453125
+mean(E): (-63.98432922363281-0.051373064517974854j), varE: 0.004746253602206707, #samples 256, #Step 59200 
+
+
+grad_norm: 0.56368154
+learning_rate = 0.0002
+Magnetization = 0.453125
+mean(E): (-63.98356628417969-0.05356448143720627j), varE: 0.003134068101644516, #samples 256, #Step 59300 
+
+
+grad_norm: 0.40763822
+learning_rate = 0.0002
+Magnetization = 0.40625
+mean(E): (-63.982425689697266-0.0523875392973423j), varE: 0.003858639858663082, #samples 256, #Step 59400 
+
+
+grad_norm: 0.46555638
+learning_rate = 0.0002
+Magnetization = -0.265625
+mean(E): (-63.98165512084961-0.05350005626678467j), varE: 0.0030812143813818693, #samples 256, #Step 59500 
+
+
+grad_norm: 0.39087707
+learning_rate = 0.0002
+Magnetization = 0.2578125
+mean(E): (-63.98173141479492-0.051251381635665894j), varE: 0.0045803626999258995, #samples 256, #Step 59600 
+
+
+grad_norm: 0.46838987
+learning_rate = 0.0002
+Magnetization = 0.7421875
+mean(E): (-63.98186111450195-0.04537642002105713j), varE: 0.004743178840726614, #samples 256, #Step 59700 
+
+
+grad_norm: 0.4738254
+learning_rate = 0.0002
+Magnetization = 0.4375
+mean(E): (-63.983558654785156-0.05345941334962845j), varE: 0.003450936172157526, #samples 256, #Step 59800 
+
+
+grad_norm: 0.4401893
+learning_rate = 0.0002
+Magnetization = 0.4453125
+mean(E): (-63.9837646484375-0.05459233745932579j), varE: 0.003807300701737404, #samples 256, #Step 59900 
+
+
+grad_norm: 0.41899076
+learning_rate = 0.0002
+Magnetization = 0.265625
+mean(E): (-63.98493576049805-0.05268097668886185j), varE: 0.0026195948012173176, #samples 256, #Step 60000 
+
+
+grad_norm: 0.35251182
+40000
+60128
+learning_rate = 0.0002
+Magnetization = 0.3671875
+mean(E): (-55.659854888916016-0.12579217553138733j), varE: 0.005190053954720497, #samples 256, #Step 40100 
+
+
+grad_norm: 0.61934304
+learning_rate = 0.0002
+Magnetization = 0.1875
+mean(E): (-55.6620979309082-0.12821796536445618j), varE: 0.0044442592188715935, #samples 256, #Step 40200 
+
+
+grad_norm: 0.6366749
+learning_rate = 0.0002
+Magnetization = -0.5625
+mean(E): (-55.66108703613281-0.1272563934326172j), varE: 0.005788960959762335, #samples 256, #Step 40300 
+
+
+grad_norm: 0.81979823
+learning_rate = 0.0002
+Magnetization = 0.6953125
+mean(E): (-55.66293716430664-0.11991195380687714j), varE: 0.004063715226948261, #samples 256, #Step 40400 
+
+
+grad_norm: 0.59642994
+learning_rate = 0.0002
+Magnetization = 0.1171875
+mean(E): (-55.662208557128906-0.12776339054107666j), varE: 0.003837614320218563, #samples 256, #Step 40500 
+
+
+grad_norm: 0.5196078
+learning_rate = 0.0002
+Magnetization = 0.5234375
+mean(E): (-55.66188430786133-0.12740547955036163j), varE: 0.004222621209919453, #samples 256, #Step 40600 
+
+
+grad_norm: 0.659116
+learning_rate = 0.0002
+Magnetization = -0.2734375
+mean(E): (-55.66033935546875-0.1251842975616455j), varE: 0.005986935459077358, #samples 256, #Step 40700 
+
+
+grad_norm: 0.71767163
+learning_rate = 0.0002
+Magnetization = -0.4296875
+mean(E): (-55.662879943847656-0.12369287759065628j), varE: 0.00789834838360548, #samples 256, #Step 40800 
+
+
+grad_norm: 0.88546884
+learning_rate = 0.0002
+Magnetization = -1.0859375
+mean(E): (-55.663787841796875-0.12272751331329346j), varE: 0.0040763551369309425, #samples 256, #Step 40900 
+
+
+grad_norm: 0.5593169
+learning_rate = 0.0002
+Magnetization = -0.765625
+mean(E): (-55.66050720214844-0.13503655791282654j), varE: 0.004391916561871767, #samples 256, #Step 41000 
+
+
+grad_norm: 0.6886882
+learning_rate = 0.0002
+Magnetization = -0.1875
+mean(E): (-55.663002014160156-0.13005217909812927j), varE: 0.003504390362650156, #samples 256, #Step 41100 
+
+
+grad_norm: 0.46444076
+learning_rate = 0.0002
+Magnetization = 0.328125
+mean(E): (-55.65709686279297-0.11868047714233398j), varE: 0.014735568314790726, #samples 256, #Step 41200 
+
+
+grad_norm: 1.0509521
+learning_rate = 0.0002
+Magnetization = -0.0859375
+mean(E): (-55.662384033203125-0.09251390397548676j), varE: 0.003754193428903818, #samples 256, #Step 41300 
+
+
+grad_norm: 0.4442013
+learning_rate = 0.0002
+Magnetization = 0.578125
+mean(E): (-55.662147521972656-0.10562282055616379j), varE: 0.001631415099836886, #samples 256, #Step 41400 
+
+
+grad_norm: 0.31513113
+learning_rate = 0.0002
+Magnetization = 0.3046875
+mean(E): (-55.66216278076172-0.11430665105581284j), varE: 0.0013853790005668998, #samples 256, #Step 41500 
+
+
+grad_norm: 0.26869234
+learning_rate = 0.0002
+Magnetization = -0.1484375
+mean(E): (-55.66300582885742-0.13629767298698425j), varE: 0.008410134352743626, #samples 256, #Step 41600 
+
+
+grad_norm: 0.7584659
+learning_rate = 0.0002
+Magnetization = 0.4296875
+mean(E): (-55.66332244873047-0.1323319524526596j), varE: 0.0018035373650491238, #samples 256, #Step 41700 
+
+
+grad_norm: 0.34881863
+learning_rate = 0.0002
+Magnetization = -1.1015625
+mean(E): (-55.664432525634766-0.13497796654701233j), varE: 0.0014779729535803199, #samples 256, #Step 41800 
+
+
+grad_norm: 0.3293448
+learning_rate = 0.0002
+Magnetization = -0.171875
+mean(E): (-55.66460418701172-0.12927453219890594j), varE: 0.0014334669103845954, #samples 256, #Step 41900 
+
+
+grad_norm: 0.25203303
+learning_rate = 0.0002
+Magnetization = -0.9765625
+mean(E): (-55.6639289855957-0.1464807689189911j), varE: 0.008548619225621223, #samples 256, #Step 42000 
+
+
+grad_norm: 0.90506494
+learning_rate = 0.0002
+Magnetization = -0.1484375
+mean(E): (-55.66370391845703-0.1472737044095993j), varE: 0.001999037340283394, #samples 256, #Step 42100 
+
+
+grad_norm: 0.38036463
+learning_rate = 0.0002
+Magnetization = -0.8515625
+mean(E): (-55.66173553466797-0.1413806825876236j), varE: 0.0019300472922623158, #samples 256, #Step 42200 
+
+
+grad_norm: 0.34371322
+learning_rate = 0.0002
+Magnetization = -0.8984375
+mean(E): (-55.66388702392578-0.13857677578926086j), varE: 0.0017742076888680458, #samples 256, #Step 42300 
+
+
+grad_norm: 0.3454836
+learning_rate = 0.0002
+Magnetization = -0.78125
+mean(E): (-55.66162109375-0.1285155713558197j), varE: 0.006845511961728334, #samples 256, #Step 42400 
+
+
+grad_norm: 0.67020357
+learning_rate = 0.0002
+Magnetization = 0.7265625
+mean(E): (-55.66189956665039-0.13367605209350586j), varE: 0.002142807003110647, #samples 256, #Step 42500 
+
+
+grad_norm: 0.36733848
+learning_rate = 0.0002
+Magnetization = -0.4453125
+mean(E): (-55.65917205810547-0.12990537285804749j), varE: 0.006627543829381466, #samples 256, #Step 42600 
+
+
+grad_norm: 0.5850999
+learning_rate = 0.0002
+Magnetization = -0.125
+mean(E): (-55.66455078125-0.1348186582326889j), varE: 0.0018596677109599113, #samples 256, #Step 42700 
+
+
+grad_norm: 0.35004675
+learning_rate = 0.0002
+Magnetization = 0.234375
+mean(E): (-55.66363525390625-0.12810193002223969j), varE: 0.001537524163722992, #samples 256, #Step 42800 
+
+
+grad_norm: 0.34680253
+learning_rate = 0.0002
+Magnetization = 1.1171875
+mean(E): (-55.66175079345703-0.12167735397815704j), varE: 0.0019159670919179916, #samples 256, #Step 42900 
+
+
+grad_norm: 0.35807052
+learning_rate = 0.0002
+Magnetization = -0.8046875
+mean(E): (-55.66410827636719-0.13633276522159576j), varE: 0.0013518374180421233, #samples 256, #Step 43000 
+
+
+grad_norm: 0.30001703
+learning_rate = 0.0002
+Magnetization = 0.4609375
+mean(E): (-55.66201400756836-0.1306866556406021j), varE: 0.0015156312147155404, #samples 256, #Step 43100 
+
+
+grad_norm: 0.31188232
+learning_rate = 0.0002
+Magnetization = -0.5703125
+mean(E): (-55.66267395019531-0.13640253245830536j), varE: 0.0021133089903742075, #samples 256, #Step 43200 
+
+
+grad_norm: 0.44530797
+learning_rate = 0.0002
+Magnetization = 0.1171875
+mean(E): (-55.66231155395508-0.13333925604820251j), varE: 0.001872497727163136, #samples 256, #Step 43300 
+
+
+grad_norm: 0.472038
+learning_rate = 0.0002
+Magnetization = -0.59375
+mean(E): (-55.661964416503906-0.12779538333415985j), varE: 0.0019473088905215263, #samples 256, #Step 43400 
+
+
+grad_norm: 0.39626735
+learning_rate = 0.0002
+Magnetization = 1.28125
+mean(E): (-55.66371154785156-0.13116014003753662j), varE: 0.0021038581617176533, #samples 256, #Step 43500 
+
+
+grad_norm: 0.3699971
+learning_rate = 0.0002
+Magnetization = -0.09375
+mean(E): (-55.66325378417969-0.12314776331186295j), varE: 0.0016386571805924177, #samples 256, #Step 43600 
+
+
+grad_norm: 0.2652833
+learning_rate = 0.0002
+Magnetization = -0.1015625
+mean(E): (-55.662960052490234-0.138859361410141j), varE: 0.0021785313729196787, #samples 256, #Step 43700 
+
+
+grad_norm: 0.47788647
+learning_rate = 0.0002
+Magnetization = 0.0546875
+mean(E): (-55.661415100097656-0.1257258504629135j), varE: 0.0021415213122963905, #samples 256, #Step 43800 
+
+
+grad_norm: 0.40253735
+learning_rate = 0.0002
+Magnetization = -0.421875
+mean(E): (-55.660945892333984-0.13510510325431824j), varE: 0.002272386569529772, #samples 256, #Step 43900 
+
+
+grad_norm: 0.3928714
+learning_rate = 0.0002
+Magnetization = -0.2578125
+mean(E): (-55.66099548339844-0.13332858681678772j), varE: 0.002166103571653366, #samples 256, #Step 44000 
+
+
+grad_norm: 0.3966629
+learning_rate = 0.0002
+Magnetization = 0.2578125
+mean(E): (-55.663726806640625-0.13252046704292297j), varE: 0.0021831265185028315, #samples 256, #Step 44100 
+
+
+grad_norm: 0.41933528
+learning_rate = 0.0002
+Magnetization = -0.4921875
+mean(E): (-55.64961242675781-0.09779183566570282j), varE: 0.08983738720417023, #samples 256, #Step 44200 
+
+
+grad_norm: 2.6587539
+learning_rate = 0.0002
+Magnetization = 0.390625
+mean(E): (-55.66409683227539-0.10662667453289032j), varE: 0.0030276530887931585, #samples 256, #Step 44300 
+
+
+grad_norm: 0.45754874
+learning_rate = 0.0002
+Magnetization = -0.3515625
+mean(E): (-55.66156005859375-0.10730648040771484j), varE: 0.0018186051165685058, #samples 256, #Step 44400 
+
+
+grad_norm: 0.3902673
+learning_rate = 0.0002
+Magnetization = -0.1953125
+mean(E): (-55.66297912597656-0.10793079435825348j), varE: 0.0016962075605988503, #samples 256, #Step 44500 
+
+
+grad_norm: 0.35587224
+learning_rate = 0.0002
+Magnetization = -0.296875
+mean(E): (-60.77228546142578-0.08742277324199677j), varE: 0.4130065441131592, #samples 256, #Step 49300 
+
+
+grad_norm: 4.2268915
+learning_rate = 0.0002
+Magnetization = 1.1640625
+mean(E): (-60.751495361328125-0.06038640812039375j), varE: 0.22957319021224976, #samples 256, #Step 49400 
+
+
+grad_norm: 3.9645474
+learning_rate = 0.0002
+Magnetization = 1.015625
+mean(E): (-60.745018005371094-0.0739126056432724j), varE: 0.3892030119895935, #samples 256, #Step 49500 
+
+
+grad_norm: 4.995175
+learning_rate = 0.0002
+Magnetization = 0.8203125
+mean(E): (-60.77309799194336-0.04312717914581299j), varE: 0.4669853448867798, #samples 256, #Step 49600 
+
+
+grad_norm: 4.165921
+learning_rate = 0.0002
+Magnetization = 1.171875
+mean(E): (-60.79972839355469-0.05359905958175659j), varE: 0.2439965307712555, #samples 256, #Step 49700 
+
+
+grad_norm: 3.2401235
+learning_rate = 0.0002
+Magnetization = 1.1640625
+mean(E): (-60.752220153808594-0.05926670506596565j), varE: 0.27772825956344604, #samples 256, #Step 49800 
+
+
+grad_norm: 4.0080085
+learning_rate = 0.0002
+Magnetization = 0.8671875
+mean(E): (-60.731300354003906-0.08870849013328552j), varE: 0.5384404063224792, #samples 256, #Step 49900 
+
+
+grad_norm: 6.4544706
+learning_rate = 0.0002
+Magnetization = -0.046875
+mean(E): (-60.600494384765625-0.10459330677986145j), varE: 3.5784809589385986, #samples 256, #Step 50000 
+
+
+grad_norm: 15.006774
+learning_rate = 0.0002
+Magnetization = 0.5625
+mean(E): (-60.71759033203125-0.028412140905857086j), varE: 0.3317906856536865, #samples 256, #Step 50100 
+
+
+grad_norm: 4.389184
+learning_rate = 0.0002
+Magnetization = 1.3203125
+mean(E): (-60.69380569458008-0.05972506105899811j), varE: 0.2765403389930725, #samples 256, #Step 50200 
+
+
+grad_norm: 3.3589344
+learning_rate = 0.0002
+Magnetization = -0.15625
+mean(E): (-60.79310607910156-0.035036370158195496j), varE: 0.3906087279319763, #samples 256, #Step 50300 
+
+
+grad_norm: 4.8663673
+learning_rate = 0.0002
+Magnetization = 0.328125
+mean(E): (-60.75534439086914-0.05002925172448158j), varE: 0.42162275314331055, #samples 256, #Step 50400 
+
+
+grad_norm: 4.97117
+learning_rate = 0.0002
+Magnetization = 1.53125
+mean(E): (-60.753761291503906-0.042724523693323135j), varE: 0.2264108955860138, #samples 256, #Step 50500 
+
+
+grad_norm: 3.8167727
+learning_rate = 0.0002
+Magnetization = 0.0078125
+mean(E): (-60.76952362060547-0.06714746356010437j), varE: 0.6626410484313965, #samples 256, #Step 50600 
+
+
+grad_norm: 6.9826064
+learning_rate = 0.0002
+Magnetization = 0.875
+mean(E): (-60.74065399169922-0.0373639315366745j), varE: 0.5734829902648926, #samples 256, #Step 50700 
+
+
+grad_norm: 6.118051
+learning_rate = 0.0002
+Magnetization = 0.9375
+mean(E): (-60.69346618652344-0.06518442183732986j), varE: 0.5062933564186096, #samples 256, #Step 50800 
+
+
+grad_norm: 5.2426014
+learning_rate = 0.0002
+Magnetization = 1.0390625
+mean(E): (-60.75115966796875-0.04350217804312706j), varE: 0.3600280284881592, #samples 256, #Step 50900 
+
+
+grad_norm: 4.0766935
+learning_rate = 0.0002
+Magnetization = 0.9375
+mean(E): (-60.82490921020508-0.04236916825175285j), varE: 0.4655318856239319, #samples 256, #Step 51000 
+
+
+grad_norm: 4.8898363
+learning_rate = 0.0002
+Magnetization = 0.7734375
+mean(E): (-60.7432975769043-0.06987425684928894j), varE: 0.3560297191143036, #samples 256, #Step 51100 
+
+
+grad_norm: 3.9575434
+learning_rate = 0.0002
+Magnetization = 1.3984375
+mean(E): (-60.75692367553711-0.021828535944223404j), varE: 0.2512076199054718, #samples 256, #Step 51200 
+
+
+grad_norm: 2.9794145
+learning_rate = 0.0002
+Magnetization = 0.0859375
+mean(E): (-60.77385711669922-0.048919208347797394j), varE: 0.5290319919586182, #samples 256, #Step 51300 
+
+
+grad_norm: 4.7543745
+learning_rate = 0.0002
+Magnetization = 0.96875
+mean(E): (-60.76229476928711-0.051824212074279785j), varE: 0.31394219398498535, #samples 256, #Step 51400 
+
+
+grad_norm: 4.6799564
+learning_rate = 0.0002
+Magnetization = 0.359375
+mean(E): (-60.778141021728516-0.05072508752346039j), varE: 0.4383476972579956, #samples 256, #Step 51500 
+
+
+grad_norm: 4.804515
+learning_rate = 0.0002
+Magnetization = 1.3828125
+mean(E): (-60.70948028564453-0.06828462332487106j), varE: 0.6100869178771973, #samples 256, #Step 51600 
+
+
+grad_norm: 5.8714824
+learning_rate = 0.0002
+Magnetization = 0.734375
+mean(E): (-60.80663299560547+0.013822546228766441j), varE: 0.7318868637084961, #samples 256, #Step 51700 
+
+
+grad_norm: 8.043276
+learning_rate = 0.0002
+Magnetization = 0.625
+mean(E): (-60.71923828125-0.02931564673781395j), varE: 0.23820459842681885, #samples 256, #Step 51800 
+
+
+grad_norm: 3.2413964
+learning_rate = 0.0002
+Magnetization = 0.8125
+mean(E): (-60.80299758911133-0.014058917760848999j), varE: 0.47200074791908264, #samples 256, #Step 51900 
+
+
+grad_norm: 5.3414564
+learning_rate = 0.0002
+Magnetization = 0.59375
+mean(E): (-60.73976135253906-0.06536456197500229j), varE: 0.26667290925979614, #samples 256, #Step 52000 
+
+
+grad_norm: 3.5506942
+learning_rate = 0.0002
+Magnetization = 0.8359375
+mean(E): (-60.65696716308594-0.04587186872959137j), varE: 0.5872911214828491, #samples 256, #Step 52100 
+
+
+grad_norm: 5.635836
+learning_rate = 0.0002
+Magnetization = 1.1171875
+mean(E): (-60.44480895996094-0.077663853764534j), varE: 26.55438804626465, #samples 256, #Step 52200 
+
+
+grad_norm: 41.536423
+learning_rate = 0.0002
+Magnetization = 1.0859375
+mean(E): (-60.759273529052734+0.01173748355358839j), varE: 0.467700719833374, #samples 256, #Step 52300 
+
+
+grad_norm: 5.8260255
+learning_rate = 0.0002
+Magnetization = 0.28125
+mean(E): (-60.73298263549805-0.04612331837415695j), varE: 0.23609277606010437, #samples 256, #Step 52400 
+
+
+grad_norm: 3.7902317
+learning_rate = 0.0002
+Magnetization = 1.1953125
+mean(E): (-60.706993103027344-0.042063772678375244j), varE: 0.6112244129180908, #samples 256, #Step 52500 
+
+
+grad_norm: 6.451248
+learning_rate = 0.0002
+Magnetization = -0.0234375
+mean(E): (-60.76237487792969-0.06787711381912231j), varE: 0.3293367624282837, #samples 256, #Step 52600 
+
+
+grad_norm: 4.4826846
+learning_rate = 0.0002
+Magnetization = 0.703125
+mean(E): (-60.78287887573242-0.043099477887153625j), varE: 0.4610297679901123, #samples 256, #Step 52700 
+
+
+grad_norm: 5.948146
+learning_rate = 0.0002
+Magnetization = 0.2890625
+mean(E): (-60.74964904785156-0.04265015572309494j), varE: 0.44564133882522583, #samples 256, #Step 52800 
+
+
+grad_norm: 6.334561
+learning_rate = 0.0002
+Magnetization = 1.3046875
+mean(E): (-60.777984619140625-0.06416193395853043j), varE: 0.20661436021327972, #samples 256, #Step 52900 
+
+
+grad_norm: 3.117971
+learning_rate = 0.0002
+Magnetization = 1.171875
+mean(E): (-60.75654602050781-0.06261405348777771j), varE: 0.2761976718902588, #samples 256, #Step 53000 
+
+
+grad_norm: 4.019887
+learning_rate = 0.0002
+Magnetization = -0.125
+mean(E): (-60.66224670410156-0.08358635753393173j), varE: 0.8253592252731323, #samples 256, #Step 53100 
+
+
+grad_norm: 7.9018145
+learning_rate = 0.0002
+Magnetization = 1.171875
+mean(E): (-60.72243881225586-0.030130961909890175j), varE: 0.3526962995529175, #samples 256, #Step 53200 
+
+
+grad_norm: 3.9968545
+learning_rate = 0.0002
+Magnetization = 1.015625
+mean(E): (-60.73710632324219-0.05684802681207657j), varE: 0.22615714371204376, #samples 256, #Step 53300 
+
+
+grad_norm: 3.8336785
+learning_rate = 0.0002
+Magnetization = 1.015625
+mean(E): (-60.7479362487793-0.06940895318984985j), varE: 0.6269721984863281, #samples 256, #Step 53400 
+
+
+grad_norm: 7.508157
+learning_rate = 0.0002
+Magnetization = 1.375
+mean(E): (-60.79695129394531-0.05666276440024376j), varE: 0.30948883295059204, #samples 256, #Step 53500 
+
+
+grad_norm: 5.977907
+learning_rate = 0.0002
+Magnetization = 0.640625
+mean(E): (-60.79421615600586-0.06191185861825943j), varE: 0.3460821211338043, #samples 256, #Step 53600 
+
+
+grad_norm: 4.070034
+learning_rate = 0.0002
+Magnetization = 0.78125
+mean(E): (-60.741371154785156-0.036606207489967346j), varE: 0.3962721824645996, #samples 256, #Step 53700 
+
+
+grad_norm: 4.30996
+learning_rate = 0.0002
+Magnetization = 1.53125
+mean(E): (-60.81465148925781-0.05136357247829437j), varE: 0.6187731027603149, #samples 256, #Step 53800 
+
+
+grad_norm: 5.065352
+learning_rate = 0.0002
+Magnetization = 1.296875
+mean(E): (-55.66386413574219-0.1101350262761116j), varE: 0.0016319239512085915, #samples 256, #Step 44600 
+
+
+grad_norm: 0.33354405
+learning_rate = 0.0002
+Magnetization = 0.390625
+mean(E): (-55.66204833984375-0.09296593815088272j), varE: 0.022105544805526733, #samples 256, #Step 44700 
+
+
+grad_norm: 1.7491618
+learning_rate = 0.0002
+Magnetization = 0.71875
+mean(E): (-55.661197662353516-0.09944998472929001j), varE: 0.013913119211792946, #samples 256, #Step 44800 
+
+
+grad_norm: 0.8760749
+learning_rate = 0.0002
+Magnetization = -0.578125
+mean(E): (-55.663963317871094-0.10878484696149826j), varE: 0.0019141449593007565, #samples 256, #Step 44900 
+
+
+grad_norm: 0.316045
+learning_rate = 0.0002
+Magnetization = 0.9453125
+mean(E): (-55.664207458496094-0.10555322468280792j), varE: 0.0015702416421845555, #samples 256, #Step 45000 
+
+
+grad_norm: 0.2737585
+learning_rate = 0.0002
+Magnetization = -0.9296875
+mean(E): (-55.663333892822266-0.10007036477327347j), varE: 0.001372919068671763, #samples 256, #Step 45100 
+
+
+grad_norm: 0.24928418
+learning_rate = 0.0002
+Magnetization = 0.0390625
+mean(E): (-55.66331100463867-0.1137956827878952j), varE: 0.0019320847932249308, #samples 256, #Step 45200 
+
+
+grad_norm: 0.29403365
+learning_rate = 0.0002
+Magnetization = 0.25
+mean(E): (-55.66056823730469-0.11514408141374588j), varE: 0.0018299720250070095, #samples 256, #Step 45300 
+
+
+grad_norm: 0.3652004
+learning_rate = 0.0002
+Magnetization = 0.3203125
+mean(E): (-55.663726806640625-0.11880882829427719j), varE: 0.0017079312819987535, #samples 256, #Step 45400 
+
+
+grad_norm: 0.31969303
+learning_rate = 0.0002
+Magnetization = -0.3984375
+mean(E): (-55.66231918334961-0.1162334606051445j), varE: 0.002685185056179762, #samples 256, #Step 45500 
+
+
+grad_norm: 0.4349843
+learning_rate = 0.0002
+Magnetization = -0.4609375
+mean(E): (-55.66278839111328-0.12101218849420547j), varE: 0.0014818047638982534, #samples 256, #Step 45600 
+
+
+grad_norm: 0.2954207
+learning_rate = 0.0002
+Magnetization = -0.375
+mean(E): (-55.66194152832031-0.12188757956027985j), varE: 0.0016510200221091509, #samples 256, #Step 45700 
+
+
+grad_norm: 0.38653928
+learning_rate = 0.0002
+Magnetization = 0.609375
+mean(E): (-55.661441802978516-0.128965362906456j), varE: 0.0019701807759702206, #samples 256, #Step 45800 
+
+
+grad_norm: 0.37500402
+learning_rate = 0.0002
+Magnetization = -0.0703125
+mean(E): (-55.662017822265625-0.11509254574775696j), varE: 0.0019041928462684155, #samples 256, #Step 45900 
+
+
+grad_norm: 0.3199303
+learning_rate = 0.0002
+Magnetization = -0.09375
+mean(E): (-55.663726806640625-0.11352211236953735j), varE: 0.0014720931649208069, #samples 256, #Step 46000 
+
+
+grad_norm: 0.2681904
+learning_rate = 0.0002
+Magnetization = 1.203125
+mean(E): (-55.6638069152832-0.11113470792770386j), varE: 0.001691377954557538, #samples 256, #Step 46100 
+
+
+grad_norm: 0.31553146
+learning_rate = 0.0002
+Magnetization = -0.21875
+mean(E): (-55.66217803955078-0.12381501495838165j), varE: 0.0019163611577823758, #samples 256, #Step 46200 
+
+
+grad_norm: 0.36686626
+learning_rate = 0.0002
+Magnetization = 1.3125
+mean(E): (-55.662322998046875-0.11275795102119446j), varE: 0.002143282676115632, #samples 256, #Step 46300 
+
+
+grad_norm: 0.42743272
+learning_rate = 0.0002
+Magnetization = -0.0234375
+mean(E): (-55.662353515625-0.11274591833353043j), varE: 0.0022840271703898907, #samples 256, #Step 46400 
+
+
+grad_norm: 0.37944418
+learning_rate = 0.0002
+Magnetization = 0.0703125
+mean(E): (-55.66466522216797-0.11797484755516052j), varE: 0.0020271907560527325, #samples 256, #Step 46500 
+
+
+grad_norm: 0.37350947
+learning_rate = 0.0002
+Magnetization = 0.125
+mean(E): (-55.663936614990234-0.10958729684352875j), varE: 0.004081040620803833, #samples 256, #Step 46600 
+
+
+grad_norm: 0.50812817
+learning_rate = 0.0002
+Magnetization = 0.4609375
+mean(E): (-55.66188049316406-0.11138369143009186j), varE: 0.003248210996389389, #samples 256, #Step 46700 
+
+
+grad_norm: 0.6149086
+learning_rate = 0.0002
+Magnetization = -0.1484375
+mean(E): (-55.66252136230469-0.11337243765592575j), varE: 0.003372280392795801, #samples 256, #Step 46800 
+
+
+grad_norm: 0.48487926
+learning_rate = 0.0002
+Magnetization = -0.1171875
+mean(E): (-55.66393280029297-0.11422605067491531j), varE: 0.007368000689893961, #samples 256, #Step 46900 
+
+
+grad_norm: 0.7507614
+learning_rate = 0.0002
+Magnetization = -0.375
+mean(E): (-55.66077423095703-0.11392373591661453j), varE: 0.004231500439345837, #samples 256, #Step 47000 
+
+
+grad_norm: 0.65474
+learning_rate = 0.0002
+Magnetization = 0.6171875
+mean(E): (-55.66272735595703-0.10545440018177032j), varE: 0.0027810358442366123, #samples 256, #Step 47100 
+
+
+grad_norm: 0.40377527
+learning_rate = 0.0002
+Magnetization = 0.6953125
+mean(E): (-55.649932861328125-0.11510448157787323j), varE: 0.047500088810920715, #samples 256, #Step 47200 
+
+
+grad_norm: 1.0407099
+learning_rate = 0.0002
+Magnetization = -0.171875
+mean(E): (-55.66389465332031-0.09965222328901291j), varE: 0.0035453569144010544, #samples 256, #Step 47300 
+
+
+grad_norm: 0.6264369
+learning_rate = 0.0002
+Magnetization = -0.203125
+mean(E): (-55.66148376464844-0.11389108002185822j), varE: 0.00452117994427681, #samples 256, #Step 47400 
+
+
+grad_norm: 0.624406
+learning_rate = 0.0002
+Magnetization = -1.4140625
+mean(E): (-55.6661376953125-0.10696539282798767j), varE: 0.004111285321414471, #samples 256, #Step 47500 
+
+
+grad_norm: 0.55308336
+learning_rate = 0.0002
+Magnetization = -0.21875
+mean(E): (-55.66401290893555-0.10984852910041809j), varE: 0.003127116011455655, #samples 256, #Step 47600 
+
+
+grad_norm: 0.60013896
+learning_rate = 0.0002
+Magnetization = -0.1796875
+mean(E): (-55.660667419433594-0.10879191011190414j), varE: 0.0036563058383762836, #samples 256, #Step 47700 
+
+
+grad_norm: 0.50806123
+learning_rate = 0.0002
+Magnetization = -0.234375
+mean(E): (-55.66463851928711-0.1050771176815033j), varE: 0.0066126128658652306, #samples 256, #Step 47800 
+
+
+grad_norm: 0.6822763
+learning_rate = 0.0002
+Magnetization = -0.0703125
+mean(E): (-55.66416549682617-0.1049843430519104j), varE: 0.0037199510261416435, #samples 256, #Step 47900 
+
+
+grad_norm: 0.62089753
+learning_rate = 0.0002
+Magnetization = -0.25
+mean(E): (-55.664302825927734-0.09551183879375458j), varE: 0.0064115677960217, #samples 256, #Step 48000 
+
+
+grad_norm: 0.8818635
+learning_rate = 0.0002
+Magnetization = -0.078125
+mean(E): (-55.6601448059082-0.10637730360031128j), varE: 0.004683065228164196, #samples 256, #Step 48100 
+
+
+grad_norm: 0.7410629
+learning_rate = 0.0002
+Magnetization = 0.109375
+mean(E): (-55.664825439453125-0.10161750763654709j), varE: 0.00399102782830596, #samples 256, #Step 48200 
+
+
+grad_norm: 0.5837538
+learning_rate = 0.0002
+Magnetization = 0.1015625
+mean(E): (-55.660160064697266-0.09772686660289764j), varE: 0.005653344094753265, #samples 256, #Step 48300 
+
+
+grad_norm: 0.6866135
+learning_rate = 0.0002
+Magnetization = -0.5546875
+mean(E): (-55.6609992980957-0.10079798847436905j), varE: 0.002558470703661442, #samples 256, #Step 48400 
+
+
+grad_norm: 0.407539
+learning_rate = 0.0002
+Magnetization = 0.15625
+mean(E): (-55.66193389892578-0.10185292363166809j), varE: 0.003968558274209499, #samples 256, #Step 48500 
+
+
+grad_norm: 0.5672284
+learning_rate = 0.0002
+Magnetization = 0.2265625
+mean(E): (-55.66133117675781-0.08948229998350143j), varE: 0.02429925464093685, #samples 256, #Step 48600 
+
+
+grad_norm: 1.3805643
+learning_rate = 0.0002
+Magnetization = 0.5
+mean(E): (-55.663970947265625-0.0936635434627533j), varE: 0.002479409798979759, #samples 256, #Step 48700 
+
+
+grad_norm: 0.4049049
+learning_rate = 0.0002
+Magnetization = 0.2734375
+mean(E): (-55.66484451293945-0.10328556597232819j), varE: 0.0019477354362607002, #samples 256, #Step 48800 
+
+
+grad_norm: 0.33921936
+learning_rate = 0.0002
+Magnetization = -0.7265625
+mean(E): (-55.662940979003906-0.10516640543937683j), varE: 0.0015935453120619059, #samples 256, #Step 48900 
+
+
+grad_norm: 0.3256211
+learning_rate = 0.0002
+Magnetization = 0.2109375
+mean(E): (-55.66364288330078-0.10196246206760406j), varE: 0.0017901714891195297, #samples 256, #Step 49000 
+
+
+grad_norm: 0.35414615
+learning_rate = 0.0002
+Magnetization = 0.2421875
+mean(E): (-55.66255569458008-0.10322818160057068j), varE: 0.0015960722230374813, #samples 256, #Step 49100 
+
+
+mean(E): (-60.7928352355957-0.060825176537036896j), varE: 0.4802595376968384, #samples 256, #Step 53900 
+
+
+grad_norm: 5.7124434
+learning_rate = 0.0002
+Magnetization = 1.015625
+mean(E): (-60.797889709472656-0.04365488514304161j), varE: 0.20706143975257874, #samples 256, #Step 54000 
+
+
+grad_norm: 3.2604256
+learning_rate = 0.0002
+Magnetization = 0.0234375
+mean(E): (-60.81413269042969-0.06088916212320328j), varE: 0.43889158964157104, #samples 256, #Step 54100 
+
+
+grad_norm: 4.578344
+learning_rate = 0.0002
+Magnetization = 0.796875
+mean(E): (-60.85920715332031-0.06364699453115463j), varE: 0.9830590486526489, #samples 256, #Step 54200 
+
+
+grad_norm: 8.015274
+learning_rate = 0.0002
+Magnetization = 0.6953125
+mean(E): (-60.761016845703125-0.038689471781253815j), varE: 0.248247429728508, #samples 256, #Step 54300 
+
+
+grad_norm: 3.2241178
+learning_rate = 0.0002
+Magnetization = 0.2890625
+mean(E): (-60.77967071533203-0.054254479706287384j), varE: 0.23573929071426392, #samples 256, #Step 54400 
+
+
+grad_norm: 3.541602
+learning_rate = 0.0002
+Magnetization = 1.046875
+mean(E): (-60.76580810546875-0.04524943605065346j), varE: 0.5080811977386475, #samples 256, #Step 54500 
+
+
+grad_norm: 4.6428823
+learning_rate = 0.0002
+Magnetization = 0.078125
+mean(E): (-60.8070068359375-0.04592011868953705j), varE: 0.27275151014328003, #samples 256, #Step 54600 
+
+
+grad_norm: 4.0896387
+learning_rate = 0.0002
+Magnetization = 0.859375
+mean(E): (-60.720123291015625-0.00939994864165783j), varE: 0.4428030848503113, #samples 256, #Step 54700 
+
+
+grad_norm: 5.717023
+learning_rate = 0.0002
+Magnetization = 1.28125
+mean(E): (-60.815399169921875-0.056310757994651794j), varE: 0.2706378102302551, #samples 256, #Step 54800 
+
+
+grad_norm: 5.248596
+learning_rate = 0.0002
+Magnetization = 1.546875
+mean(E): (-60.85450744628906-0.06105676293373108j), varE: 0.530188262462616, #samples 256, #Step 54900 
+
+
+grad_norm: 4.720809
+learning_rate = 0.0002
+Magnetization = 1.4375
+mean(E): (-60.721717834472656-0.055856890976428986j), varE: 0.5203099846839905, #samples 256, #Step 55000 
+
+
+grad_norm: 5.7597313
+learning_rate = 0.0002
+Magnetization = 0.6796875
+mean(E): (-60.751163482666016-0.0459117591381073j), varE: 0.32803794741630554, #samples 256, #Step 55100 
+
+
+grad_norm: 6.3775787
+learning_rate = 0.0002
+Magnetization = 0.6953125
+mean(E): (-60.75415802001953-0.0186189915984869j), varE: 0.46542540192604065, #samples 256, #Step 55200 
+
+
+grad_norm: 5.2698126
+learning_rate = 0.0002
+Magnetization = 0.78125
+mean(E): (-60.792335510253906-0.05851173400878906j), varE: 0.640267014503479, #samples 256, #Step 55300 
+
+
+grad_norm: 5.3679986
+learning_rate = 0.0002
+Magnetization = 1.03125
+mean(E): (-60.8255615234375-0.053236063569784164j), varE: 0.898871660232544, #samples 256, #Step 55400 
+
+
+grad_norm: 5.6212053
+learning_rate = 0.0002
+Magnetization = 0.4140625
+mean(E): (-60.691646575927734-0.05156466364860535j), varE: 1.8068151473999023, #samples 256, #Step 55500 
+
+
+grad_norm: 8.753478
+learning_rate = 0.0002
+Magnetization = 0.4140625
+mean(E): (-60.743431091308594-0.026938587427139282j), varE: 0.8316183090209961, #samples 256, #Step 55600 
+
+
+grad_norm: 6.6674843
+learning_rate = 0.0002
+Magnetization = 0.9296875
+mean(E): (-60.67961120605469-0.06448550522327423j), varE: 1.3414537906646729, #samples 256, #Step 55700 
+
+
+grad_norm: 11.0187235
+learning_rate = 0.0002
+Magnetization = 0.6953125
+mean(E): (-60.83102035522461-0.014949985779821873j), varE: 0.6497930884361267, #samples 256, #Step 55800 
+
+
+grad_norm: 7.0463624
+learning_rate = 0.0002
+Magnetization = 0.2890625
+mean(E): (-60.79104232788086-0.05720476061105728j), varE: 0.2899125814437866, #samples 256, #Step 55900 
+
+
+grad_norm: 4.2819057
+learning_rate = 0.0002
+Magnetization = 1.015625
+mean(E): (-60.766448974609375-0.01779753714799881j), varE: 0.3348618745803833, #samples 256, #Step 56000 
+
+
+grad_norm: 4.550901
+learning_rate = 0.0002
+Magnetization = 0.609375
+mean(E): (-60.770362854003906-0.04028858244419098j), varE: 0.25260287523269653, #samples 256, #Step 56100 
+
+
+grad_norm: 3.4100547
+learning_rate = 0.0002
+Magnetization = 0.46875
+mean(E): (-60.737754821777344-0.01266559585928917j), varE: 0.33133620023727417, #samples 256, #Step 56200 
+
+
+grad_norm: 4.491614
+learning_rate = 0.0002
+Magnetization = 1.1484375
+mean(E): (-60.702938079833984-0.07646278291940689j), varE: 0.6035624146461487, #samples 256, #Step 56300 
+
+
+grad_norm: 5.9411592
+learning_rate = 0.0002
+Magnetization = 0.4765625
+mean(E): (-60.724456787109375-0.04921889677643776j), varE: 0.35557830333709717, #samples 256, #Step 56400 
+
+
+grad_norm: 4.3777776
+learning_rate = 0.0002
+Magnetization = 2.0390625
+mean(E): (-60.8935546875-0.021818865090608597j), varE: 0.6541347503662109, #samples 256, #Step 56500 
+
+
+grad_norm: 8.129593
+learning_rate = 0.0002
+Magnetization = 1.34375
+mean(E): (-60.756324768066406-0.04661539942026138j), varE: 0.4685550630092621, #samples 256, #Step 56600 
+
+
+grad_norm: 4.4186306
+learning_rate = 0.0002
+Magnetization = 1.28125
+mean(E): (-60.82284927368164-0.05511194095015526j), varE: 0.5679690837860107, #samples 256, #Step 56700 
+
+
+grad_norm: 8.139195
+learning_rate = 0.0002
+Magnetization = 1.34375
+mean(E): (-60.74803924560547-0.03878464549779892j), varE: 0.5591161251068115, #samples 256, #Step 56800 
+
+
+grad_norm: 6.7834215
+learning_rate = 0.0002
+Magnetization = 1.0625
+mean(E): (-60.852169036865234-0.053114309906959534j), varE: 1.6511801481246948, #samples 256, #Step 56900 
+
+
+grad_norm: 15.816849
+learning_rate = 0.0002
+Magnetization = 1.46875
+mean(E): (-60.75895690917969-0.051438234746456146j), varE: 0.33560967445373535, #samples 256, #Step 57000 
+
+
+grad_norm: 3.705753
+learning_rate = 0.0002
+Magnetization = 0.796875
+mean(E): (-60.787353515625-0.06932354718446732j), varE: 0.2858414649963379, #samples 256, #Step 57100 
+
+
+grad_norm: 4.047458
+learning_rate = 0.0002
+Magnetization = 1.859375
+mean(E): (-60.73345947265625-0.037251066416502j), varE: 0.5136378407478333, #samples 256, #Step 57200 
+
+
+grad_norm: 5.149001
+learning_rate = 0.0002
+Magnetization = 0.4140625
+mean(E): (-60.780067443847656-0.05089857801795006j), varE: 0.2670496106147766, #samples 256, #Step 57300 
+
+
+grad_norm: 3.2709608
+learning_rate = 0.0002
+Magnetization = 1.1796875
+mean(E): (-60.78491973876953-0.046437814831733704j), varE: 1.2051185369491577, #samples 256, #Step 57400 
+
+
+grad_norm: 21.77904
+learning_rate = 0.0002
+Magnetization = 0.390625
+mean(E): (-60.784828186035156-0.06576555967330933j), varE: 0.3697238564491272, #samples 256, #Step 57500 
+
+
+grad_norm: 5.388706
+learning_rate = 0.0002
+Magnetization = 1.21875
+mean(E): (-60.74784469604492-0.07361061871051788j), varE: 0.23655658960342407, #samples 256, #Step 57600 
+
+
+grad_norm: 3.5432346
+learning_rate = 0.0002
+Magnetization = 0.4296875
+mean(E): (-60.77606964111328-0.04682755470275879j), varE: 0.24604377150535583, #samples 256, #Step 57700 
+
+
+grad_norm: 3.3268976
+learning_rate = 0.0002
+Magnetization = 1.328125
+mean(E): (-60.81552505493164-0.040328435599803925j), varE: 0.47190696001052856, #samples 256, #Step 57800 
+
+
+grad_norm: 5.2417836
+learning_rate = 0.0002
+Magnetization = 0.8046875
+mean(E): (-60.80022430419922-0.04580755904316902j), varE: 0.24369513988494873, #samples 256, #Step 57900 
+
+
+grad_norm: 2.8880432
+learning_rate = 0.0002
+Magnetization = 1.53125
+mean(E): (-60.71619415283203-0.07479943335056305j), varE: 0.3004276156425476, #samples 256, #Step 58000 
+
+
+grad_norm: 4.0504627
+learning_rate = 0.0002
+Magnetization = 1.0625
+mean(E): (-60.77674865722656-0.052473217248916626j), varE: 0.5637210607528687, #samples 256, #Step 58100 
+
+
+grad_norm: 6.212176
+learning_rate = 0.0002
+Magnetization = 0.2265625
+mean(E): (-60.801822662353516-0.0628889799118042j), varE: 0.44922202825546265, #samples 256, #Step 58200 
+
+
+grad_norm: 5.859996
+learning_rate = 0.0002
+Magnetization = 1.1484375
+mean(E): (-60.81620788574219-0.06053666025400162j), varE: 0.22333970665931702, #samples 256, #Step 58300 
+
+
+grad_norm: 3.0456362
+learning_rate = 0.0002
+Magnetization = 0.8203125
+mean(E): (-60.7674446105957-0.06589510291814804j), varE: 0.5115825533866882, #samples 256, #Step 58400 
+
+
+grad_norm: 5.2065682
+learning_rate = 0.0002
+Magnetization = 1.3828125
+grad_norm: 0.30728415
+learning_rate = 0.0002
+Magnetization = 0.0390625
+mean(E): (-55.66455841064453-0.09513137489557266j), varE: 0.001446905778720975, #samples 256, #Step 49200 
+
+
+grad_norm: 0.2767892
+learning_rate = 0.0002
+Magnetization = -0.4296875
+mean(E): (-55.6635856628418-0.09797140955924988j), varE: 0.0013346760533750057, #samples 256, #Step 49300 
+
+
+grad_norm: 0.2627251
+learning_rate = 0.0002
+Magnetization = -0.2421875
+mean(E): (-55.66452407836914-0.10306306928396225j), varE: 0.0015873266384005547, #samples 256, #Step 49400 
+
+
+grad_norm: 0.35516268
+learning_rate = 0.0002
+Magnetization = -0.0859375
+mean(E): (-55.664390563964844-0.10443256795406342j), varE: 0.0017376854084432125, #samples 256, #Step 49500 
+
+
+grad_norm: 0.37883717
+learning_rate = 0.0002
+Magnetization = 0.09375
+mean(E): (-55.66396713256836-0.10368826985359192j), varE: 0.002024088054895401, #samples 256, #Step 49600 
+
+
+grad_norm: 0.3556831
+learning_rate = 0.0002
+Magnetization = -0.5625
+mean(E): (-55.66331481933594-0.10475268214941025j), varE: 0.001957924338057637, #samples 256, #Step 49700 
+
+
+grad_norm: 0.3907937
+learning_rate = 0.0002
+Magnetization = 0.546875
+mean(E): (-55.66228485107422-0.11249218881130219j), varE: 0.0022341441363096237, #samples 256, #Step 49800 
+
+
+grad_norm: 0.34581745
+learning_rate = 0.0002
+Magnetization = 0.0546875
+mean(E): (-55.66548538208008-0.10551053285598755j), varE: 0.0019154705805703998, #samples 256, #Step 49900 
+
+
+grad_norm: 0.33526826
+learning_rate = 0.0002
+Magnetization = -0.421875
+mean(E): (-55.665687561035156-0.09977791458368301j), varE: 0.0025287996977567673, #samples 256, #Step 50000 
+
+
+grad_norm: 0.4941131
+learning_rate = 0.0002
+Magnetization = -0.25
+mean(E): (-55.66380310058594-0.1037520319223404j), varE: 0.002442345255985856, #samples 256, #Step 50100 
+
+
+grad_norm: 0.5215651
+learning_rate = 0.0002
+Magnetization = 0.515625
+mean(E): (-55.634185791015625-0.13112188875675201j), varE: 0.07856914401054382, #samples 256, #Step 50200 
+
+
+grad_norm: 2.4093554
+learning_rate = 0.0002
+Magnetization = -0.796875
+mean(E): (-55.66277313232422-0.12283656746149063j), varE: 0.004069942515343428, #samples 256, #Step 50300 
+
+
+grad_norm: 0.42553896
+learning_rate = 0.0002
+Magnetization = -0.234375
+mean(E): (-55.66238784790039-0.12674173712730408j), varE: 0.00211612181738019, #samples 256, #Step 50400 
+
+
+grad_norm: 0.41180566
+learning_rate = 0.0002
+Magnetization = 1.0078125
+mean(E): (-55.66450500488281-0.12338800728321075j), varE: 0.0013501639477908611, #samples 256, #Step 50500 
+
+
+grad_norm: 0.2616911
+learning_rate = 0.0002
+Magnetization = -1.171875
+mean(E): (-55.662879943847656-0.12010644376277924j), varE: 0.001404207549057901, #samples 256, #Step 50600 
+
+
+grad_norm: 0.24760574
+learning_rate = 0.0002
+Magnetization = -0.390625
+mean(E): (-55.66388702392578-0.12024074792861938j), varE: 0.0010975623736158013, #samples 256, #Step 50700 
+
+
+grad_norm: 0.23596573
+learning_rate = 0.0002
+Magnetization = -0.515625
+mean(E): (-55.65812683105469-0.13815823197364807j), varE: 0.06202549859881401, #samples 256, #Step 50800 
+
+
+grad_norm: 1.9020149
+learning_rate = 0.0002
+Magnetization = 0.7109375
+mean(E): (-55.66172409057617-0.10661057382822037j), varE: 0.003377398243173957, #samples 256, #Step 50900 
+
+
+grad_norm: 0.42166013
+learning_rate = 0.0002
+Magnetization = 0.1484375
+mean(E): (-55.66560363769531-0.11521793901920319j), varE: 0.0020628455094993114, #samples 256, #Step 51000 
+
+
+grad_norm: 0.30403715
+learning_rate = 0.0002
+Magnetization = -0.125
+mean(E): (-55.66290283203125-0.1028764545917511j), varE: 0.0016018097521737218, #samples 256, #Step 51100 
+
+
+grad_norm: 0.25919366
+learning_rate = 0.0002
+Magnetization = 0.40625
+mean(E): (-55.66462707519531-0.10813450068235397j), varE: 0.0015786394942551851, #samples 256, #Step 51200 
+
+
+grad_norm: 0.30946904
+learning_rate = 0.0002
+Magnetization = -1.109375
+mean(E): (-55.663063049316406-0.11743197590112686j), varE: 0.001490267924964428, #samples 256, #Step 51300 
+
+
+grad_norm: 0.2791095
+learning_rate = 0.0002
+Magnetization = 0.2890625
+mean(E): (-55.66468048095703-0.11154256761074066j), varE: 0.0015142232878133655, #samples 256, #Step 51400 
+
+
+grad_norm: 0.2907375
+learning_rate = 0.0002
+Magnetization = -1.078125
+mean(E): (-55.66317367553711-0.11285415291786194j), varE: 0.0011947662569582462, #samples 256, #Step 51500 
+
+
+grad_norm: 0.2518354
+learning_rate = 0.0002
+Magnetization = 0.2890625
+mean(E): (-55.66487121582031-0.109270840883255j), varE: 0.0015113670378923416, #samples 256, #Step 51600 
+
+
+grad_norm: 0.33251196
+learning_rate = 0.0002
+Magnetization = -0.1953125
+mean(E): (-55.664119720458984-0.11600637435913086j), varE: 0.0015533770201727748, #samples 256, #Step 51700 
+
+
+grad_norm: 0.39255577
+learning_rate = 0.0002
+Magnetization = -0.703125
+mean(E): (-55.66340637207031-0.11489643156528473j), varE: 0.0012227344559505582, #samples 256, #Step 51800 
+
+
+grad_norm: 0.2751588
+learning_rate = 0.0002
+Magnetization = 0.2265625
+mean(E): (-55.66513442993164-0.11950799822807312j), varE: 0.002063253428786993, #samples 256, #Step 51900 
+
+
+grad_norm: 0.3692113
+learning_rate = 0.0002
+Magnetization = -0.625
+mean(E): (-55.6640625-0.11982104927301407j), varE: 0.001301302807405591, #samples 256, #Step 52000 
+
+
+grad_norm: 0.27001786
+learning_rate = 0.0002
+Magnetization = -0.140625
+mean(E): (-55.66459274291992-0.1218186467885971j), varE: 0.001335891312919557, #samples 256, #Step 52100 
+
+
+grad_norm: 0.26045752
+learning_rate = 0.0002
+Magnetization = -0.3046875
+mean(E): (-55.664085388183594-0.1251588761806488j), varE: 0.0013492468278855085, #samples 256, #Step 52200 
+
+
+grad_norm: 0.28081098
+learning_rate = 0.0002
+Magnetization = 0.015625
+mean(E): (-55.66395568847656-0.12149970233440399j), varE: 0.0015867610927671194, #samples 256, #Step 52300 
+
+
+grad_norm: 0.32515442
+learning_rate = 0.0002
+Magnetization = -0.1796875
+mean(E): (-55.66443634033203-0.1204923540353775j), varE: 0.001620094757527113, #samples 256, #Step 52400 
+
+
+grad_norm: 0.35985833
+learning_rate = 0.0002
+Magnetization = -0.2265625
+mean(E): (-55.66327667236328-0.12724168598651886j), varE: 0.003018429968506098, #samples 256, #Step 52500 
+
+
+grad_norm: 0.5362162
+learning_rate = 0.0002
+Magnetization = -0.8046875
+mean(E): (-55.663787841796875-0.12476431578397751j), varE: 0.0016164521221071482, #samples 256, #Step 52600 
+
+
+grad_norm: 0.36947203
+learning_rate = 0.0002
+Magnetization = -0.1796875
+mean(E): (-55.66320037841797-0.12240070104598999j), varE: 0.0016465691151097417, #samples 256, #Step 52700 
+
+
+grad_norm: 0.3885377
+learning_rate = 0.0002
+Magnetization = -0.3359375
+mean(E): (-55.663108825683594-0.12478688359260559j), varE: 0.0025004243943840265, #samples 256, #Step 52800 
+
+
+grad_norm: 0.45160812
+learning_rate = 0.0002
+Magnetization = 0.1640625
+mean(E): (-55.664798736572266-0.1261555254459381j), varE: 0.002229004167020321, #samples 256, #Step 52900 
+
+
+grad_norm: 0.34732428
+learning_rate = 0.0002
+Magnetization = 0.140625
+mean(E): (-55.66321563720703-0.11559087783098221j), varE: 0.0018224152736365795, #samples 256, #Step 53000 
+
+
+grad_norm: 0.35297364
+learning_rate = 0.0002
+Magnetization = -1.3671875
+mean(E): (-55.665008544921875-0.12158336490392685j), varE: 0.0023348568938672543, #samples 256, #Step 53100 
+
+
+grad_norm: 0.44009796
+learning_rate = 0.0002
+Magnetization = 0.125
+mean(E): (-55.66365051269531-0.12385301291942596j), varE: 0.0020467464346438646, #samples 256, #Step 53200 
+
+
+grad_norm: 0.3866334
+learning_rate = 0.0002
+Magnetization = 0.4453125
+mean(E): (-55.6636848449707-0.11926594376564026j), varE: 0.0022510355338454247, #samples 256, #Step 53300 
+
+
+grad_norm: 0.4665976
+learning_rate = 0.0002
+Magnetization = 0.15625
+mean(E): (-55.662174224853516-0.12879329919815063j), varE: 0.0028729140758514404, #samples 256, #Step 53400 
+
+
+grad_norm: 0.4943684
+learning_rate = 0.0002
+Magnetization = 0.625
+mean(E): (-55.66715621948242-0.11601236462593079j), varE: 0.0036079578567296267, #samples 256, #Step 53500 
+
+
+grad_norm: 0.52227336
+learning_rate = 0.0002
+Magnetization = -0.390625
+mean(E): (-55.66392517089844-0.11538150161504745j), varE: 0.0028220354579389095, #samples 256, #Step 53600 
+
+
+grad_norm: 0.40850565
+learning_rate = 0.0002
+Magnetization = -0.296875
+mean(E): (-63.95692443847656+0.019561443477869034j), varE: 0.02606310322880745, #samples 256, #Step 53800 
+
+
+grad_norm: 0.880505
+learning_rate = 0.0002
+Magnetization = -0.4453125
+mean(E): (-63.969173431396484+0.022240854799747467j), varE: 0.022727694362401962, #samples 256, #Step 53900 
+
+
+grad_norm: 0.7469988
+learning_rate = 0.0002
+Magnetization = -0.9921875
+mean(E): (-63.97178649902344+0.021659232676029205j), varE: 0.0437457375228405, #samples 256, #Step 54000 
+
+
+grad_norm: 1.2440057
+learning_rate = 0.0002
+Magnetization = -0.75
+mean(E): (-63.972373962402344+0.022601265460252762j), varE: 0.030133657157421112, #samples 256, #Step 54100 
+
+
+grad_norm: 0.85784566
+learning_rate = 0.0002
+Magnetization = 0.0234375
+mean(E): (-63.934425354003906+0.017242280766367912j), varE: 0.08345529437065125, #samples 256, #Step 54200 
+
+
+grad_norm: 2.0392444
+learning_rate = 0.0002
+Magnetization = -0.5234375
+mean(E): (-63.95534896850586+0.02834700047969818j), varE: 0.031886931508779526, #samples 256, #Step 54300 
+
+
+grad_norm: 1.1132162
+learning_rate = 0.0002
+Magnetization = -0.78125
+mean(E): (-63.919071197509766+0.029494591057300568j), varE: 0.3092857301235199, #samples 256, #Step 54400 
+
+
+grad_norm: 3.6563513
+learning_rate = 0.0002
+Magnetization = -0.0703125
+mean(E): (-63.95170974731445+0.01495453156530857j), varE: 0.04501396417617798, #samples 256, #Step 54500 
+
+
+grad_norm: 1.1046189
+learning_rate = 0.0002
+Magnetization = 0.1484375
+mean(E): (-63.95294952392578+0.020756328478455544j), varE: 0.04337684065103531, #samples 256, #Step 54600 
+
+
+grad_norm: 1.043598
+learning_rate = 0.0002
+Magnetization = 0.4921875
+mean(E): (-63.94708251953125+0.025566838681697845j), varE: 0.027239428833127022, #samples 256, #Step 54700 
+
+
+grad_norm: 0.90386605
+learning_rate = 0.0002
+Magnetization = 1.2734375
+mean(E): (-63.95893478393555+0.044727448374032974j), varE: 0.030924689024686813, #samples 256, #Step 54800 
+
+
+grad_norm: 0.7968449
+learning_rate = 0.0002
+Magnetization = 0.09375
+mean(E): (-63.96222686767578+0.02711896412074566j), varE: 0.11312272399663925, #samples 256, #Step 54900 
+
+
+grad_norm: 1.5515031
+learning_rate = 0.0002
+Magnetization = 0.390625
+mean(E): (-63.985328674316406+0.025894878432154655j), varE: 0.0643891990184784, #samples 256, #Step 55000 
+
+
+grad_norm: 1.2273313
+learning_rate = 0.0002
+Magnetization = -0.484375
+mean(E): (-63.94545364379883+0.03027186542749405j), varE: 0.20873168110847473, #samples 256, #Step 55100 
+
+
+grad_norm: 2.8094273
+learning_rate = 0.0002
+Magnetization = -0.2109375
+mean(E): (-63.94496536254883+0.024771805852651596j), varE: 0.05131492391228676, #samples 256, #Step 55200 
+
+
+grad_norm: 1.0019506
+learning_rate = 0.0002
+Magnetization = -0.5
+mean(E): (-63.955055236816406+0.03626278415322304j), varE: 0.032895755022764206, #samples 256, #Step 55300 
+
+
+grad_norm: 1.025744
+learning_rate = 0.0002
+Magnetization = -0.203125
+mean(E): (-63.97166442871094+0.02595837228000164j), varE: 0.021526692435145378, #samples 256, #Step 55400 
+
+
+grad_norm: 0.8322419
+learning_rate = 0.0002
+Magnetization = 0.1171875
+mean(E): (-63.95842742919922+0.028604209423065186j), varE: 0.03641387075185776, #samples 256, #Step 55500 
+
+
+grad_norm: 0.9922486
+learning_rate = 0.0002
+Magnetization = -0.6171875
+mean(E): (-63.95353698730469+0.02837318181991577j), varE: 0.027927858754992485, #samples 256, #Step 55600 
+
+
+grad_norm: 0.95834315
+learning_rate = 0.0002
+Magnetization = 0.59375
+mean(E): (-63.96552276611328+0.030963383615016937j), varE: 0.03576509654521942, #samples 256, #Step 55700 
+
+
+grad_norm: 0.91777724
+learning_rate = 0.0002
+Magnetization = -0.4765625
+mean(E): (-63.93294143676758+0.05222116410732269j), varE: 0.2512355446815491, #samples 256, #Step 55800 
+
+
+grad_norm: 3.159053
+learning_rate = 0.0002
+Magnetization = -0.2890625
+mean(E): (-63.916908264160156+0.01589851640164852j), varE: 0.12945574522018433, #samples 256, #Step 55900 
+
+
+grad_norm: 1.7042124
+learning_rate = 0.0002
+Magnetization = 0.0078125
+mean(E): (-63.9647216796875+0.031722795218229294j), varE: 0.04093111306428909, #samples 256, #Step 56000 
+
+
+grad_norm: 1.2256466
+learning_rate = 0.0002
+Magnetization = -0.3984375
+mean(E): (-63.95440673828125+0.03820585459470749j), varE: 0.05651697888970375, #samples 256, #Step 56100 
+
+
+grad_norm: 1.1298151
+learning_rate = 0.0002
+Magnetization = -0.578125
+mean(E): (-63.952537536621094+0.0251622311770916j), varE: 0.025869861245155334, #samples 256, #Step 56200 
+
+
+grad_norm: 0.7688431
+learning_rate = 0.0002
+Magnetization = 0.171875
+mean(E): (-63.960636138916016+0.03355623781681061j), varE: 0.06018773838877678, #samples 256, #Step 56300 
+
+
+grad_norm: 1.1637417
+learning_rate = 0.0002
+Magnetization = -0.2890625
+mean(E): (-63.96500015258789+0.04836417734622955j), varE: 0.04935546964406967, #samples 256, #Step 56400 
+
+
+grad_norm: 1.174336
+learning_rate = 0.0002
+Magnetization = 0.7734375
+mean(E): (-63.95016860961914+0.02064209058880806j), varE: 0.03100716508924961, #samples 256, #Step 56500 
+
+
+grad_norm: 0.9382426
+learning_rate = 0.0002
+Magnetization = -0.2109375
+mean(E): (-63.94435119628906+0.03275968134403229j), varE: 0.048925165086984634, #samples 256, #Step 56600 
+
+
+grad_norm: 1.0446322
+learning_rate = 0.0002
+Magnetization = 0.5
+mean(E): (-63.9562873840332+0.02262045629322529j), varE: 0.02387816086411476, #samples 256, #Step 56700 
+
+
+grad_norm: 0.8084263
+learning_rate = 0.0002
+Magnetization = -0.2734375
+mean(E): (-63.94451904296875+0.022198239341378212j), varE: 0.05357075482606888, #samples 256, #Step 56800 
+
+
+grad_norm: 1.2733004
+learning_rate = 0.0002
+Magnetization = 0.0859375
+mean(E): (-63.97064208984375+0.03064339980483055j), varE: 0.03434734791517258, #samples 256, #Step 56900 
+
+
+grad_norm: 0.9651825
+learning_rate = 0.0002
+Magnetization = 0.546875
+mean(E): (-63.95575714111328+0.019155465066432953j), varE: 0.24242021143436432, #samples 256, #Step 57000 
+
+
+grad_norm: 2.4749782
+learning_rate = 0.0002
+Magnetization = -0.5859375
+mean(E): (-63.956214904785156+0.02375096268951893j), varE: 0.037660181522369385, #samples 256, #Step 57100 
+
+
+grad_norm: 0.98265207
+learning_rate = 0.0002
+Magnetization = 0.734375
+mean(E): (-63.947296142578125+0.03493528068065643j), varE: 0.02267337404191494, #samples 256, #Step 57200 
+
+
+grad_norm: 0.7682868
+learning_rate = 0.0002
+Magnetization = -0.1015625
+mean(E): (-63.96220397949219+0.02751905471086502j), varE: 0.022943895310163498, #samples 256, #Step 57300 
+
+
+grad_norm: 0.8529297
+learning_rate = 0.0002
+Magnetization = -0.796875
+mean(E): (-63.9541130065918+0.037110671401023865j), varE: 0.020509148016572, #samples 256, #Step 57400 
+
+
+grad_norm: 0.7681651
+learning_rate = 0.0002
+Magnetization = -0.4453125
+mean(E): (-63.9224853515625+0.030998120084404945j), varE: 0.45854413509368896, #samples 256, #Step 57500 
+
+
+grad_norm: 3.2167869
+learning_rate = 0.0002
+Magnetization = 0.1640625
+mean(E): (-63.96141052246094+0.03742288053035736j), varE: 0.019580166786909103, #samples 256, #Step 57600 
+
+
+grad_norm: 0.68475044
+learning_rate = 0.0002
+Magnetization = -0.46875
+mean(E): (-63.92420959472656+0.06600727140903473j), varE: 0.18909186124801636, #samples 256, #Step 57700 
+
+
+grad_norm: 2.4155037
+learning_rate = 0.0002
+Magnetization = 0.25
+mean(E): (-63.965248107910156+0.026673387736082077j), varE: 0.06434465944766998, #samples 256, #Step 57800 
+
+
+grad_norm: 1.1747315
+learning_rate = 0.0002
+Magnetization = -0.1015625
+mean(E): (-63.960205078125+0.028834309428930283j), varE: 0.03312411159276962, #samples 256, #Step 57900 
+
+
+grad_norm: 1.0430417
+learning_rate = 0.0002
+Magnetization = 0.703125
+mean(E): (-63.935081481933594+0.01919928379356861j), varE: 0.13105428218841553, #samples 256, #Step 58000 
+
+
+grad_norm: 1.8183883
+learning_rate = 0.0002
+Magnetization = 0.609375
+mean(E): (-63.97949981689453+0.03138372302055359j), varE: 0.03700990229845047, #samples 256, #Step 58100 
+
+
+grad_norm: 0.9777689
+learning_rate = 0.0002
+Magnetization = -0.9375
+mean(E): (-63.97035217285156+0.027546433731913567j), varE: 0.021959790959954262, #samples 256, #Step 58200 
+
+
+grad_norm: 0.67892617
+learning_rate = 0.0002
+Magnetization = 0.3515625
+mean(E): (-63.9564208984375+0.03854125738143921j), varE: 0.021862339228391647, #samples 256, #Step 58300 
+
+
+grad_norm: 0.80622125
+learning_rate = 0.0002
+mean(E): (-60.75877380371094-0.05425546318292618j), varE: 0.2683849632740021, #samples 256, #Step 58500 
+
+
+grad_norm: 3.0246933
+learning_rate = 0.0002
+Magnetization = 0.40625
+mean(E): (-60.73646545410156-0.041644658893346786j), varE: 0.4771648943424225, #samples 256, #Step 58600 
+
+
+grad_norm: 5.8564615
+learning_rate = 0.0002
+Magnetization = 0.703125
+mean(E): (-60.61541748046875-0.06055448576807976j), varE: 0.717486560344696, #samples 256, #Step 58700 
+
+
+grad_norm: 6.67619
+learning_rate = 0.0002
+Magnetization = 1.03125
+mean(E): (-60.70128631591797-0.062238313257694244j), varE: 0.3303612470626831, #samples 256, #Step 58800 
+
+
+grad_norm: 3.8386796
+learning_rate = 0.0002
+Magnetization = 0.5703125
+mean(E): (-60.7983283996582-0.0579458512365818j), varE: 0.3516156077384949, #samples 256, #Step 58900 
+
+
+grad_norm: 3.9422088
+learning_rate = 0.0002
+Magnetization = 0.765625
+mean(E): (-60.780025482177734-0.06288490444421768j), varE: 0.3254169225692749, #samples 256, #Step 59000 
+
+
+grad_norm: 4.9617596
+learning_rate = 0.0002
+Magnetization = 0.625
+mean(E): (-60.716468811035156-0.020236555486917496j), varE: 0.27228090167045593, #samples 256, #Step 59100 
+
+
+grad_norm: 3.6873977
+learning_rate = 0.0002
+Magnetization = 0.8203125
+mean(E): (-60.825469970703125-0.06396684050559998j), varE: 0.3321872055530548, #samples 256, #Step 59200 
+
+
+grad_norm: 4.0612254
+learning_rate = 0.0002
+Magnetization = 1.2734375
+mean(E): (-60.78099822998047-0.049077972769737244j), varE: 0.36333054304122925, #samples 256, #Step 59300 
+
+
+grad_norm: 4.780492
+learning_rate = 0.0002
+Magnetization = 1.140625
+mean(E): (-60.77449035644531-0.03897697478532791j), varE: 0.8408437371253967, #samples 256, #Step 59400 
+
+
+grad_norm: 8.414939
+learning_rate = 0.0002
+Magnetization = 0.7578125
+mean(E): (-60.81365966796875-0.06194628030061722j), varE: 0.26691627502441406, #samples 256, #Step 59500 
+
+
+grad_norm: 3.2707386
+learning_rate = 0.0002
+Magnetization = 1.2265625
+mean(E): (-60.809303283691406-0.04680601879954338j), varE: 0.33070123195648193, #samples 256, #Step 59600 
+
+
+grad_norm: 3.6539762
+learning_rate = 0.0002
+Magnetization = 1.0546875
+mean(E): (-60.79576110839844-0.06199345737695694j), varE: 0.17264780402183533, #samples 256, #Step 59700 
+
+
+grad_norm: 2.8188384
+learning_rate = 0.0002
+Magnetization = 0.9765625
+mean(E): (-60.7244873046875-0.028802022337913513j), varE: 0.43304920196533203, #samples 256, #Step 59800 
+
+
+grad_norm: 5.056055
+learning_rate = 0.0002
+Magnetization = 1.15625
+mean(E): (-60.78014373779297-0.060141921043395996j), varE: 0.23110158741474152, #samples 256, #Step 59900 
+
+
+grad_norm: 2.7220912
+learning_rate = 0.0002
+Magnetization = 1.59375
+mean(E): (-60.79411315917969-0.07916902005672455j), varE: 0.3314366340637207, #samples 256, #Step 60000 
+
+
+grad_norm: 4.059713
+mean(E): (-55.66307830810547-0.11908754706382751j), varE: 0.003060216549783945, #samples 256, #Step 53700 
+
+
+grad_norm: 0.50093436
+learning_rate = 0.0002
+Magnetization = 0.9921875
+mean(E): (-55.66538619995117-0.11794717609882355j), varE: 0.003464196575805545, #samples 256, #Step 53800 
+
+
+grad_norm: 0.53396213
+learning_rate = 0.0002
+Magnetization = 0.0625
+mean(E): (-55.663631439208984-0.12420037388801575j), varE: 0.011447317898273468, #samples 256, #Step 53900 
+
+
+grad_norm: 1.0014962
+learning_rate = 0.0002
+Magnetization = -0.2421875
+mean(E): (-55.66267013549805-0.12102558463811874j), varE: 0.0022389416117221117, #samples 256, #Step 54000 
+
+
+grad_norm: 0.40273324
+learning_rate = 0.0002
+Magnetization = -1.2578125
+mean(E): (-55.66463088989258-0.11695551872253418j), varE: 0.0014730616239830852, #samples 256, #Step 54100 
+
+
+grad_norm: 0.30962637
+learning_rate = 0.0002
+Magnetization = 0.0390625
+mean(E): (-55.665042877197266-0.11147545278072357j), varE: 0.001428888295777142, #samples 256, #Step 54200 
+
+
+grad_norm: 0.29537368
+learning_rate = 0.0002
+Magnetization = 0.234375
+mean(E): (-55.66584014892578-0.11551772058010101j), varE: 0.002090258989483118, #samples 256, #Step 54300 
+
+
+grad_norm: 0.4237433
+learning_rate = 0.0002
+Magnetization = -0.0390625
+mean(E): (-55.66493225097656-0.12353275716304779j), varE: 0.0018149047391489148, #samples 256, #Step 54400 
+
+
+grad_norm: 0.31490493
+learning_rate = 0.0002
+Magnetization = 0.015625
+mean(E): (-55.66548156738281-0.11498241126537323j), varE: 0.0027711649890989065, #samples 256, #Step 54500 
+
+
+grad_norm: 0.4390489
+learning_rate = 0.0002
+Magnetization = -0.0859375
+mean(E): (-55.66712951660156-0.12429152429103851j), varE: 0.0016056225867941976, #samples 256, #Step 54600 
+
+
+grad_norm: 0.32044482
+learning_rate = 0.0002
+Magnetization = 0.03125
+mean(E): (-55.66633224487305-0.13054201006889343j), varE: 0.0016099722124636173, #samples 256, #Step 54700 
+
+
+grad_norm: 0.35527182
+learning_rate = 0.0002
+Magnetization = 0.5078125
+mean(E): (-55.66579055786133-0.12296441197395325j), varE: 0.0023714080452919006, #samples 256, #Step 54800 
+
+
+grad_norm: 0.39705017
+learning_rate = 0.0002
+Magnetization = 0.6875
+mean(E): (-55.66575241088867-0.12529070675373077j), varE: 0.001607744488865137, #samples 256, #Step 54900 
+
+
+grad_norm: 0.3383623
+learning_rate = 0.0002
+Magnetization = 0.7890625
+mean(E): (-55.667144775390625-0.12077698856592178j), varE: 0.0019169235602021217, #samples 256, #Step 55000 
+
+
+grad_norm: 0.37935573
+learning_rate = 0.0002
+Magnetization = -0.3359375
+mean(E): (-55.666419982910156-0.11644304543733597j), varE: 0.0017965633887797594, #samples 256, #Step 55100 
+
+
+grad_norm: 0.33216065
+learning_rate = 0.0002
+Magnetization = -0.203125
+mean(E): (-55.6663818359375-0.1243257150053978j), varE: 0.0023405812680721283, #samples 256, #Step 55200 
+
+
+grad_norm: 0.42901862
+learning_rate = 0.0002
+Magnetization = -0.0390625
+mean(E): (-55.66609191894531-0.1229318380355835j), varE: 0.001994771184399724, #samples 256, #Step 55300 
+
+
+grad_norm: 0.3671547
+learning_rate = 0.0002
+Magnetization = 0.265625
+mean(E): (-55.66663360595703-0.12329600751399994j), varE: 0.0022747600451111794, #samples 256, #Step 55400 
+
+
+grad_norm: 0.43835276
+learning_rate = 0.0002
+Magnetization = -0.421875
+mean(E): (-55.66517639160156-0.12033229321241379j), varE: 0.0031703144777566195, #samples 256, #Step 55500 
+
+
+grad_norm: 0.5489511
+learning_rate = 0.0002
+Magnetization = -0.546875
+mean(E): (-55.663612365722656-0.11827796697616577j), varE: 0.007753933314234018, #samples 256, #Step 55600 
+
+
+grad_norm: 1.0430007
+learning_rate = 0.0002
+Magnetization = 0.421875
+mean(E): (-55.66351318359375-0.12190964818000793j), varE: 0.002806117758154869, #samples 256, #Step 55700 
+
+
+grad_norm: 0.46983498
+learning_rate = 0.0002
+Magnetization = 0.1796875
+mean(E): (-55.6644172668457-0.12275757640600204j), varE: 0.001756290439516306, #samples 256, #Step 55800 
+
+
+grad_norm: 0.3116722
+learning_rate = 0.0002
+Magnetization = -0.21875
+mean(E): (-55.66578674316406-0.121768057346344j), varE: 0.003260203404352069, #samples 256, #Step 55900 
+
+
+grad_norm: 0.44752756
+learning_rate = 0.0002
+Magnetization = 0.7734375
+mean(E): (-55.66674041748047-0.11859114468097687j), varE: 0.002509721554815769, #samples 256, #Step 56000 
+
+
+grad_norm: 0.40866226
+learning_rate = 0.0002
+Magnetization = -0.046875
+mean(E): (-55.666404724121094-0.11981737613677979j), varE: 0.0027925241738557816, #samples 256, #Step 56100 
+
+
+grad_norm: 0.46782142
+learning_rate = 0.0002
+Magnetization = 0.109375
+mean(E): (-55.66419219970703-0.11502289772033691j), varE: 0.0038252691738307476, #samples 256, #Step 56200 
+
+
+grad_norm: 0.46310258
+learning_rate = 0.0002
+Magnetization = 0.4140625
+mean(E): (-55.66714859008789-0.11173658818006516j), varE: 0.00284678116440773, #samples 256, #Step 56300 
+
+
+grad_norm: 0.4001478
+learning_rate = 0.0002
+Magnetization = -0.7890625
+mean(E): (-55.66638946533203-0.11877838522195816j), varE: 0.003300835844129324, #samples 256, #Step 56400 
+
+
+grad_norm: 0.55938447
+learning_rate = 0.0002
+Magnetization = 0.8984375
+mean(E): (-55.662353515625-0.11533483862876892j), varE: 0.003566643688827753, #samples 256, #Step 56500 
+
+
+grad_norm: 0.55364656
+learning_rate = 0.0002
+Magnetization = 0.1640625
+mean(E): (-55.667083740234375-0.10686999559402466j), varE: 0.0036523276939988136, #samples 256, #Step 56600 
+
+
+grad_norm: 0.5462451
+learning_rate = 0.0002
+Magnetization = 0.75
+mean(E): (-55.66539764404297-0.11946237087249756j), varE: 0.0028398854192346334, #samples 256, #Step 56700 
+
+
+grad_norm: 0.43676355
+learning_rate = 0.0002
+Magnetization = 0.21875
+mean(E): (-55.661582946777344-0.11967714130878448j), varE: 0.00406752061098814, #samples 256, #Step 56800 
+
+
+grad_norm: 0.5943483
+learning_rate = 0.0002
+Magnetization = 0.2265625
+mean(E): (-55.664100646972656-0.12273712456226349j), varE: 0.005213483236730099, #samples 256, #Step 56900 
+
+
+grad_norm: 0.8259929
+learning_rate = 0.0002
+Magnetization = 1.125
+mean(E): (-55.66404724121094-0.11334915459156036j), varE: 0.006223952863365412, #samples 256, #Step 57000 
+
+
+grad_norm: 0.6026741
+learning_rate = 0.0002
+Magnetization = -0.125
+mean(E): (-55.665428161621094-0.11085361242294312j), varE: 0.003390946891158819, #samples 256, #Step 57100 
+
+
+grad_norm: 0.49305052
+learning_rate = 0.0002
+Magnetization = 0.8125
+mean(E): (-55.66661834716797-0.10896387696266174j), varE: 0.003875489579513669, #samples 256, #Step 57200 
+
+
+grad_norm: 0.5974419
+learning_rate = 0.0002
+Magnetization = -0.484375
+mean(E): (-55.66798400878906-0.11085686087608337j), varE: 0.0057350993156433105, #samples 256, #Step 57300 
+
+
+grad_norm: 0.8127357
+learning_rate = 0.0002
+Magnetization = 0.578125
+mean(E): (-55.66590881347656-0.11457234621047974j), varE: 0.0029654959216713905, #samples 256, #Step 57400 
+
+
+grad_norm: 0.52542067
+learning_rate = 0.0002
+Magnetization = 0.078125
+mean(E): (-55.66259002685547-0.11253328621387482j), varE: 0.004295043181627989, #samples 256, #Step 57500 
+
+
+grad_norm: 0.6404465
+learning_rate = 0.0002
+Magnetization = 0.703125
+mean(E): (-55.665771484375-0.11545370519161224j), varE: 0.0037266940344125032, #samples 256, #Step 57600 
+
+
+grad_norm: 0.4804459
+learning_rate = 0.0002
+Magnetization = -0.7890625
+mean(E): (-55.66767120361328-0.11786779761314392j), varE: 0.0043474724516272545, #samples 256, #Step 57700 
+
+
+grad_norm: 0.61258876
+learning_rate = 0.0002
+Magnetization = 0.2734375
+mean(E): (-55.665218353271484-0.10584527254104614j), varE: 0.0030934298411011696, #samples 256, #Step 57800 
+
+
+grad_norm: 0.49274656
+learning_rate = 0.0002
+Magnetization = -0.28125
+mean(E): (-55.665184020996094-0.10118751972913742j), varE: 0.0047011598944664, #samples 256, #Step 57900 
+
+
+grad_norm: 0.57277155
+learning_rate = 0.0002
+Magnetization = 0.1171875
+mean(E): (-55.66345977783203-0.12308060377836227j), varE: 0.008040969260036945, #samples 256, #Step 58000 
+
+
+grad_norm: 0.864052
+learning_rate = 0.0002
+Magnetization = -0.109375
+mean(E): (-55.66505432128906-0.11148971319198608j), varE: 0.003553604707121849, #samples 256, #Step 58100 
+
+
+grad_norm: 0.53380054
+learning_rate = 0.0002
+Magnetization = -0.0859375
+mean(E): (-55.66670227050781-0.11249298602342606j), varE: 0.0034166236873716116, #samples 256, #Step 58200 
+
+
+Magnetization = 0.5625
+mean(E): (-63.96250915527344+0.022585934028029442j), varE: 0.020699933171272278, #samples 256, #Step 58400 
+
+
+grad_norm: 0.89835507
+learning_rate = 0.0002
+Magnetization = -0.296875
+mean(E): (-63.960548400878906+0.0244365856051445j), varE: 0.07234424352645874, #samples 256, #Step 58500 
+
+
+grad_norm: 1.4630799
+learning_rate = 0.0002
+Magnetization = -0.6640625
+mean(E): (-63.91471862792969+0.006070713512599468j), varE: 0.20080381631851196, #samples 256, #Step 58600 
+
+
+grad_norm: 2.302394
+learning_rate = 0.0002
+Magnetization = 0.1796875
+mean(E): (-63.96009826660156+0.03551463037729263j), varE: 0.022272996604442596, #samples 256, #Step 58700 
+
+
+grad_norm: 0.8519222
+learning_rate = 0.0002
+Magnetization = -0.15625
+mean(E): (-63.95759582519531+0.03726640343666077j), varE: 0.022046800702810287, #samples 256, #Step 58800 
+
+
+grad_norm: 0.7599883
+learning_rate = 0.0002
+Magnetization = -0.7734375
+mean(E): (-63.96595001220703+0.03519374877214432j), varE: 0.03455379232764244, #samples 256, #Step 58900 
+
+
+grad_norm: 1.0084747
+learning_rate = 0.0002
+Magnetization = 0.234375
+mean(E): (-63.95960998535156+0.031048834323883057j), varE: 0.01975225657224655, #samples 256, #Step 59000 
+
+
+grad_norm: 0.7522781
+learning_rate = 0.0002
+Magnetization = 0.5703125
+mean(E): (-63.952980041503906+0.036796748638153076j), varE: 0.022639131173491478, #samples 256, #Step 59100 
+
+
+grad_norm: 0.92934585
+learning_rate = 0.0002
+Magnetization = 0.0078125
+mean(E): (-63.96973419189453+0.03470131382346153j), varE: 0.01809505745768547, #samples 256, #Step 59200 
+
+
+grad_norm: 0.68241036
+learning_rate = 0.0002
+Magnetization = 0.1796875
+mean(E): (-63.931739807128906+0.027230503037571907j), varE: 0.17348319292068481, #samples 256, #Step 59300 
+
+
+grad_norm: 2.1405747
+learning_rate = 0.0002
+Magnetization = 0.015625
+mean(E): (-63.96709442138672+0.044752899557352066j), varE: 0.023816578090190887, #samples 256, #Step 59400 
+
+
+grad_norm: 0.8354202
+learning_rate = 0.0002
+Magnetization = -0.4921875
+mean(E): (-63.95301818847656+0.026826094835996628j), varE: 0.028491660952568054, #samples 256, #Step 59500 
+
+
+grad_norm: 0.9052858
+learning_rate = 0.0002
+Magnetization = -0.3515625
+mean(E): (-63.96580505371094+0.030025970190763474j), varE: 0.017297765240073204, #samples 256, #Step 59600 
+
+
+grad_norm: 0.79319876
+learning_rate = 0.0002
+Magnetization = 0.203125
+mean(E): (-63.961090087890625+0.041912950575351715j), varE: 0.0337841659784317, #samples 256, #Step 59700 
+
+
+grad_norm: 1.0428301
+learning_rate = 0.0002
+Magnetization = 0.1015625
+mean(E): (-63.950355529785156+0.033114172518253326j), varE: 0.14092658460140228, #samples 256, #Step 59800 
+
+
+grad_norm: 1.962985
+learning_rate = 0.0002
+Magnetization = -0.0703125
+mean(E): (-63.93608856201172+0.024615231901407242j), varE: 0.08458862453699112, #samples 256, #Step 59900 
+
+
+grad_norm: 1.7699186
+learning_rate = 0.0002
+Magnetization = 0.2109375
+mean(E): (-63.98232650756836+0.03810515254735947j), varE: 0.09464821964502335, #samples 256, #Step 60000 
+
+
+grad_norm: 1.3245238
+grad_norm: 0.5599084
+learning_rate = 0.0002
+Magnetization = 0.484375
+mean(E): (-55.67015075683594-0.09759534150362015j), varE: 0.004855251871049404, #samples 256, #Step 58300 
+
+
+grad_norm: 0.71152633
+learning_rate = 0.0002
+Magnetization = -0.0234375
+mean(E): (-55.66710662841797-0.11047381907701492j), varE: 0.005645498633384705, #samples 256, #Step 58400 
+
+
+grad_norm: 0.6644567
+learning_rate = 0.0002
+Magnetization = 0.7265625
+mean(E): (-55.66521453857422-0.12793055176734924j), varE: 0.006986594293266535, #samples 256, #Step 58500 
+
+
+grad_norm: 0.927963
+learning_rate = 0.0002
+Magnetization = 0.25
+mean(E): (-55.66848373413086-0.13291415572166443j), varE: 0.0042023551650345325, #samples 256, #Step 58600 
+
+
+grad_norm: 0.65821534
+learning_rate = 0.0002
+Magnetization = -0.109375
+mean(E): (-55.66917419433594-0.13850435614585876j), varE: 0.003603520803153515, #samples 256, #Step 58700 
+
+
+grad_norm: 0.6470905
+learning_rate = 0.0002
+Magnetization = -0.484375
+mean(E): (-55.668182373046875-0.13757139444351196j), varE: 0.0026503298431634903, #samples 256, #Step 58800 
+
+
+grad_norm: 0.4369805
+learning_rate = 0.0002
+Magnetization = -0.4765625
+mean(E): (-55.666168212890625-0.13693003356456757j), varE: 0.00382106751203537, #samples 256, #Step 58900 
+
+
+grad_norm: 0.5572976
+learning_rate = 0.0002
+Magnetization = -0.1875
+mean(E): (-55.66583251953125-0.12969009578227997j), varE: 0.005880818702280521, #samples 256, #Step 59000 
+
+
+grad_norm: 0.6846543
+learning_rate = 0.0002
+Magnetization = -0.15625
+mean(E): (-55.66265106201172-0.12242908775806427j), varE: 0.03616361320018768, #samples 256, #Step 59100 
+
+
+grad_norm: 1.7073586
+learning_rate = 0.0002
+Magnetization = -0.5859375
+mean(E): (-55.667579650878906-0.11368275433778763j), varE: 0.0018620400223881006, #samples 256, #Step 59200 
+
+
+grad_norm: 0.32909924
+learning_rate = 0.0002
+Magnetization = 0.5234375
+mean(E): (-55.667423248291016-0.11480382084846497j), varE: 0.0017831409350037575, #samples 256, #Step 59300 
+
+
+grad_norm: 0.3761078
+learning_rate = 0.0002
+Magnetization = 0.328125
+mean(E): (-55.66578674316406-0.11399277299642563j), varE: 0.001749670598655939, #samples 256, #Step 59400 
+
+
+grad_norm: 0.30789942
+learning_rate = 0.0002
+Magnetization = -0.34375
+mean(E): (-55.663692474365234-0.1127757728099823j), varE: 0.02437637560069561, #samples 256, #Step 59500 
+
+
+grad_norm: 1.1857449
+learning_rate = 0.0002
+Magnetization = 0.3046875
+mean(E): (-55.66073226928711-0.12065470218658447j), varE: 0.003331580199301243, #samples 256, #Step 59600 
+
+
+grad_norm: 0.49281067
+learning_rate = 0.0002
+Magnetization = 0.3828125
+mean(E): (-55.66563415527344-0.12280095368623734j), varE: 0.0012950262753292918, #samples 256, #Step 59700 
+
+
+grad_norm: 0.25642154
+learning_rate = 0.0002
+Magnetization = 0.1484375
+mean(E): (-55.66535186767578-0.12640619277954102j), varE: 0.0014643369941040874, #samples 256, #Step 59800 
+
+
+grad_norm: 0.2926876
+learning_rate = 0.0002
+Magnetization = 0.09375
+mean(E): (-55.666473388671875-0.11715593934059143j), varE: 0.001315251924097538, #samples 256, #Step 59900 
+
+
+grad_norm: 0.31335172
+learning_rate = 0.0002
+Magnetization = 0.4296875
+mean(E): (-55.666114807128906-0.12921622395515442j), varE: 0.0012885523028671741, #samples 256, #Step 60000 
+
+
+grad_norm: 0.28321722
+learning_rate = 0.0002
+Magnetization = -0.546875
+mean(E): (-63.99905014038086-0.004514348227530718j), varE: 0.0033379774540662766, #samples 256, #Step 44600 
+
+
+grad_norm: 0.44503003
+learning_rate = 0.0002
+Magnetization = 0.21875
+mean(E): (-63.99911880493164-0.00768276397138834j), varE: 0.003104186151176691, #samples 256, #Step 44700 
+
+
+grad_norm: 0.47263324
+learning_rate = 0.0002
+Magnetization = 0.421875
+mean(E): (-63.99932098388672-0.0012137722223997116j), varE: 0.002470643725246191, #samples 256, #Step 44800 
+
+
+grad_norm: 0.37413895
+learning_rate = 0.0002
+Magnetization = -0.0546875
+mean(E): (-63.99959182739258+0.002807983197271824j), varE: 0.0024177362211048603, #samples 256, #Step 44900 
+
+
+grad_norm: 0.42491212
+learning_rate = 0.0002
+Magnetization = 0.8828125
+mean(E): (-63.99946975708008-0.0025065485388040543j), varE: 0.0017663768958300352, #samples 256, #Step 45000 
+
+
+grad_norm: 0.3252513
+learning_rate = 0.0002
+Magnetization = -0.6875
+mean(E): (-63.99925994873047+0.0023346366360783577j), varE: 0.0029857775662094355, #samples 256, #Step 45100 
+
+
+grad_norm: 0.43455756
+learning_rate = 0.0002
+Magnetization = 0.1328125
+mean(E): (-63.99898147583008+0.004674549214541912j), varE: 0.003681627567857504, #samples 256, #Step 45200 
+
+
+grad_norm: 0.5219836
+learning_rate = 0.0002
+Magnetization = 0.4609375
+mean(E): (-63.9993896484375+0.0006867503980174661j), varE: 0.0025755681563168764, #samples 256, #Step 45300 
+
+
+grad_norm: 0.3912079
+learning_rate = 0.0002
+Magnetization = 0.4921875
+mean(E): (-63.99939727783203+0.0013366090133786201j), varE: 0.002580879256129265, #samples 256, #Step 45400 
+
+
+grad_norm: 0.40164024
+learning_rate = 0.0002
+Magnetization = -0.6328125
+mean(E): (-63.99938201904297+9.5731345936656e-05j), varE: 0.0022856751456856728, #samples 256, #Step 45500 
+
+
+grad_norm: 0.36912233
+learning_rate = 0.0002
+Magnetization = -0.1953125
+mean(E): (-63.99861145019531-0.00033721840009093285j), varE: 0.0040717096999287605, #samples 256, #Step 45600 
+
+
+grad_norm: 0.4457254
+learning_rate = 0.0002
+Magnetization = -0.3828125
+mean(E): (-63.999488830566406-0.0011860504746437073j), varE: 0.0026694408152252436, #samples 256, #Step 45700 
+
+
+grad_norm: 0.39025554
+learning_rate = 0.0002
+Magnetization = 0.296875
+mean(E): (-63.99937438964844+0.00026345252990722656j), varE: 0.003662158502265811, #samples 256, #Step 45800 
+
+
+grad_norm: 0.46175236
+learning_rate = 0.0002
+Magnetization = 0.53125
+mean(E): (-63.99939727783203+0.003216300392523408j), varE: 0.002437814138829708, #samples 256, #Step 45900 
+
+
+grad_norm: 0.3921137
+learning_rate = 0.0002
+Magnetization = -0.0234375
+mean(E): (-63.99960708618164-0.0008523178985342383j), varE: 0.0019868449307978153, #samples 256, #Step 46000 
+
+
+grad_norm: 0.30491918
+learning_rate = 0.0002
+Magnetization = 1.0078125
+mean(E): (-63.99956512451172-0.004045608453452587j), varE: 0.0018510071095079184, #samples 256, #Step 46100 
+
+
+grad_norm: 0.33522844
+learning_rate = 0.0002
+Magnetization = 0.0859375
+mean(E): (-63.99932098388672+0.0017950505716726184j), varE: 0.0024315316695719957, #samples 256, #Step 46200 
+
+
+grad_norm: 0.37553293
+learning_rate = 0.0002
+Magnetization = 0.9609375
+mean(E): (-63.999122619628906+0.0038951688911765814j), varE: 0.003613017965108156, #samples 256, #Step 46300 
+
+
+grad_norm: 0.48387516
+learning_rate = 0.0002
+Magnetization = 0.0390625
+mean(E): (-63.999393463134766+0.0007741799345239997j), varE: 0.003396899439394474, #samples 256, #Step 46400 
+
+
+grad_norm: 0.46246657
+learning_rate = 0.0002
+Magnetization = -0.1875
+mean(E): (-63.99882507324219+0.0018572780536487699j), varE: 0.0036737900227308273, #samples 256, #Step 46500 
+
+
+grad_norm: 0.4835105
+learning_rate = 0.0002
+Magnetization = -0.3671875
+mean(E): (-63.99887466430664-0.0017977423267439008j), varE: 0.004926207475364208, #samples 256, #Step 46600 
+
+
+grad_norm: 0.55460656
+learning_rate = 0.0002
+Magnetization = 0.5
+mean(E): (-63.99919128417969+0.0006927542854100466j), varE: 0.003225563792511821, #samples 256, #Step 46700 
+
+
+grad_norm: 0.41780633
+learning_rate = 0.0002
+Magnetization = -0.0234375
+mean(E): (-63.99931335449219-0.001511518144980073j), varE: 0.0025855782441794872, #samples 256, #Step 46800 
+
+
+grad_norm: 0.4169339
+learning_rate = 0.0002
+Magnetization = 0.375
+mean(E): (-63.99955749511719-0.0003088924568146467j), varE: 0.0020240936428308487, #samples 256, #Step 46900 
+
+
+grad_norm: 0.36413062
+learning_rate = 0.0002
+Magnetization = -1.1328125
+mean(E): (-63.99960708618164-0.008023973554372787j), varE: 0.001212422619573772, #samples 256, #Step 47000 
+
+
+grad_norm: 0.26601592
+learning_rate = 0.0002
+Magnetization = 0.4765625
+mean(E): (-63.9997444152832-0.003930806182324886j), varE: 0.0009954400593414903, #samples 256, #Step 47100 
+
+
+grad_norm: 0.23772278
+learning_rate = 0.0002
+Magnetization = 0.703125
+mean(E): (-63.999568939208984+0.002903859131038189j), varE: 0.0019272048957645893, #samples 256, #Step 47200 
+
+
+grad_norm: 0.3661089
+learning_rate = 0.0002
+Magnetization = -0.28125
+mean(E): (-63.99937057495117+0.002089506946504116j), varE: 0.002563844434916973, #samples 256, #Step 47300 
+
+
+grad_norm: 0.43572086
+learning_rate = 0.0002
+Magnetization = -0.1484375
+mean(E): (-63.998863220214844-0.007057035341858864j), varE: 0.004249135032296181, #samples 256, #Step 47400 
+
+
+grad_norm: 0.50040483
+learning_rate = 0.0002
+Magnetization = -1.234375
+mean(E): (-63.99846649169922-0.002791738836094737j), varE: 0.005696937441825867, #samples 256, #Step 47500 
+
+
+grad_norm: 0.58696955
+learning_rate = 0.0002
+Magnetization = 0.0234375
+mean(E): (-63.99904251098633+0.003733687801286578j), varE: 0.0043320078402757645, #samples 256, #Step 47600 
+
+
+grad_norm: 0.5013287
+learning_rate = 0.0002
+Magnetization = -0.375
+mean(E): (-63.99923324584961-0.0005145244067534804j), varE: 0.0036204748321324587, #samples 256, #Step 47700 
+
+
+grad_norm: 0.47991717
+learning_rate = 0.0002
+Magnetization = 0.09375
+mean(E): (-63.999473571777344-0.0013061149511486292j), varE: 0.0023695998825132847, #samples 256, #Step 47800 
+
+
+grad_norm: 0.39089635
+learning_rate = 0.0002
+Magnetization = 0.0625
+mean(E): (-63.999717712402344-0.000669575238134712j), varE: 0.0012325455900281668, #samples 256, #Step 47900 
+
+
+grad_norm: 0.27620375
+learning_rate = 0.0002
+Magnetization = -0.4140625
+mean(E): (-63.999847412109375-0.0013820785097777843j), varE: 0.0013750198995694518, #samples 256, #Step 48000 
+
+
+grad_norm: 0.34251237
+learning_rate = 0.0002
+Magnetization = 0.8046875
+mean(E): (-63.999656677246094-0.00440879724919796j), varE: 0.0016940966015681624, #samples 256, #Step 48100 
+
+
+grad_norm: 0.3534745
+learning_rate = 0.0002
+Magnetization = -0.078125
+mean(E): (-63.9993896484375+0.0029416573233902454j), varE: 0.0024356027133762836, #samples 256, #Step 48200 
+
+
+grad_norm: 0.35081035
+learning_rate = 0.0002
+Magnetization = 0.125
+mean(E): (-63.99905776977539+0.002140369266271591j), varE: 0.0026111097540706396, #samples 256, #Step 48300 
+
+
+grad_norm: 0.39035186
+learning_rate = 0.0002
+Magnetization = -0.9375
+mean(E): (-63.99899673461914+0.002064140047878027j), varE: 0.004381692968308926, #samples 256, #Step 48400 
+
+
+grad_norm: 0.571222
+learning_rate = 0.0002
+Magnetization = 0.0
+mean(E): (-63.99885559082031+0.00021300429943948984j), varE: 0.004428697284311056, #samples 256, #Step 48500 
+
+
+grad_norm: 0.54504156
+learning_rate = 0.0002
+Magnetization = 0.078125
+mean(E): (-63.99922180175781+0.00014758645556867123j), varE: 0.0034076403826475143, #samples 256, #Step 48600 
+
+
+grad_norm: 0.43348137
+learning_rate = 0.0002
+Magnetization = 0.609375
+mean(E): (-63.99946975708008+0.005701202899217606j), varE: 0.002374345436692238, #samples 256, #Step 48700 
+
+
+grad_norm: 0.40200472
+learning_rate = 0.0002
+Magnetization = 0.046875
+mean(E): (-63.99946975708008+0.002025959314778447j), varE: 0.001547942403703928, #samples 256, #Step 48800 
+
+
+grad_norm: 0.2683475
+learning_rate = 0.0002
+Magnetization = -0.65625
+mean(E): (-63.99955368041992-0.002758826594799757j), varE: 0.002054257784038782, #samples 256, #Step 48900 
+
+
+grad_norm: 0.35417435
+learning_rate = 0.0002
+Magnetization = -0.296875
+mean(E): (-63.99920654296875+0.002334409626200795j), varE: 0.003485573921352625, #samples 256, #Step 49000 
+
+
+grad_norm: 0.43671423
+learning_rate = 0.0002
+Magnetization = 0.4765625
+mean(E): (-63.999000549316406+0.0014795500319451094j), varE: 0.0042936429381370544, #samples 256, #Step 49100 
+
+
+grad_norm: 0.5752635
+learning_rate = 0.0002
+Magnetization = 0.1328125
+mean(E): (-63.99931335449219+0.0008145916508510709j), varE: 0.0026550772599875927, #samples 256, #Step 49200 
+
+
+grad_norm: 0.4078029
+learning_rate = 0.0002
+Magnetization = -0.7109375
+mean(E): (-63.99946594238281-0.0037066934164613485j), varE: 0.001889249193482101, #samples 256, #Step 49300 
+
+
+grad_norm: 0.3533855
+learning_rate = 0.0002
+Magnetization = -0.078125
+mean(E): (-63.999603271484375-9.330073953606188e-05j), varE: 0.0017376341857016087, #samples 256, #Step 49400 
+
+
+grad_norm: 0.3423851
+learning_rate = 0.0002
+Magnetization = 0.3046875
+mean(E): (-63.99897766113281-0.0018939473666250706j), varE: 0.003443688154220581, #samples 256, #Step 49500 
+
+
+grad_norm: 0.48664522
+learning_rate = 0.0002
+Magnetization = -0.15625
+mean(E): (-63.9989013671875+0.002005885122343898j), varE: 0.003836181713268161, #samples 256, #Step 49600 
+
+
+grad_norm: 0.48574904
+learning_rate = 0.0002
+Magnetization = 0.0078125
+mean(E): (-63.99946594238281+5.8851903304457664e-05j), varE: 0.002509418409317732, #samples 256, #Step 49700 
+
+
+grad_norm: 0.38025135
+learning_rate = 0.0002
+Magnetization = 0.359375
+mean(E): (-63.99940490722656-0.0017784828087314963j), varE: 0.0015932150417938828, #samples 256, #Step 49800 
+
+
+grad_norm: 0.29093778
+learning_rate = 0.0002
+Magnetization = -0.0390625
+mean(E): (-63.999786376953125+0.005945718847215176j), varE: 0.0009443755261600018, #samples 256, #Step 49900 
+
+
+grad_norm: 0.24435247
+learning_rate = 0.0002
+Magnetization = -0.046875
+mean(E): (-63.9996452331543+0.003002522513270378j), varE: 0.0014819289790466428, #samples 256, #Step 50000 
+
+
+grad_norm: 0.27559733
+learning_rate = 0.0002
+Magnetization = -0.2734375
+mean(E): (-63.999122619628906-0.0014964262954890728j), varE: 0.0036539265420287848, #samples 256, #Step 50100 
+
+
+grad_norm: 0.50837344
+learning_rate = 0.0002
+Magnetization = 0.8359375
+mean(E): (-63.99880599975586+0.0016508207190781832j), varE: 0.005483344197273254, #samples 256, #Step 50200 
+
+
+grad_norm: 0.5427444
+learning_rate = 0.0002
+Magnetization = -0.921875
+mean(E): (-63.998573303222656+0.0033331294544041157j), varE: 0.006458790972828865, #samples 256, #Step 50300 
+
+
+grad_norm: 0.7481444
+learning_rate = 0.0002
+Magnetization = -0.625
+mean(E): (-63.998863220214844-0.0009260647930204868j), varE: 0.004843227565288544, #samples 256, #Step 50400 
+
+
+grad_norm: 0.553154
+learning_rate = 0.0002
+Magnetization = 0.8515625
+mean(E): (-63.999359130859375-0.0015642894431948662j), varE: 0.002626901026815176, #samples 256, #Step 50500 
+
+
+grad_norm: 0.39579618
+learning_rate = 0.0002
+Magnetization = -0.9609375
+mean(E): (-63.99962615966797+0.0010301012080162764j), varE: 0.0013697410468012094, #samples 256, #Step 50600 
+
+
+grad_norm: 0.27095848
+learning_rate = 0.0002
+Magnetization = -0.1875
+mean(E): (-63.999595642089844-0.0006547576631419361j), varE: 0.0014537256211042404, #samples 256, #Step 50700 
+
+
+grad_norm: 0.30838144
+learning_rate = 0.0002
+Magnetization = -0.2421875
+mean(E): (-63.999691009521484-0.00031666186987422407j), varE: 0.0011925750877708197, #samples 256, #Step 50800 
+
+
+grad_norm: 0.23537496
+learning_rate = 0.0002
+Magnetization = 0.7109375
+mean(E): (-63.9997673034668-0.0012431778013706207j), varE: 0.0012566122459247708, #samples 256, #Step 50900 
+
+
+grad_norm: 0.2803977
+learning_rate = 0.0002
+Magnetization = 0.171875
+mean(E): (-63.99940490722656+0.002416062168776989j), varE: 0.0025385627523064613, #samples 256, #Step 51000 
+
+
+grad_norm: 0.37563103
+learning_rate = 0.0002
+Magnetization = 0.2578125
+mean(E): (-63.9990348815918-0.003670274745672941j), varE: 0.003829691791906953, #samples 256, #Step 51100 
+
+
+grad_norm: 0.49681753
+learning_rate = 0.0002
+Magnetization = 0.3203125
+mean(E): (-63.99921417236328-0.004500254988670349j), varE: 0.0041988808661699295, #samples 256, #Step 51200 
+
+
+grad_norm: 0.5521267
+learning_rate = 0.0002
+Magnetization = -0.828125
+mean(E): (-63.99882125854492+0.004564570263028145j), varE: 0.004947901237756014, #samples 256, #Step 51300 
+
+
+grad_norm: 0.5364834
+learning_rate = 0.0002
+Magnetization = 0.3515625
+mean(E): (-63.99916458129883-8.510064799338579e-05j), varE: 0.0031058923341333866, #samples 256, #Step 51400 
+
+
+grad_norm: 0.4213341
+learning_rate = 0.0002
+Magnetization = -0.71875
+mean(E): (-63.999515533447266-0.0007175107020884752j), varE: 0.0015297497157007456, #samples 256, #Step 51500 
+
+
+grad_norm: 0.27627826
+learning_rate = 0.0002
+Magnetization = 0.640625
+mean(E): (-63.999725341796875-0.003772358177229762j), varE: 0.0014837380731478333, #samples 256, #Step 51600 
+
+
+grad_norm: 0.29104963
+learning_rate = 0.0002
+Magnetization = -0.046875
+mean(E): (-63.99970626831055-0.0005359500646591187j), varE: 0.000754751090425998, #samples 256, #Step 51700 
+
+
+grad_norm: 0.19970049
+learning_rate = 0.0002
+Magnetization = -0.7265625
+mean(E): (-63.99978256225586+0.0021034548990428448j), varE: 0.0008520763367414474, #samples 256, #Step 51800 
+
+
+grad_norm: 0.20554464
+learning_rate = 0.0002
+Magnetization = 0.0546875
+mean(E): (-63.9996223449707+0.002163058379665017j), varE: 0.0015647344989702106, #samples 256, #Step 51900 
+
+
+grad_norm: 0.28906357
+learning_rate = 0.0002
+Magnetization = -0.25
+mean(E): (-63.99909591674805+0.0062490589916706085j), varE: 0.003121561836451292, #samples 256, #Step 52000 
+
+
+grad_norm: 0.45932996
+learning_rate = 0.0002
+Magnetization = -0.0390625
+mean(E): (-63.998565673828125-0.0008033335907384753j), varE: 0.005906843580305576, #samples 256, #Step 52100 
+
+
+grad_norm: 0.56875974
+learning_rate = 0.0002
+Magnetization = 0.203125
+mean(E): (-63.99822235107422+0.0012816297821700573j), varE: 0.006245276425033808, #samples 256, #Step 52200 
+
+
+grad_norm: 0.5999452
+learning_rate = 0.0002
+Magnetization = -0.0390625
+mean(E): (-63.9991340637207+0.004073473159223795j), varE: 0.0033253300935029984, #samples 256, #Step 52300 
+
+
+grad_norm: 0.42455012
+learning_rate = 0.0002
+Magnetization = -0.28125
+mean(E): (-63.9993782043457-0.0015497994609177113j), varE: 0.0024056038819253445, #samples 256, #Step 52400 
+
+
+grad_norm: 0.37410754
+learning_rate = 0.0002
+Magnetization = 0.5546875
+mean(E): (-63.99971008300781+0.0015652244910597801j), varE: 0.0010296849068254232, #samples 256, #Step 52500 
+
+
+grad_norm: 0.21790686
+learning_rate = 0.0002
+Magnetization = -1.234375
+mean(E): (-63.999839782714844-0.00046414422104135156j), varE: 0.0009179026819765568, #samples 256, #Step 52600 
+
+
+grad_norm: 0.24342577
+learning_rate = 0.0002
+Magnetization = -0.0234375
+mean(E): (-63.99976348876953+0.0009382665739394724j), varE: 0.0010334160178899765, #samples 256, #Step 52700 
+
+
+grad_norm: 0.24574615
+learning_rate = 0.0002
+Magnetization = -0.5078125
+mean(E): (-63.99968338012695-0.0011784499511122704j), varE: 0.0011875418713316321, #samples 256, #Step 52800 
+
+
+grad_norm: 0.2505188
+learning_rate = 0.0002
+Magnetization = 0.3359375
+mean(E): (-63.99921417236328+0.005869091488420963j), varE: 0.0027887069154530764, #samples 256, #Step 52900 
+
+
+grad_norm: 0.3972001
+learning_rate = 0.0002
+Magnetization = 0.0859375
+mean(E): (-63.99882125854492-0.0008955579251050949j), varE: 0.0039304280653595924, #samples 256, #Step 53000 
+
+
+grad_norm: 0.50788355
+learning_rate = 0.0002
+Magnetization = -1.4140625
+mean(E): (-63.99896240234375-0.005888827610760927j), varE: 0.003970018588006496, #samples 256, #Step 53100 
+
+
+grad_norm: 0.4939987
+learning_rate = 0.0002
+Magnetization = 0.09375
+mean(E): (-63.999149322509766+0.0027460416313260794j), varE: 0.0029296930879354477, #samples 256, #Step 53200 
+
+
+grad_norm: 0.3979154
+learning_rate = 0.0002
+Magnetization = 0.2265625
+mean(E): (-63.99935531616211-0.0008259476162493229j), varE: 0.00292806513607502, #samples 256, #Step 53300 
+
+
+grad_norm: 0.47612098
+learning_rate = 0.0002
+Magnetization = 0.4140625
+mean(E): (-63.99931335449219+0.004845098592340946j), varE: 0.0026742059271782637, #samples 256, #Step 53400 
+
+
+grad_norm: 0.45402873
+learning_rate = 0.0002
+Magnetization = 0.5703125
+mean(E): (-63.9993896484375-0.0012151086702942848j), varE: 0.0026523866690695286, #samples 256, #Step 53500 
+
+
+grad_norm: 0.41708407
+learning_rate = 0.0002
+Magnetization = 0.1328125
+mean(E): (-63.9993896484375-0.0009921174496412277j), varE: 0.0021426731254905462, #samples 256, #Step 53600 
+
+
+grad_norm: 0.34593529
+learning_rate = 0.0002
+Magnetization = 0.203125
+mean(E): (-63.99916076660156-0.0006187703693285584j), varE: 0.0033111954107880592, #samples 256, #Step 53700 
+
+
+grad_norm: 0.47322673
+learning_rate = 0.0002
+Magnetization = 0.9921875
+mean(E): (-63.999263763427734+0.0022396433632820845j), varE: 0.003657636931166053, #samples 256, #Step 53800 
+
+
+grad_norm: 0.50831807
+learning_rate = 0.0002
+Magnetization = 0.2890625
+mean(E): (-63.999446868896484-0.0018833959475159645j), varE: 0.0024916385300457478, #samples 256, #Step 53900 
+
+
+grad_norm: 0.4012977
+learning_rate = 0.0002
+Magnetization = -0.25
+mean(E): (-63.99946212768555+0.00010923959780484438j), varE: 0.002072374103590846, #samples 256, #Step 54000 
+
+
+grad_norm: 0.31298372
+learning_rate = 0.0002
+Magnetization = -0.8203125
+mean(E): (-63.999351501464844+0.005067739635705948j), varE: 0.0028175534680485725, #samples 256, #Step 54100 
+
+
+grad_norm: 0.4257439
+learning_rate = 0.0002
+Magnetization = -0.1875
+mean(E): (-63.999271392822266-0.0007499427301809192j), varE: 0.003012079745531082, #samples 256, #Step 54200 
+
+
+grad_norm: 0.3933655
+learning_rate = 0.0002
+Magnetization = -0.1015625
+mean(E): (-63.99934768676758-0.0044421665370464325j), varE: 0.002919441321864724, #samples 256, #Step 54300 
+
+
+grad_norm: 0.41053656
+learning_rate = 0.0002
+Magnetization = -0.15625
+mean(E): (-63.99928283691406+0.005116398446261883j), varE: 0.002647925401106477, #samples 256, #Step 54400 
+
+
+grad_norm: 0.4257776
+learning_rate = 0.0002
+Magnetization = -0.1015625
+mean(E): (-63.99951934814453+0.00016856123693287373j), varE: 0.0015221188077703118, #samples 256, #Step 54500 
+
+
+grad_norm: 0.3127667
+learning_rate = 0.0002
+Magnetization = -0.5859375
+mean(E): (-63.99949645996094+0.0010633270721882582j), varE: 0.0020404495298862457, #samples 256, #Step 54600 
+
+
+grad_norm: 0.37196434
+learning_rate = 0.0002
+Magnetization = -0.078125
+mean(E): (-63.999427795410156-2.165837213397026e-05j), varE: 0.002499337773770094, #samples 256, #Step 54700 
+
+
+grad_norm: 0.3799234
+learning_rate = 0.0002
+Magnetization = 0.625
+mean(E): (-63.9990234375-0.004860571585595608j), varE: 0.0033857785165309906, #samples 256, #Step 54800 
+
+
+grad_norm: 0.4421435
+learning_rate = 0.0002
+Magnetization = 0.84375
+mean(E): (-63.99919891357422+0.003713197074830532j), varE: 0.004216939676553011, #samples 256, #Step 54900 
+
+
+grad_norm: 0.5709299
+learning_rate = 0.0002
+Magnetization = 0.5859375
+mean(E): (-63.99934005737305-0.00406609708443284j), varE: 0.0033280299976468086, #samples 256, #Step 55000 
+
+
+grad_norm: 0.43888333
+learning_rate = 0.0002
+Magnetization = -0.2265625
+mean(E): (-63.99944305419922-0.003422616748139262j), varE: 0.002800511661916971, #samples 256, #Step 55100 
+
+
+grad_norm: 0.38543794
+learning_rate = 0.0002
+Magnetization = -0.4375
+mean(E): (-63.999427795410156-0.0023597697727382183j), varE: 0.0022378473076969385, #samples 256, #Step 55200 
+
+
+grad_norm: 0.33459362
+learning_rate = 0.0002
+Magnetization = -0.1015625
+mean(E): (-63.99969482421875+0.0015586065128445625j), varE: 0.0015283459797501564, #samples 256, #Step 55300 
+
+
+grad_norm: 0.31121925
+learning_rate = 0.0002
+Magnetization = 0.1796875
+mean(E): (-63.99958419799805-0.0025914988946169615j), varE: 0.0018647839315235615, #samples 256, #Step 55400 
+
+
+grad_norm: 0.336107
+learning_rate = 0.0002
+Magnetization = -0.46875
+mean(E): (-63.99958038330078+0.0027297395281493664j), varE: 0.0013543703826144338, #samples 256, #Step 55500 
+
+
+grad_norm: 0.2770372
+learning_rate = 0.0002
+Magnetization = -0.4375
+mean(E): (-63.999366760253906-0.0012057034764438868j), varE: 0.002286398783326149, #samples 256, #Step 55600 
+
+
+grad_norm: 0.35669795
+learning_rate = 0.0002
+Magnetization = 0.359375
+mean(E): (-63.99932861328125-0.003194401040673256j), varE: 0.002134996233507991, #samples 256, #Step 55700 
+
+
+grad_norm: 0.3714519
+learning_rate = 0.0002
+Magnetization = 0.125
+mean(E): (-63.998985290527344-0.0004160557873547077j), varE: 0.004097730852663517, #samples 256, #Step 55800 
+
+
+grad_norm: 0.53573257
+learning_rate = 0.0002
+Magnetization = -0.28125
+mean(E): (-63.99892044067383+0.002650372451171279j), varE: 0.004298713523894548, #samples 256, #Step 55900 
+
+
+grad_norm: 0.52066344
+learning_rate = 0.0002
+Magnetization = 0.75
+mean(E): (-63.99933624267578-0.00317884748801589j), varE: 0.0029480736702680588, #samples 256, #Step 56000 
+
+
+grad_norm: 0.42091426
+learning_rate = 0.0002
+Magnetization = -0.296875
+mean(E): (-63.99946594238281-0.0018788300221785903j), varE: 0.002125164493918419, #samples 256, #Step 56100 
+
+
+grad_norm: 0.36883685
+learning_rate = 0.0002
+Magnetization = 0.03125
+mean(E): (-63.99913787841797+0.0020788684487342834j), varE: 0.004886042792350054, #samples 256, #Step 56200 
+
+
+grad_norm: 0.57800317
+learning_rate = 0.0002
+Magnetization = 0.421875
+mean(E): (-63.99923324584961-0.0012727249413728714j), varE: 0.0026398252230137587, #samples 256, #Step 56300 
+
+
+grad_norm: 0.38271958
+learning_rate = 0.0002
+Magnetization = -0.734375
+mean(E): (-63.99943923950195-0.0006905572372488678j), varE: 0.0018672588048502803, #samples 256, #Step 56400 
+
+
+grad_norm: 0.3386854
+learning_rate = 0.0002
+Magnetization = 1.359375
+mean(E): (-63.9996337890625+0.00021954067051410675j), varE: 0.0019852109253406525, #samples 256, #Step 56500 
+
+
+grad_norm: 0.34939122
+learning_rate = 0.0002
+Magnetization = 0.2734375
+mean(E): (-63.999454498291016+0.0016390864038839936j), varE: 0.002154273446649313, #samples 256, #Step 56600 
+
+
+grad_norm: 0.33509153
+learning_rate = 0.0002
+Magnetization = 0.5234375
+mean(E): (-63.999244689941406+0.0011064682621508837j), varE: 0.0029781546909362078, #samples 256, #Step 56700 
+
+
+grad_norm: 0.48375082
+learning_rate = 0.0002
+Magnetization = 0.3046875
+mean(E): (-63.999385833740234+0.0008033033227548003j), varE: 0.002849217504262924, #samples 256, #Step 56800 
+
+
+grad_norm: 0.41576433
+learning_rate = 0.0002
+Magnetization = 0.15625
+mean(E): (-63.99919509887695-0.0013111911248415709j), varE: 0.00397490244358778, #samples 256, #Step 56900 
+
+
+grad_norm: 0.4765708
+learning_rate = 0.0002
+Magnetization = 0.75
+mean(E): (-63.9993896484375+0.0060262661427259445j), varE: 0.003042121883481741, #samples 256, #Step 57000 
+
+
+grad_norm: 0.47235638
+learning_rate = 0.0002
+Magnetization = -0.3515625
+mean(E): (-63.99927520751953-0.0003141160123050213j), varE: 0.0038218614645302296, #samples 256, #Step 57100 
+
+
+grad_norm: 0.46595618
+learning_rate = 0.0002
+Magnetization = 1.1875
+mean(E): (-63.999271392822266-0.005114133469760418j), varE: 0.002372231800109148, #samples 256, #Step 57200 
+
+
+grad_norm: 0.3940689
+learning_rate = 0.0002
+Magnetization = -0.359375
+mean(E): (-63.99924087524414+0.0035368024837225676j), varE: 0.0032653938978910446, #samples 256, #Step 57300 
+
+
+grad_norm: 0.45960444
+learning_rate = 0.0002
+Magnetization = 0.125
+mean(E): (-63.99875259399414-0.0083052022382617j), varE: 0.003916505724191666, #samples 256, #Step 57400 
+
+
+grad_norm: 0.48859578
+learning_rate = 0.0002
+Magnetization = 0.0234375
+mean(E): (-63.99943542480469-0.0013237297534942627j), varE: 0.0017930349567905068, #samples 256, #Step 57500 
+
+
+grad_norm: 0.33740842
+learning_rate = 0.0002
+Magnetization = 0.9609375
+mean(E): (-63.999732971191406+0.00011110096238553524j), varE: 0.0016404842026531696, #samples 256, #Step 57600 
+
+
+grad_norm: 0.29288295
+learning_rate = 0.0002
+Magnetization = -0.7265625
+mean(E): (-63.99956512451172+0.0038141049444675446j), varE: 0.0015170181868597865, #samples 256, #Step 57700 
+
+
+grad_norm: 0.30602872
+learning_rate = 0.0002
+Magnetization = 0.3828125
+mean(E): (-63.99950408935547+0.0008047899464145303j), varE: 0.0022071348503232002, #samples 256, #Step 57800 
+
+
+grad_norm: 0.40282458
+learning_rate = 0.0002
+Magnetization = -0.0078125
+mean(E): (-63.99946212768555-0.00012489641085267067j), varE: 0.002097690012305975, #samples 256, #Step 57900 
+
+
+grad_norm: 0.3866787
+learning_rate = 0.0002
+Magnetization = 0.046875
+mean(E): (-63.999351501464844+0.004671385046094656j), varE: 0.0025825495831668377, #samples 256, #Step 58000 
+
+
+grad_norm: 0.39472046
+learning_rate = 0.0002
+Magnetization = -0.171875
+mean(E): (-63.99948501586914+0.0003440770669840276j), varE: 0.0027577897999435663, #samples 256, #Step 58100 
+
+
+grad_norm: 0.40815806
+learning_rate = 0.0002
+Magnetization = -0.484375
+mean(E): (-63.99897003173828-0.0026886817067861557j), varE: 0.004248742014169693, #samples 256, #Step 58200 
+
+
+grad_norm: 0.5175598
+learning_rate = 0.0002
+Magnetization = -0.1953125
+mean(E): (-63.99903869628906+0.004486280493438244j), varE: 0.0039740437641739845, #samples 256, #Step 58300 
+
+
+grad_norm: 0.48340407
+learning_rate = 0.0002
+Magnetization = -0.203125
+mean(E): (-63.99915313720703-0.0025186860002577305j), varE: 0.0030559301376342773, #samples 256, #Step 58400 
+
+
+grad_norm: 0.39879876
+learning_rate = 0.0002
+Magnetization = 0.5078125
+mean(E): (-63.999481201171875-0.004717438947409391j), varE: 0.0025741485878825188, #samples 256, #Step 58500 
+
+
+grad_norm: 0.3846731
+learning_rate = 0.0002
+Magnetization = -0.21875
+mean(E): (-63.999534606933594-0.0009420261485502124j), varE: 0.001877973205409944, #samples 256, #Step 58600 
+
+
+grad_norm: 0.32222602
+learning_rate = 0.0002
+Magnetization = -0.4296875
+mean(E): (-63.99966049194336+0.00010586506687104702j), varE: 0.0014237305149435997, #samples 256, #Step 58700 
+
+
+grad_norm: 0.28913
+learning_rate = 0.0002
+Magnetization = -0.203125
+mean(E): (-63.999549865722656-0.0017436594935134053j), varE: 0.0016235312214121222, #samples 256, #Step 58800 
+
+
+grad_norm: 0.28842092
+learning_rate = 0.0002
+Magnetization = -0.4453125
+mean(E): (-63.999420166015625-0.0009271931485272944j), varE: 0.002477444475516677, #samples 256, #Step 58900 
+
+
+grad_norm: 0.4598902
+learning_rate = 0.0002
+Magnetization = 0.0625
+mean(E): (-63.9990234375+0.0077255344949662685j), varE: 0.0034699044190347195, #samples 256, #Step 59000 
+
+
+grad_norm: 0.47156194
+learning_rate = 0.0002
+Magnetization = -0.4375
+mean(E): (-63.999080657958984-0.003953433595597744j), varE: 0.00411855336278677, #samples 256, #Step 59100 
+
+
+grad_norm: 0.5535443
+learning_rate = 0.0002
+Magnetization = -0.125
+mean(E): (-63.99951171875+0.0014146962203085423j), varE: 0.001565328799188137, #samples 256, #Step 59200 
+
+
+grad_norm: 0.30523035
+learning_rate = 0.0002
+Magnetization = 0.5859375
+mean(E): (-63.999603271484375+0.0034441419411450624j), varE: 0.0016750639770179987, #samples 256, #Step 59300 
+
+
+grad_norm: 0.33418143
+learning_rate = 0.0002
+Magnetization = 0.3359375
+mean(E): (-63.999549865722656-0.004273362923413515j), varE: 0.0018289262661710382, #samples 256, #Step 59400 
+
+
+grad_norm: 0.32226437
+learning_rate = 0.0002
+Magnetization = -0.453125
+mean(E): (-63.9993896484375-0.0036185728386044502j), varE: 0.0027303630486130714, #samples 256, #Step 59500 
+
+
+grad_norm: 0.3812749
+learning_rate = 0.0002
+Magnetization = 0.09375
+mean(E): (-63.99947738647461+0.0026806637179106474j), varE: 0.002230393933132291, #samples 256, #Step 59600 
+
+
+grad_norm: 0.36417097
+learning_rate = 0.0002
+Magnetization = 0.8203125
+mean(E): (-63.998992919921875+0.0033404482528567314j), varE: 0.003442837158218026, #samples 256, #Step 59700 
+
+
+grad_norm: 0.473066
+learning_rate = 0.0002
+Magnetization = 0.046875
+mean(E): (-63.998897552490234+0.0025944618973881006j), varE: 0.003994225524365902, #samples 256, #Step 59800 
+
+
+grad_norm: 0.5244451
+learning_rate = 0.0002
+Magnetization = 0.375
+mean(E): (-63.999244689941406-0.0007898875046521425j), varE: 0.0026861256919801235, #samples 256, #Step 59900 
+
+
+grad_norm: 0.43621248
+learning_rate = 0.0002
+Magnetization = 0.6484375
+mean(E): (-63.999298095703125-0.0005997006082907319j), varE: 0.0023676715791225433, #samples 256, #Step 60000 
+
+
+grad_norm: 0.38789576
