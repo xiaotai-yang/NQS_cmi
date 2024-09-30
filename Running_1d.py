@@ -19,12 +19,12 @@ parser.add_argument('--numunits', type = int, default=128)
 parser.add_argument('--lr', type = float, default=2e-4)
 parser.add_argument('--gradient_clip', type = bool, default=True)
 parser.add_argument('--gradient_clipvalue', type = float, default=10.0)
-parser.add_argument('--numsteps', type = int, default=50000)
-parser.add_argument('--numsamples', type = int, default=512)
+parser.add_argument('--numsteps', type = int, default=150000)
+parser.add_argument('--numsamples', type = int, default=256)
 parser.add_argument('--testing_sample', type = int, default=2**15)
 parser.add_argument('--seed', type = int, default=3)
 parser.add_argument('--model_type', type = str, default="tensor_gru")
-parser.add_argument('--H_type', type = str, default="cluster")
+parser.add_argument('--H_type', type = str, default="ES")
 parser.add_argument('--basis_rotation', type = bool, default=True)
 parser.add_argument('--previous_training', type = bool, default=True)
 parser.add_argument('--dmrg', type = bool, default=False)
@@ -37,7 +37,7 @@ parser.add_argument('--TQS_layer', type = int, default=2)
 parser.add_argument('--TQS_ff', type = int, default=512)
 parser.add_argument('--TQS_units', type = int, default=64)
 parser.add_argument('--TQS_head', type = int, default=4)
-parser.add_argument('--angle', type = float, default=jnp.pi*0.05)
+parser.add_argument('--angle', type = float, default=jnp.pi*0.025)
 
 args = parser.parse_args()
 L = args.L
@@ -81,7 +81,7 @@ evalmeanE = 0
 evalvarE = 0
 x, y = jnp.cos(angle), jnp.sin(angle)
 key, subkey = split(key, 2)
-
+print(previous_training)
 
 if (model_type == "tensor_gru"):
     if previous_training == True:
@@ -130,7 +130,7 @@ optimizer = optax.adam(learning_rate=lr_schedule)
 
 if (model_type == "tensor_gru"):
     if previous_training == True:
-        with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+        with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_units{units}_batch{numsamples}_dmrg{dmrg}_angle{round(angle,3)}_seed{args.seed}.pkl", "rb") as f:
             checkpoint = pickle.load(f)
         params = checkpoint['params']
         optimizer_state = checkpoint['optimizer_state']
@@ -144,7 +144,7 @@ if (model_type == "tensor_gru"):
 
 elif (model_type == "RWKV"):
     if previous_training == True:
-        with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_head{RWKV_head}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
+        with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_emb{RWKV_emb}_layer{RWKV_layer}_hidden{RWKV_hidden}_head{RWKV_head}_ff{RWKV_ff}_batch{numsamples}_dmrg{dmrg}_angle{round(angle,3)}_seed{args.seed}.pkl", "rb") as f:
             checkpoint = pickle.load(f)
         params = checkpoint['params']
         optimizer_state = checkpoint['optimizer_state']
@@ -159,7 +159,7 @@ elif (model_type == "RWKV"):
 
 elif (model_type == "TQS"):
     if previous_training == True:
-        with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_layer{TQS_layer}_units{TQS_units}_head{TQS_head}_batch{numsamples}_dmrg{dmrg}_angle{angle}_seed{args.seed}.pkl","rb") as f:
+        with open(f"params/params_model1D{model_type}_Htype{H_type}_L{L}_patch{p}_layer{TQS_layer}_units{TQS_units}_head{TQS_head}_batch{numsamples}_dmrg{dmrg}_angle{round(angle, 3)}_seed{args.seed}.pkl","rb") as f:
             checkpoint = pickle.load(f)
         params = checkpoint['params']
         optimizer_state = checkpoint['optimizer_state']
@@ -210,7 +210,8 @@ def compute_cost(parameters, fixed_parameters, samples, Eloc, dmrg, M0_, M_, Mla
 
 grad_f = jax.jit(jax.grad(compute_cost), static_argnums=(1, 4))
 it = len(meanEnergy)
-
+print(it)
+print(numsteps+eval_steps)
 while(it<numsteps+eval_steps):
     key, subkey = split(subkey, 2)
     key_ = split(key, numsamples)

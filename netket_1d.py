@@ -14,19 +14,20 @@ from scipy.sparse.linalg import eigsh
 import argparse
 import optax
 import itertools
-from jax.random import PRNGKey, split
+from jax.random import PRNGKey, split, uniform
+from model.oneDRBM import *
 import pickle
 
 jax.config.update("jax_enable_x64", False)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--L', type = int, default = 64)
+parser.add_argument('--L', type = int, default = 16)
 parser.add_argument('--p', type = int, default=1)
-parser.add_argument('--numsamples', type = int, default = 8192)
+parser.add_argument('--numsamples', type = int, default = 2048)
 parser.add_argument('--alpha', type = int, default=16)
-parser.add_argument('--nchain_per_rank', type = int, default=512)
+parser.add_argument('--nchain_per_rank', type = int, default=8)
 parser.add_argument('--numsteps', type = int, default=5000)
-parser.add_argument('--dmrg', type = bool, default=False)
+parser.add_argument('--dmrg', type = bool, default=True)
 parser.add_argument('--H_type', type = str, default="cluster")
 parser.add_argument('--angle', type = float, default=0.0)
 parser.add_argument('--previous_training', type = bool, default=False)
@@ -54,36 +55,12 @@ if dmrg == True:
         M0 = jnp.load("DMRG/mps_tensors/cluster_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
         M = jnp.load("DMRG/mps_tensors/cluster_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
         Mlast = jnp.load("DMRG/mps_tensors/cluster_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-    batch_log_phase_dmrg = jax.jit(vmap(partial(log_phase_dmrg, M0=M0, M=M, Mlast=Mlast, netket= True), 0))
 
+    batch_log_phase_dmrg = jax.jit(vmap(partial(log_phase_dmrg, M0=M0, M=M, Mlast=Mlast, netket=True), 0))
+    ma = RBM_dmrg_model(func = batch_log_phase_dmrg, alpha=alpha, L=L)
 
-    def uniform_init(scale):
-        def init(key, shape, dtype=jnp.float32):
-            return jax.random.uniform(key, shape, dtype=dtype, minval=-scale, maxval=scale)
-
-        return init
-    class RBM_dmrg_model(nn.Module):
-        def setup(self):
-            self.dense = nn.Dense(
-            features=alpha * L,
-            param_dtype=jnp.float32,
-            kernel_init= uniform_init(1/jnp.sqrt(alpha * L)),
-            bias_init= uniform_init(1/jnp.sqrt(alpha * L))
-            )
-            self.ai = jnp.zeros(L, dtype=jnp.float32)
-
-        def __call__(self, x):
-            y = self.dense(x)  # x shape: (batch_size, input_dim)
-            y = nk.nn.activation.log_cosh(y)
-            y_sum = jnp.sum(y, axis=-1).astype(jnp.complex64)
-            # Apply batch_log_phase_dmrg to x
-            phase_corrections = batch_log_phase_dmrg(x)
-            y_sum += phase_corrections
-            y_sum += jnp.dot(x, self.ai)
-            return y_sum
-    ma = RBM_dmrg_model()
-else:
-    ma = nk.models.RBM(alpha=alpha)
+elif dmrg == False:
+    ma = ComplexRBM(n_hidden_units = alpha*N, dtype=jnp.complex64)
 
 hi = nk.hilbert.Spin(s=1 / 2, N=N)
 g = nk.graph.Hypercube(length=N, n_dim=1, pbc=False)
@@ -138,7 +115,7 @@ elif H_type == "cluster":
         h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
         h -= np.sin(angle) ** 3 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
 
-    h -= np.cos(angle) ** 2 * sigmaz(hi, j) @ sigmax(hi, j + 1)
+    h -= np.cos(angle) ** 2 * sigmaz(hi, j) * sigmax(hi, j + 1)
     h += np.cos(angle) * np.sin(angle) * sigmax(hi, j) @ sigmax(hi, j + 1)
     h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, j) @ sigmaz(hi, j + 1)
     h += np.sin(angle) ** 2 * sigmax(hi, j) @ sigmaz(hi, j + 1)
@@ -147,11 +124,11 @@ elif H_type == "cluster":
 sa = nk.sampler.MetropolisLocal(hilbert=hi,
                                 n_chains_per_rank = nchain_per_rank)
 #learning rate schedule
-schedule = optax.warmup_cosine_decay_schedule(init_value=5e-4,
+schedule = optax.warmup_cosine_decay_schedule(init_value=1e-3,
                                               peak_value=5e-3,
-                                              warmup_steps = 500,
+                                              warmup_steps = 1000,
                                               decay_steps = 4500,
-                                              end_value = 5e-4)
+                                              end_value = 1e-4)
 # Optimizer
 
 # Stochastic Reconfiguration
@@ -166,7 +143,7 @@ else:
 
 # The variational state
 
-vs = nk.vqs.MCState(sa, ma, n_samples=numsamples, chunk_size = 4096)
+vs = nk.vqs.MCState(sa, ma, n_samples=numsamples)
 if previous_training == True:
     with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "rb") as f:
         params = pickle.load(f)
