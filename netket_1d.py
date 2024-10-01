@@ -28,9 +28,11 @@ parser.add_argument('--alpha', type = int, default=16)
 parser.add_argument('--nchain_per_rank', type = int, default=8)
 parser.add_argument('--numsteps', type = int, default=5000)
 parser.add_argument('--dmrg', type = bool, default=True)
+parser.add_argument('--chunk_size', type = int, default=2048)
 parser.add_argument('--H_type', type = str, default="cluster")
 parser.add_argument('--angle', type = float, default=0.0)
 parser.add_argument('--previous_training', type = bool, default=False)
+
 args = parser.parse_args()
 
 L = args.L
@@ -45,7 +47,7 @@ H_type = args.H_type
 previous_training = args.previous_training
 angle = args.angle
 ang = round(angle, 3)
-
+chunk_size = args.chunk_size
 if dmrg == True:
     if H_type == "ES":
         M0 = jnp.load("DMRG/mps_tensors/ES_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
@@ -143,7 +145,7 @@ else:
 
 # The variational state
 
-vs = nk.vqs.MCState(sa, ma, n_samples=numsamples)
+vs = nk.vqs.MCState(sa, ma, n_samples=numsamples, chunk_size = chunk_size)
 if previous_training == True:
     with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "rb") as f:
         params = pickle.load(f)
