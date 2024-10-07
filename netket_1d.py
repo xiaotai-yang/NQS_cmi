@@ -21,17 +21,17 @@ import pickle
 jax.config.update("jax_enable_x64", False)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--L', type = int, default = 16)
+parser.add_argument('--L', type = int, default = 64)
 parser.add_argument('--p', type = int, default=1)
-parser.add_argument('--numsamples', type = int, default = 8192)
+parser.add_argument('--numsamples', type = int, default = 4096)
 parser.add_argument('--alpha', type = int, default=16)
-parser.add_argument('--nchain_per_rank', type = int, default=512)
-parser.add_argument('--numsteps', type = int, default=5000)
-parser.add_argument('--dmrg', type = bool, default=True)
-parser.add_argument('--chunk_size', type = int, default=2048)
-parser.add_argument('--H_type', type = str, default="cluster")
+parser.add_argument('--nchain_per_rank', type = int, default=16)
+parser.add_argument('--numsteps', type = int, default=4500)
+parser.add_argument('--dmrg', type = bool, default=False)
+parser.add_argument('--chunk_size', type = int, default=131072)
+parser.add_argument('--H_type', type = str, default="ES")
 parser.add_argument('--angle', type = float, default=0.0)
-parser.add_argument('--previous_training', type = bool, default=False)
+parser.add_argument('--previous_training', type = bool, default=True)
 
 args = parser.parse_args()
 
@@ -62,7 +62,8 @@ if dmrg == True:
     ma = RBM_dmrg_model(func = batch_log_phase_dmrg, alpha=alpha, L=L)
 
 elif dmrg == False:
-    ma = ComplexRBM(n_hidden_units = alpha*N, dtype=jnp.complex64)
+    ma = nk.models.RBM(alpha = alpha, param_dtype = jnp.complex64)
+    #ma = ComplexRBM(n_hidden_units = alpha*N, dtype=jnp.complex64)
 
 hi = nk.hilbert.Spin(s=1 / 2, N=N)
 g = nk.graph.Hypercube(length=N, n_dim=1, pbc=False)
@@ -126,26 +127,26 @@ elif H_type == "cluster":
 sa = nk.sampler.MetropolisLocal(hilbert=hi,
                                 n_chains_per_rank = nchain_per_rank)
 #learning rate schedule
-schedule = optax.warmup_cosine_decay_schedule(init_value=1e-3,
-                                              peak_value=5e-3,
-                                              warmup_steps = 1000,
-                                              decay_steps = 4500,
-                                              end_value = 1e-4)
+schedule = optax.warmup_cosine_decay_schedule(init_value=5e-4,
+                                              peak_value=2e-3,
+                                              warmup_steps = 500,
+                                              decay_steps = 2500,
+                                              end_value = 5e-4)
 # Optimizer
 
 # Stochastic Reconfiguration
 if previous_training == False:
     op = nk.optimizer.Sgd(learning_rate=schedule)
     sr = nk.optimizer.SR(diag_shift = optax.linear_schedule(init_value = 0.03,
-                                                            end_value = 0.001,
+                                                            end_value = 0.003,
                                                             transition_steps = 1000))
 else:
-    op = nk.optimizer.Sgd(learning_rate=5e-4)
-    sr = nk.optimizer.SR(diag_shift=0.001)
+    op = nk.optimizer.Sgd(learning_rate=2.5e-4)
+    sr = nk.optimizer.SR(diag_shift=0.002)
 
 # The variational state
 
-vs = nk.vqs.MCState(sa, ma, n_samples=numsamples, chunk_size = chunk_size)
+vs = nk.vqs.MCState(sa, ma, n_samples=numsamples)
 if previous_training == True:
     with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "rb") as f:
         params = pickle.load(f)
@@ -159,7 +160,7 @@ gs = nk.VMC(
     variational_state=vs)
 
 start = time.time()
-gs.run(out='RBM' + "_angle=" + str(ang)+ "_L=" +str(N)+"_numsample="+str(numsamples), n_iter=numsteps)
+gs.run(out='RBM_default' +"_Htype"+ str(H_type) +"_angle=" + str(ang)+ "_L=" +str(N)+"_numsample="+str(numsamples), n_iter=numsteps)
 
 with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "wb") as f:
     pickle.dump(vs.parameters, f)
