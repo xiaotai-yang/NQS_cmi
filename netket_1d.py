@@ -10,15 +10,11 @@ from model.model_utlis import *
 import netket.nn as nknn
 import flax.linen as nn
 import jax.numpy as jnp
-from scipy.sparse.linalg import eigsh
 import argparse
 import optax
-import itertools
 from jax.random import PRNGKey, split, uniform
 from model.oneDRBM import *
 import pickle
-
-jax.config.update("jax_enable_x64", False)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--L', type = int, default = 64)
@@ -46,132 +42,122 @@ dmrg = args.dmrg
 H_type = args.H_type
 previous_training = args.previous_training
 angle = args.angle
-
 chunk_size = args.chunk_size
-for angle in (jnp.arange(11)*jnp.pi*0.05):
-    ang = round(angle, 3)
-    if dmrg == True:
-        if H_type == "ES":
-            M0 = jnp.load("DMRG/mps_tensors/ES_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-            M = jnp.load("DMRG/mps_tensors/ES_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-            Mlast = jnp.load("DMRG/mps_tensors/ES_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-        else:
-            M0 = jnp.load("DMRG/mps_tensors/cluster_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-            M = jnp.load("DMRG/mps_tensors/cluster_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-            Mlast = jnp.load("DMRG/mps_tensors/cluster_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+ang = round(angle, 3)
 
-        batch_log_phase_dmrg = jax.jit(vmap(partial(log_phase_dmrg, M0=M0, M=M, Mlast=Mlast, netket=True), 0))
-        ma = RBM_dmrg_model(func = batch_log_phase_dmrg, alpha=alpha, L=L)
-
-    elif dmrg == False:
-        ma = nk.models.RBM(alpha = alpha, param_dtype = jnp.complex64)
-        #ma = ComplexRBM(n_hidden_units = alpha*N, dtype=jnp.complex64)
-
-    hi = nk.hilbert.Spin(s=1 / 2, N=N)
-    g = nk.graph.Hypercube(length=N, n_dim=1, pbc=False)
-
+if dmrg == True:
     if H_type == "ES":
-        h = - np.cos(angle) ** 2 * sigmaz(hi, 0) @ sigmax(hi, 1)
-        h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, 0) @ sigmaz(hi, 1)
-        h += np.sin(angle) ** 2 * sigmax(hi, 0) @ sigmaz(hi, 1)
-        h += np.cos(angle) * np.sin(angle) * sigmax(hi, 0) @ sigmax(hi, 1)
-
-        # Last set of terms
-        h -= np.cos(angle) ** 2 * sigmax(hi, L - 2) @ sigmax(hi, L - 1)
-        h -= np.cos(angle) * np.sin(angle) * sigmax(hi, L - 2) @ sigmaz(hi, L - 1)
-        h -= np.sin(angle) ** 2 * sigmaz(hi, L - 2) @ sigmaz(hi, L - 1)
-        h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, L - 2) @ sigmax(hi, L - 1)
-
-        # Middle set of terms (for j = 1 to N-3)
-        for j in range(1, L - 2):
-            h -= np.cos(angle) ** 3 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
-            h -= np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
-            h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
-            h -= np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
-            h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
-            h += np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
-            h -= np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
-            h += np.sin(angle) ** 3 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
-        j += 1
-
-        h -= np.cos(angle) ** 3 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
-        h -= np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
-        h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
-        h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
-        h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
-        h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
-        h -= np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
-        h -= np.sin(angle) ** 3 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
-
-    elif H_type == "cluster":
-        h = - np.cos(angle) ** 2 * sigmax(hi, 0) @ sigmaz(hi, 1)
-        h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, 0) @ sigmaz(hi, 1)
-        h += np.cos(angle) * np.sin(angle) * sigmax(hi, 0) @ sigmax(hi, 1)
-        h += np.sin(angle) ** 2 * sigmaz(hi, 0) @ sigmax(hi, 1)
-
-        # Middle set of terms (for j = 1 to N-3)
-        for j in range(1, L - 1):
-            h -= np.cos(angle) ** 3 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
-            h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
-            h -= np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
-            h += np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
-            h += np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
-            h -= np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
-            h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
-            h -= np.sin(angle) ** 3 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
-
-        h -= np.cos(angle) ** 2 * sigmaz(hi, j) * sigmax(hi, j + 1)
-        h += np.cos(angle) * np.sin(angle) * sigmax(hi, j) @ sigmax(hi, j + 1)
-        h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, j) @ sigmaz(hi, j + 1)
-        h += np.sin(angle) ** 2 * sigmax(hi, j) @ sigmaz(hi, j + 1)
-
-    #sampler
-    sa = nk.sampler.MetropolisLocal(hilbert=hi,
-                                    n_chains_per_rank = nchain_per_rank)
-    #learning rate schedule
-    schedule = optax.warmup_cosine_decay_schedule(init_value=2e-4,
-                                                  peak_value=2e-3,
-                                                  warmup_steps = 500,
-                                                  decay_steps = 2500,
-                                                  end_value = 2.5e-4)
-    # Optimizer
-
-    # Stochastic Reconfiguration
-    if previous_training == False:
-        op = nk.optimizer.Sgd(learning_rate=schedule)
-        sr = nk.optimizer.SR(diag_shift = optax.linear_schedule(init_value = 0.03,
-                                                                end_value = 0.002,
-                                                                transition_steps = 1000))
+        M0 = jnp.load("DMRG/mps_tensors/ES_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        M = jnp.load("DMRG/mps_tensors/ES_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        Mlast = jnp.load("DMRG/mps_tensors/ES_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
     else:
-        op = nk.optimizer.Sgd(learning_rate=2.5e-4)
-        sr = nk.optimizer.SR(diag_shift=0.002)
+        M0 = jnp.load("DMRG/mps_tensors/cluster_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        M = jnp.load("DMRG/mps_tensors/cluster_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        Mlast = jnp.load("DMRG/mps_tensors/cluster_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
 
-    # The variational state
+    batch_log_phase_dmrg = jax.jit(vmap(partial(log_phase_dmrg, M0=M0, M=M, Mlast=Mlast, netket=True), 0))
+    ma = RBM_dmrg_model(func = batch_log_phase_dmrg, alpha=alpha, L=L)
 
-    vs = nk.vqs.MCState(sa, ma, n_samples=numsamples, chunk_size = chunk_size)
-    if previous_training == True:
-        with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "rb") as f:
-            params = pickle.load(f)
-        vs.parameters = params
+elif dmrg == False:
+    ma = nk.models.RBM(alpha = alpha, param_dtype = jnp.complex64)
 
-    # The ground-state optimization loop
-    gs = nk.VMC(
-        hamiltonian=h,
-        optimizer=op,
-        preconditioner=sr,
-        variational_state=vs)
+hi = nk.hilbert.Spin(s=1 / 2, N=N)
+g = nk.graph.Hypercube(length=N, n_dim=1, pbc=False)
 
-    start = time.time()
-    gs.run(out='RBM_default' +"_Htype"+ str(H_type) +"_angle=" + str(ang)+ "_L=" +str(N)+"_numsample="+str(numsamples), n_iter=numsteps)
+if H_type == "ES":
+    h = - np.cos(angle) ** 2 * sigmaz(hi, 0) @ sigmax(hi, 1)
+    h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, 0) @ sigmaz(hi, 1)
+    h += np.sin(angle) ** 2 * sigmax(hi, 0) @ sigmaz(hi, 1)
+    h += np.cos(angle) * np.sin(angle) * sigmax(hi, 0) @ sigmax(hi, 1)
 
-    with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "wb") as f:
-        pickle.dump(vs.parameters, f)
+    # Last set of terms
+    h -= np.cos(angle) ** 2 * sigmax(hi, L - 2) @ sigmax(hi, L - 1)
+    h -= np.cos(angle) * np.sin(angle) * sigmax(hi, L - 2) @ sigmaz(hi, L - 1)
+    h -= np.sin(angle) ** 2 * sigmaz(hi, L - 2) @ sigmaz(hi, L - 1)
+    h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, L - 2) @ sigmax(hi, L - 1)
 
-    if N<= 20:
-        combinations = np.array(list(itertools.product([-1, 1], repeat=N)))
-        np.save("RBM" + "angle_=" + str(ang) +"_L="+str(N) + "_numsample"+str(numsamples)+"_amp.npy", vs.log_value(combinations))
+    # Middle set of terms (for j = 1 to N-3)
+    for j in range(1, L - 2):
+        h -= np.cos(angle) ** 3 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
+        h -= np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
+        h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
+        h -= np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
+        h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
+        h += np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
+        h -= np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
+        h += np.sin(angle) ** 3 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
+    j += 1
 
-    end = time.time()
-    print('### RBM calculation')
-    print('Has', vs.n_parameters, 'parameters')
-    print('The RBM calculation took', end - start, 'seconds')
+    h -= np.cos(angle) ** 3 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
+    h -= np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
+    h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
+    h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
+    h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
+    h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
+    h -= np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
+    h -= np.sin(angle) ** 3 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
+
+elif H_type == "cluster":
+    h = - np.cos(angle) ** 2 * sigmax(hi, 0) @ sigmaz(hi, 1)
+    h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, 0) @ sigmaz(hi, 1)
+    h += np.cos(angle) * np.sin(angle) * sigmax(hi, 0) @ sigmax(hi, 1)
+    h += np.sin(angle) ** 2 * sigmaz(hi, 0) @ sigmax(hi, 1)
+
+    # Middle set of terms (for j = 1 to N-3)
+    for j in range(1, L - 1):
+        h -= np.cos(angle) ** 3 * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
+        h += np.cos(angle) ** 2 * np.sin(angle) * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmaz(hi, j + 1)
+        h -= np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
+        h += np.cos(angle) ** 2 * np.sin(angle) * sigmaz(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
+        h += np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmaz(hi, j + 1)
+        h -= np.cos(angle) * np.sin(angle) ** 2 * sigmax(hi, j - 1) @ sigmax(hi, j) @ sigmax(hi, j + 1)
+        h += np.cos(angle) * np.sin(angle) ** 2 * sigmaz(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
+        h -= np.sin(angle) ** 3 * sigmax(hi, j - 1) @ sigmaz(hi, j) @ sigmax(hi, j + 1)
+
+    h -= np.cos(angle) ** 2 * sigmaz(hi, j) * sigmax(hi, j + 1)
+    h += np.cos(angle) * np.sin(angle) * sigmax(hi, j) @ sigmax(hi, j + 1)
+    h -= np.cos(angle) * np.sin(angle) * sigmaz(hi, j) @ sigmaz(hi, j + 1)
+    h += np.sin(angle) ** 2 * sigmax(hi, j) @ sigmaz(hi, j + 1)
+
+#sampler
+sa = nk.sampler.MetropolisLocal(hilbert=hi,
+                                n_chains_per_rank = nchain_per_rank)
+#learning rate schedule
+schedule = optax.warmup_cosine_decay_schedule(init_value=2e-4,
+                                              peak_value=2e-3,
+                                              warmup_steps = 500,
+                                              decay_steps = 2500,
+                                              end_value = 2.5e-4)
+# Optimizer
+if previous_training == False:
+    op = nk.optimizer.Sgd(learning_rate=schedule)
+    sr = nk.optimizer.SR(diag_shift = optax.linear_schedule(init_value = 0.03,
+                                                            end_value = 0.002,
+                                                            transition_steps = 1000))
+else:
+    op = nk.optimizer.Sgd(learning_rate=2.5e-4)
+    sr = nk.optimizer.SR(diag_shift=0.002)
+
+# The variational state
+vs = nk.vqs.MCState(sa, ma, n_samples=numsamples, chunk_size = chunk_size)
+if previous_training == True:
+    with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "rb") as f:
+        params = pickle.load(f)
+    vs.parameters = params
+
+# The ground-state optimization loop
+gs = nk.VMC(
+    hamiltonian=h,
+    optimizer=op,
+    preconditioner=sr,
+    variational_state=vs)
+
+start = time.time()
+gs.run(out='result/RBM/RBM_default' +"_Htype"+ str(H_type) +"_angle=" + str(ang)+ "_L=" +str(N)+"_numsample="+str(numsamples), n_iter=numsteps)
+with open(f"params/params_model1D_RBM_Htype{H_type}_L{L}_units{alpha}_batch{numsamples}_dmrg{dmrg}_angle{ang}.pkl", "wb") as f:
+    pickle.dump(vs.parameters, f)
+
+end = time.time()
+print('### RBM calculation')
+print('Has', vs.n_parameters, 'parameters')
+print('The RBM calculation took', end - start, 'seconds')

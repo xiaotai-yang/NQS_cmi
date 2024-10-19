@@ -62,7 +62,6 @@ def local_element_indices_1d(num_body, pauli_array, loc_array, rotation=False, a
             x, y = jnp.cos(angle), jnp.sin(angle)
             if rotation:
                 if (num_body == 3):  # extract the bulk part
-                    # print("mask_z:", mask_z)
                     # adding a minus sign when Z go to X
                     coe_arrays[i, j] = -(-1) ** (
                         jnp.sum((mask_z == False) & (mask_z != ref_bulk_z_mask), axis=1)) * x ** (
@@ -164,10 +163,8 @@ def new_coe_1d(sample, coe_array_off_diag, yloc, zloc, rotation):
         coe_tmp_array = jnp.concatenate(tmp_array, axis=0)
 
     if rotation:
-        # jax.debug.print("result:{}", (coe_tmp_y * coe_tmp_z * coe_tmp_array))
         return coe_tmp_y * coe_tmp_z * coe_tmp_array
     else:
-        # jax.debug.print("result:{}", (coe_tmp_y * coe_tmp_z * coe_array_off_diag))
         return coe_tmp_y * coe_tmp_z * coe_array_off_diag
 
 
@@ -280,7 +277,6 @@ def vmc_off_diag_es(N, p, angle, basis_rotation):
                 # ZX term rotate to ZZ term, it will obtain a sin^2(\theta) coeffiecient
                 coe_fl_diag = jnp.concatenate((-jnp.ones(int(zloc_fl_diag.shape[0] / 2)) * x * y,
                                                -jnp.ones(int(zloc_fl_diag.shape[0] / 2)) * x * y ))
-                # print(coe_fl_diag)
         del xy_loc_fl[(2, 0)]
         del yloc_fl[(2, 0)]
         del zloc_fl[(2, 0)]

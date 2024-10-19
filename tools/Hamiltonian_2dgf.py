@@ -39,8 +39,6 @@ def local_element_indices_2d(num_body, pauli_array, loc_array, rotation = False,
      '''
     if pauli_array.shape[-1] != num_body:
         raise ValueError(f"Array has incorrect body of interactions {pauli_array.shape[-1]}. Expected body of interactions is {num_body}.")
-    #jax.debug.print("pauli_array:{}", pauli_array)
-    #jax.debug.print("loc_array:{}", loc_array)
     #Count the number of pauli_Z and pauli_X for each term in the Hamiltonian
     count_3s = jnp.sum(pauli_array == 3, axis = 1)
     count_1s = jnp.sum(pauli_array == 1, axis = 1)
@@ -138,14 +136,10 @@ def new_coe_2d(sample, coe_array_off_diag, yloc, zloc, rotation):
     coe_tmp_z = jnp.concatenate(tmp_z, axis = 0)
     if rotation:
         coe_tmp_array = jnp.concatenate(tmp_array, axis = 0)
-    #jax.debug.print("zloc:{}", zloc)
-    #jax.debug.print("sample:{}", sample)
 
     if rotation:
-        #jax.debug.print("result:{}", (coe_tmp_y * coe_tmp_z * coe_tmp_array))
         return coe_tmp_y * coe_tmp_z * coe_tmp_array
     else:
-        #jax.debug.print("result:{}", (coe_tmp_y * coe_tmp_z * coe_array_off_diag))
         return coe_tmp_y * coe_tmp_z * coe_array_off_diag
 @jax.jit
 def diag_coe(samples, zloc_bulk_diag, zloc_edge_diag, zloc_corner_diag, coe_bulk_diag, coe_edge_diag, coe_corner_diag):

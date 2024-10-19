@@ -13,7 +13,6 @@ from model.model_utlis import *
 
 def tensor_gru_rnn_step(local_inputs, local_states, params):  # local_input is already concantenated
     Wu, bu, Wr, br, Ws, bs, Wamp, bamp, Wphase, bphase = params
-    #local_inputs = 2*local_inputs-1
     rnn_inputs = jnp.outer(local_inputs, local_states).ravel()
     u = nn.sigmoid(jnp.dot(Wu, rnn_inputs) + bu)
     r = nn.tanh(jnp.dot(Wr, rnn_inputs) + br)
@@ -76,14 +75,6 @@ def log_amp(samples, params, fixed_params):
     wemb = jnp.eye(2**(px*py))
 
     def scan_fun_1d(carry_1d, indices):
-        '''
-        rnn_state_x_1d, inputs_x_1d : ↓↓↓...↓
-        rnn_state_yi_1d, inputs_yi_1d : → or ←
-        mag_fixed : To apply U(1) symmetry
-        num_1d : count the indices of rnn_state_yi
-        num_samples
-        params_1d: rnn_parameters on that row
-        '''
         ny, nx = indices
         rnn_states_x_1d, rnn_states_yi_1d, inputs_x_1d, inputs_yi_1d = carry_1d
         rnn_states = jnp.concatenate((rnn_states_yi_1d, rnn_states_x_1d[nx]), axis=0)
@@ -110,7 +101,6 @@ def log_amp(samples, params, fixed_params):
     init = jnp.zeros((Nx, units)), jnp.zeros((Ny, units)), jnp.zeros((Nx, 2**(px*py))), jnp.zeros((Ny, 2**(px*py)))
     ny_nx_indices = jnp.array([[(i, j) for j in range(Nx)] for i in range(Ny)])
     __, (probs, phase) = scan(scan_fun_2d, init, ny_nx_indices)
-    # jax.debug.print("probs_choice: {}", probs)
     log_probs, phase = jnp.sum(jnp.log(probs)), jnp.sum(phase)
     log_amp = log_probs / 2 + phase * 1j
 

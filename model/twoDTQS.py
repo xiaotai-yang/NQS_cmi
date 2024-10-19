@@ -105,16 +105,8 @@ def log_amp_2DTQS(samples, params, fixed_params):
     wemb, Wi, bi = params[0], params[1], params[2]
     wemb = jnp.concatenate([wemb, jnp.zeros((1, units))], axis=0)
     def scan_fun(carry_1d, loc):
-        '''
-        rnn_state_x_1d, inputs_x_1d : ↓↓↓...↓
-        rnn_state_yi_1d, inputs_yi_1d : → or ←
-        mag_fixed : To apply U(1) symmetry
-        num_1d : count the indices of rnn_state_yi
-        num_samples
-        params_1d: rnn_parameters on that row
-        '''
-        input_ , x  = carry_1d
 
+        input_ , x  = carry_1d
         x = x.at[0].set(nn.tanh(vmap(linear, (0, None, None))(wemb[input_] + pos_2d(Ny, Nx, units), Wi, bi)))
         x, new_prob, new_phase = TF_step(x, loc, num_layer, params)
         block_sample = binary_to_int(samples[loc])
@@ -127,8 +119,6 @@ def log_amp_2DTQS(samples, params, fixed_params):
     init = -jnp.ones(Ny*Nx+1, dtype=int), jnp.zeros((num_layer+1, Ny*Nx+1, units))
     ny_nx_indices = jnp.array([i for i in range(Ny*Nx)])
     __, (probs, phases) = scan(scan_fun, init, ny_nx_indices)
-
-    # jax.debug.print("probs_choice: {}", probs)
 
     log_amp = jnp.sum(jnp.log(probs)) / 2 + jnp.sum(phases) * 1j
 

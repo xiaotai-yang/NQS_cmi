@@ -10,12 +10,10 @@ from model.oneDRWKV import *
 from model.oneDTQS import *
 import pickle
 
-jax.config.update("jax_enable_x64", False)
-
 parser = argparse.ArgumentParser()
-parser.add_argument('--L', type = int, default = 64)
+parser.add_argument('--L', type = int, default = 8)
 parser.add_argument('--p', type = int, default = 1)
-parser.add_argument('--numunits', type = int, default=128)
+parser.add_argument('--numunits', type = int, default=16)
 parser.add_argument('--lr', type = float, default=2e-4)
 parser.add_argument('--gradient_clip', type = bool, default=True)
 parser.add_argument('--gradient_clipvalue', type = float, default=10.0)
@@ -26,7 +24,7 @@ parser.add_argument('--seed', type = int, default=3)
 parser.add_argument('--model_type', type = str, default="tensor_gru")
 parser.add_argument('--H_type', type = str, default="ES")
 parser.add_argument('--basis_rotation', type = bool, default=True)
-parser.add_argument('--previous_training', type = bool, default=True)
+parser.add_argument('--previous_training', type = bool, default=False)
 parser.add_argument('--dmrg', type = bool, default=False)
 parser.add_argument('--RWKV_layer', type = int, default=3)
 parser.add_argument('--RWKV_emb', type = int, default = 32)
@@ -73,7 +71,6 @@ input_size = 2 ** p
 key = PRNGKey(args.seed)
 eval_meanEnergy=[]
 eval_varEnergy=[]
-N = L
 angle = args.angle
 a = 0
 ang = round(angle, 3)
@@ -81,7 +78,6 @@ evalmeanE = 0
 evalvarE = 0
 x, y = jnp.cos(angle), jnp.sin(angle)
 key, subkey = split(key, 2)
-print(previous_training)
 
 if (model_type == "tensor_gru"):
     if previous_training == True:
@@ -138,7 +134,7 @@ if (model_type == "tensor_gru"):
         params = init_tensor_gru_params(input_size, units, L, key)
         optimizer_state = optimizer.init(params)
     setting = (dmrg, n_indices)
-    fixed_params = N, p, units
+    fixed_params = L, p, units
     batch_sample_prob = jax.jit(vmap(sample_prob, (None, None, 0, None)), static_argnames=['fixed_params'])
     batch_log_amp = jax.jit(vmap(log_amp, (0, None, None, None)), static_argnames=['fixed_params'])
 
@@ -153,7 +149,7 @@ elif (model_type == "RWKV"):
         params = init_RWKV_params(input_size, RWKV_emb, RWKV_hidden, RWKV_head, RWKV_ff, RWKV_layer, key)
         optimizer_state = optimizer.init(params)
     setting = (dmrg, n_indices, jnp.arange(RWKV_layer))
-    fixed_params = N, p, RWKV_head
+    fixed_params = L, p, RWKV_head
     batch_sample_prob = jax.jit(vmap(sample_prob_RWKV, (None, None, 0, None)), static_argnames=['fixed_params'])
     batch_log_amp = jax.jit(vmap(log_amp_RWKV, (0, None, None, None)), static_argnames=['fixed_params'])
 
@@ -167,7 +163,7 @@ elif (model_type == "TQS"):
         params = init_1DTQS_params(input_size, TQS_layer, TQS_ff, TQS_units, TQS_head, key)
         optimizer_state = optimizer.init(params)
     setting = (dmrg, n_indices, TQS_layer)
-    fixed_params = N, p
+    fixed_params = L, p
     batch_sample_prob = jax.jit(vmap(sample_prob_TQS, (None, None, 0, None)), static_argnames=['fixed_params'])
     batch_log_amp = jax.jit(vmap(log_amp_TQS, (0, None, None, None)), static_argnames=['fixed_params'])
 
@@ -187,11 +183,11 @@ else:
 if H_type == "ES":
     (xy_loc_bulk, xy_loc_fl, xy_loc_xzz, yloc_bulk, yloc_fl, yloc_xzz, zloc_bulk, zloc_fl,
     zloc_xzz, off_diag_bulk_coe, off_diag_fl_coe, off_diag_xzz_coe, zloc_bulk_diag, zloc_fl_diag,
-    zloc_xzz_diag, coe_bulk_diag, coe_fl_diag, coe_xzz_diag) = vmc_off_diag_es(N, p, angle, basis_rotation)
+    zloc_xzz_diag, coe_bulk_diag, coe_fl_diag, coe_xzz_diag) = vmc_off_diag_es(L, p, angle, basis_rotation)
     batch_diag_coe = vmap(diag_coe, (0, None, None, None, None, None, None))
 elif H_type == "cluster":
     (xy_loc_bulk, xy_loc_fl, yloc_bulk, yloc_fl, zloc_bulk, zloc_fl, off_diag_bulk_coe, off_diag_fl_coe,
-     zloc_bulk_diag, zloc_fl_diag, coe_bulk_diag, coe_fl_diag) = vmc_off_diag_es(N, p, angle, basis_rotation)
+     zloc_bulk_diag, zloc_fl_diag, coe_bulk_diag, coe_fl_diag) = vmc_off_diag_es(L, p, angle, basis_rotation)
     batch_diag_coe = vmap(diag_coe, (0, None, None, None, None))
 
 batch_total_samples_1d = vmap(total_samples_1d, (0, None), 0)
@@ -210,21 +206,20 @@ def compute_cost(parameters, fixed_parameters, samples, Eloc, dmrg, M0_, M_, Mla
 
 grad_f = jax.jit(jax.grad(compute_cost), static_argnums=(1, 4))
 it = len(meanEnergy)
-print(it)
-print(numsteps+eval_steps)
+
 while(it<numsteps+eval_steps):
     key, subkey = split(subkey, 2)
     key_ = split(key, numsamples)
     samples, sample_log_amp = batch_sample_prob(params, fixed_params, key_, setting)
-    samples = samples.reshape(-1, N * p)
+    samples = samples.reshape(-1, L, p)
     if dmrg == True:
         sample_log_amp += batch_log_phase_dmrg(samples, M0, M, Mlast)
-    samples_grad = samples.reshape(-1, N, p)
+    samples_grad = samples.reshape(-1, L, p)
 
     if H_type == "ES":
         sigmas = jnp.concatenate((batch_total_samples_1d(samples, xy_loc_bulk),
                              batch_total_samples_1d(samples, xy_loc_fl),
-                             batch_total_samples_1d(samples, xy_loc_xzz)), axis=1).reshape(-1, N, p)
+                             batch_total_samples_1d(samples, xy_loc_xzz)), axis=1).reshape(-1, L, p)
         matrixelements = (jnp.concatenate((batch_new_coe_1d(samples, off_diag_bulk_coe, yloc_bulk, zloc_bulk, basis_rotation),
                                      batch_new_coe_1d(samples, off_diag_fl_coe, yloc_fl, zloc_fl, basis_rotation),
                                      batch_new_coe_1d(samples, off_diag_xzz_coe, yloc_xzz, zloc_xzz, basis_rotation)), axis=1).reshape(numsamples, -1))
@@ -232,7 +227,7 @@ while(it<numsteps+eval_steps):
 
     else:
         sigmas = jnp.concatenate((batch_total_samples_1d(samples, xy_loc_bulk),
-                                  batch_total_samples_1d(samples, xy_loc_fl)), axis=1).reshape(-1, N, p)
+                                  batch_total_samples_1d(samples, xy_loc_fl)), axis=1).reshape(-1, L, p)
         matrixelements = (jnp.concatenate((batch_new_coe_1d(samples, off_diag_bulk_coe, yloc_bulk, zloc_bulk, basis_rotation),
                         batch_new_coe_1d(samples, off_diag_fl_coe, yloc_fl, zloc_fl, basis_rotation)),axis=1).reshape(numsamples, -1))
         diag_E = batch_diag_coe(samples, zloc_bulk_diag, zloc_fl_diag, coe_bulk_diag, coe_fl_diag)
@@ -255,11 +250,6 @@ while(it<numsteps+eval_steps):
             print("learning_rate =", lr)
             print("Magnetization =", jnp.mean(jnp.sum(2*samples-1, axis = (1))))
             print('mean(E): {0}, varE: {1}, #samples {2}, #Step {3} \n\n'.format(meanE,varE,numsamples, it+1))
-            grads_flatten = jax.tree_util.tree_flatten(grads)[0]
-            grad_norm = 0
-            for i in grads_flatten:
-               grad_norm += jnp.linalg.norm(i)
-            print("grad_norm:", grad_norm)
 
         # Update the optimizer state and the parameters
         updates, optimizer_state = optimizer.update(grads, optimizer_state, params)

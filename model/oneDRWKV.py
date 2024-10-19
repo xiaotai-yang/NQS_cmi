@@ -36,8 +36,6 @@ def time_mixing(x, t_state, t_params, head):
     # state is of shape (head, D, D), u is  of shape (head, D)
     batch_dot = vmap(jnp.matmul, (0, 0), 0)
     batch_multiply = vmap(jnp.multiply, (0, 0), 0)
-    print(lerp(last_x, x, mx_t).shape)
-    print(Ax.shape)
     mr, mk, mv, mg, mw = batch_dot(jnp.sum(nn.tanh(lerp(last_x, x, mx_t)[:, None, None] * Ax), axis = 0), Bx)
     w = lerp(last_x, x, mw_t + mw) @ Ww_t
     k = (lerp(last_x, x, mk_t + mk) @ Wk_t).reshape(head, -1)
