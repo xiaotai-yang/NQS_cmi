@@ -11,7 +11,8 @@ with rotated cluster state and rotated graph state. (The url of the paper...)
 ## 1D Hamiltonian 
 
 - H_type: "ES" or "cluster" which means entanglement swapping state(rotated cluster state) or a cluster state.
-- $ \H_ES = -∑_{k=2}^{n-2} Z_{k-1} X_k Z_{k+1} - X_1 Z_2 - Z_{n-1} X_n $
+- $ \H_{\mathrm{ES}} = &- \sum _{k=2}^{n-2} X_{k-1}Z_k X_{k+1}\nonumber\\
+    &- Z_1 X_2 - X_{n-1} X_n -  X_{n-2} Z_{n-1} Z_n.\ $
 - $ \H_{\mathrm{cluster}} = & -\sum _{k=2}^{n-1} Z_{k-1}X_k Z_{k+1}\nonumber\\
     &- X_1 Z_2 - Z_{n-1} X_n. $
 ## 2D Hamiltonian
