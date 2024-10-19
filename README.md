@@ -11,7 +11,7 @@ with rotated cluster state and rotated graph state. (The url of the paper...)
 ## 1D Hamiltonian 
 
 - H_type: "ES" or "cluster" which means entanglement swapping state(rotated cluster state) or a cluster state.
-<div align=center><img src="https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_ES.png"/></div>
+![Rotated cluster state](https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_ES.png?raw=true)
 ![Cluster state](https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_cluster.png?raw=true)
 ## 2D Hamiltonian
 
