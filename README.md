@@ -11,14 +11,13 @@ with rotated cluster state and rotated graph state. (The url of the paper...)
 ## 1D Hamiltonian 
 
 - H_type: "ES" or "cluster" which means entanglement swapping state(rotated cluster state) or a cluster state.
-- $ \H_{\mathrm{ES}} = &- \sum _{k=2}^{n-2} X_{k-1}Z_k X_{k+1}\nonumber\\
-    &- Z_1 X_2 - X_{n-1} X_n -  X_{n-2} Z_{n-1} Z_n.\ $
-- $ \H_{\mathrm{cluster}} = & -\sum _{k=2}^{n-1} Z_{k-1}X_k Z_{k+1}\nonumber\\
-    &- X_1 Z_2 - Z_{n-1} X_n. $
+![Rotated cluster state](https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_ES.png?raw=true)
+![Cluster state](https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_cluster.png?raw=true)
 ## 2D Hamiltonian
 
 - Only consider rotated graph state with open boundary condition so no variable here
-- $ \H_{\mathrm{graph}} = & -\sum _{k} X_k \prod_{\bra j,k \ket\in E} Z_j. $
+
+![Graph state](https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_graph.png?raw=true)
 # 1D & 2D autoregressive model
 - L: The number of blocks along the edge
 - p: The side length of each block
