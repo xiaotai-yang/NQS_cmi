@@ -72,12 +72,21 @@ key = PRNGKey(args.seed)
 eval_meanEnergy=[]
 eval_varEnergy=[]
 angle = args.angle
-a = 0
 ang = round(angle, 3)
 evalmeanE = 0
 evalvarE = 0
 x, y = jnp.cos(angle), jnp.sin(angle)
 key, subkey = split(key, 2)
+
+boundaries_and_scales = {
+    8000: 0.5,  # After 8000 steps, scale the learning rate by 0.5
+    24000: 0.4  # After 24000 steps, scale the learning rate by 0.5
+}
+lr_schedule = optax.piecewise_constant_schedule(
+    init_value=lr,
+    boundaries_and_scales=boundaries_and_scales
+)
+optimizer = optax.adam(learning_rate=lr_schedule)
 
 if (model_type == "tensor_gru"):
     if previous_training == True:
@@ -113,16 +122,6 @@ elif (model_type == "TQS"):
     else:
         meanEnergy = []
         varEnergy = []
-# x and y are the cosine and sine of the rotation angle
-boundaries_and_scales = {
-    8000: 0.5,  # After 8000 steps, scale the learning rate by 0.5
-    24000: 0.4  # After 24000 steps, scale the learning rate by 0.5
-}
-lr_schedule = optax.piecewise_constant_schedule(
-    init_value=lr,
-    boundaries_and_scales=boundaries_and_scales
-)
-optimizer = optax.adam(learning_rate=lr_schedule)
 
 if (model_type == "tensor_gru"):
     if previous_training == True:

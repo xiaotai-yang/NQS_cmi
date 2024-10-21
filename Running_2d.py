@@ -70,6 +70,21 @@ varEnergy=[]
 eval_meanEnergy=[]
 eval_varEnergy=[]
 angle = args.angle
+ang = round(angle, 3)
+evalmeanE = 0
+evalvarE = 0
+x, y = jnp.cos(angle), jnp.sin(angle)
+key, subkey = split(key, 2)
+
+boundaries_and_scales = {
+    8000: 0.5,  # After 8000 steps, scale the learning rate by 0.5
+    24000: 0.4  # After 24000 steps, scale the learning rate by 0.5
+}
+lr_schedule = optax.piecewise_constant_schedule(
+    init_value=lr,
+    boundaries_and_scales=boundaries_and_scales
+)
+optimizer = optax.adam(learning_rate=lr_schedule)
 
 if (model_type == "tensor_gru"):
     if previous_training == True:
@@ -93,16 +108,15 @@ elif (model_type == "TQS"):
         meanEnergy = []
         varEnergy = []
 
-evalmeanE = 0
-evalvarE = 0
-x, y = jnp.cos(angle), jnp.sin(angle)
-key, subkey = split(key, 2)
 if (model_type == "tensor_gru"):
     if previous_training == True:
         with open(f"params/params_model1D{model_type}_L{L}_patch{p}_units{units}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl", "rb") as f:
-            params = pickle.load(f)
+            checkpoint = pickle.load(f)
+        params = checkpoint['params']
+        optimizer_state = checkpoint['optimizer_state']
     else:
         params = init_2dtensor_gru_params(input_size, units, Ny, Nx, key)
+        optimizer_state = optimizer.init(params)
     fixed_params = Ny, Nx, py, px, units
     batch_sample_prob = jax.jit(vmap(sample_prob, (None, None, 0)), static_argnames=['fixed_params'])
     batch_log_amp = jax.jit(vmap(log_amp, (0, None, None)), static_argnames=['fixed_params'])
@@ -125,7 +139,6 @@ elif (model_type == "TQS"):
     batch_sample_prob = jax.jit(vmap(sample_prob_2DTQS, (None, None, 0)), static_argnames=['fixed_params'])
     batch_log_amp = jax.jit(vmap(log_amp_2DTQS, (0, None, None)), static_argnames=['fixed_params'])
 
-optimizer = optax.adam(learning_rate=lr)
 optimizer_state = optimizer.init(params)
 batch_total_samples_2d = vmap(total_samples_2d, (0, None), 0)
 batch_new_coe_2d = vmap(new_coe_2d, (0, None, None, None, None))
