@@ -200,7 +200,7 @@ for it in range(0, numsteps+eval_steps):
         if gradient_clip == True:
             grads = jax.tree.map(clip_grad, grads)
 
-        if (it + 1) % 50 == 0 or it == 0:
+        if (it + 1) % 100 == 0 or it == 0:
             print("learning_rate =", lr)
             print("Magnetization =", jnp.mean(jnp.sum(2 * samples - 1, axis=(1))))
             print('mean(E): {0}, varE: {1}, #samples {2}, #Step {3} \n\n'.format(meanE, varE, numsamples, it + 1))
@@ -210,7 +210,7 @@ for it in range(0, numsteps+eval_steps):
 
         if not os.path.exists('./params/'):
             os.mkdir('./params/')
-        if (it % 500 == 0):
+        if (it % 1000 == 0):
             if (model_type == "tensor_gru"):
                 with open(
                         f"params/params_model2D{model_type}_L{L}_patch{p}_units{units}_batch{numsamples}_angle{angle}_seed{args.seed}.pkl",

@@ -11,7 +11,7 @@ with rotated cluster state and rotated graph state. (The url of the paper...)
 ## 1D Hamiltonian 
 
 - H_type: "ES" or "cluster" which means entanglement swapping state(rotated cluster state) or a cluster state. Here we present the
-corresponding Hamiltonian when the rotating angle is 0. The rotation is done by acting each qubit with $R_y(\frac{\theta}{2})$ gate.
+corresponding Hamiltonian when the rotating angle is 0. The rotation is done by acting each qubit with $R_y(\theta)$ gate.
 
 ![Rotated cluster state](https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_ES.png?raw=true)
 ![Cluster state](https://github.com/xiaotai-yang/NQS_cmi/blob/main/readme_eq/H_cluster.png?raw=true)
