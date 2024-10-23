@@ -42,7 +42,7 @@ def sample_prob(params, fixed_params, key, setting):
     dmrg, n_indices = setting
     wemb = jnp.eye(2**p)
     int_to_binary = partial(int_to_binary_array, num_bits=p)
-    input_init, state_init = jnp.zeros(2**p), jnp.zeros((units))
+    state_init, input_init = jnp.zeros((units)), jnp.zeros(2**p)
     init = state_init, input_init, key, params
 
     __, (block_samples, probs, phase) = scan(scan_fun, init, n_indices)
