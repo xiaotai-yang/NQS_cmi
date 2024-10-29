@@ -49,8 +49,8 @@ corresponding Hamiltonian when the rotating angle is 0. The rotation is done by 
 - The example command for running the 1D TQS model is:
 
 `python Running_1d.py --model tensor_tqs --L 16 --p 1 --H_type ES --TQS_layer 2 --TQS_units 64 --TQS_ff 256 --TQS_head 4 --numsamples 256 --testing_sample 8192 --angle 0.0 --numsteps 5000`
-# Restriced Boltzmann Machine
-There is only two models and no submodule so I just wrote them in two individual files. The variables are:
+## Restriced Boltzmann Machine
+There is only two models and no submodule so we just wrote them in two individual files. The variables are:
 - alpha: The width of the hidden layer
 - numsamples: The batch size of each training
 - numsteps: The number of steps for training
@@ -58,8 +58,8 @@ There is only two models and no submodule so I just wrote them in two individual
 
 `python netket_1d.py --model ES --L 16  --alpha 8 --numsamples 4096 --numsteps 5000 --angle 0.0 --numsteps 5000`
 
-# Exact Diagonalization
-- In the directory ED, we provide the exact diagonalization for some common Hamiltonians and shows that the ground state 
+# Exact Diagonalization Stduy
+- Inside directory ED, we explore the exact diagonalization for some common Hamiltonians and show that the ground state 
 shows decay of conditional mutual information in the measurement basis.
 
 ---
