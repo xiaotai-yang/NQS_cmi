@@ -26,7 +26,7 @@ corresponding Hamiltonian when the rotating angle is 0. The rotation is done by 
 - So the total qubit number is $(L\times p)$ or  $(L\times p)^2$ and each block has $p$ or $p^2$ qubits for 1D and 2D respectively.
 - numsamples: The batch size of each iteration.
 - testing_sample: The batch size for final evaluation of the ground state energy after the training. 
-- dmrg (only for 1D): Whether to use dmrg ground truth to get the phases of the quantum state.
+- dmrg (only for 1D): Whether to use dmrg ground truth to get the phases of the quantum state. Dmrg code is provided in "DMRG" directory.
 - previous_training: Whether to continue to train the previous model. (set to False for the first training)
 ## Recurrent neural network (RNN)
 - numunits: Hidden layer width of the RNN.
@@ -57,6 +57,10 @@ There is only two models and no submodule so I just wrote them in two individual
 - The example command for running the 1D RBM model is: 
 
 `python netket_1d.py --model ES --L 16  --alpha 8 --numsamples 4096 --numsteps 5000 --angle 0.0 --numsteps 5000`
+
+# Exact Diagonalization
+- In the directory ED, we provide the exact diagonalization for some common Hamiltonians and shows that the ground state 
+shows decay of conditional mutual information in the measurement basis.
 
 ---
 
