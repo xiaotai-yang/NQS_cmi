@@ -42,6 +42,7 @@ def init_2dnetwork_params(sizes, ny, nx, key):
 
 def init_2dtensor_gru_params(input_size, units, Ny, Nx, key):
     # input is already concantenated
+
     key, u_params = init_2dnetwork_params( [ 4*(units * input_size), units], Ny, Nx, key)
     key, r_params = init_2dnetwork_params( [ 4*(units * input_size), units], Ny, Nx, key)
     key, s_params = init_2dnetwork_params( [ 4*(units * input_size), units], Ny, Nx, key)
@@ -53,6 +54,25 @@ def init_2dtensor_gru_params(input_size, units, Ny, Nx, key):
 
     return (Wu, bu, Wr, br, Ws, bs, Wamp, bamp, Wphase, bphase)
 
+
+def init_2dtensor_gru_params_exp(input_size, units, Ny, Nx, py, px, key):
+    # input is already concantenated
+    key1, key2, key3, key4, key = split(key, 5)
+    x_units = random.uniform(key1, (Nx, units), minval=-1e-4, maxval=1e-4)
+    y_units = random.uniform(key2, (Ny, units), minval=-1e-4, maxval=1e-4)
+    x_input = random.uniform(key3, (Nx, 2** (px*py)), minval=-1e-4, maxval=1e-4)
+    y_input = random.uniform(key4, (Ny, 2** (px*py)), minval=-1e-4, maxval=1e-4)
+    key, u_params = init_2dnetwork_params([4 * (units * input_size), units], Ny, Nx, key)
+    key, r_params = init_2dnetwork_params([4 * (units * input_size), units], Ny, Nx, key)
+    key, s_params = init_2dnetwork_params([4 * (units * input_size), units], Ny, Nx, key)
+    key, amp_params = init_2dnetwork_params([units, input_size], Ny, Nx, key)
+    key, phase_params = init_2dnetwork_params([units, input_size], Ny, Nx, key)
+
+    Wu, bu, Wr, br, Ws, bs = u_params[0][0], u_params[0][1], r_params[0][0], r_params[0][1], s_params[0][0], \
+    s_params[0][1]
+    Wamp, bamp, Wphase, bphase = amp_params[0][0] * 0, amp_params[0][1] * 0, phase_params[0][0], phase_params[0][1]
+
+    return (x_units, y_units, x_input, y_input, Wu, bu, Wr, br, Ws, bs, Wamp, bamp, Wphase, bphase)
 def init_RWKV_params(input_size, emb_size, h_size, head, ff_size, num_layer, key):
 
     (k_, k0, k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12, k13, k14) = split(key, 16)
@@ -160,7 +180,7 @@ def init_2DRWKV_params(input_size, emb_size, h_size,  num_layer, ff_size, Ny, Nx
 
     return (wemb, x_init, y_init, t_last_x1_init, t_last_x2_init, t_last_y1s_init, t_last_y1e_init, t_last_y2_init, t_alpha_init_x, t_alpha_init_y,
             t_beta_init_x, t_beta_init_y, c_last_x1_init, c_last_x2_init, c_last_y1s_init, c_last_y1e_init, c_last_y2_init,  wln_in, bln_in, wln_out, bln_out, whead, bhead, wprob, bprob, wphase, bphase, RWKV_cell_params)
-def init_1DTQS_params(input_size, T, ff_size, units, head, key):
+def init_TQS_params(input_size, T, ff_size, units, head, key):
     # input is already concantenated
     i1, i2 = (he_normal(), glorot_normal())
     key_encode, key_i, keyq, keyk, keyv, keyo, keyfh, keyhf, keyhh1, keyhh2, keyho = random.split(key, 11)
@@ -180,29 +200,4 @@ def init_1DTQS_params(input_size, T, ff_size, units, head, key):
     Who2, bho2 = jnp.zeros((input_size, units)), jnp.zeros((input_size))
 
     return (Wemb, Wi, bi, Wq, bq, Wk, bk, Wv, bv, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf, Whh1, bhh1, Whh2, bhh2, Who1, bho1, Who2, bho2)
-
-
-def init_2DTQS_params(input_size, T, ff_size, units, head, key):
-    # input is already concantenated
-    i1, i2 = (he_uniform(), glorot_uniform())
-
-    key_encode, key_i, keyq, keyk, keyv, keyqm, keykm, keyvm, keyo, keyfh, keyhf, keyhh1, keyhh2, keyho = random.split(  key, 14)
-    Wemb = random.uniform(key_encode, (input_size, units), minval=-1e-4, maxval=1e-4)
-    Wi, bi = i2(key_i, (units, units)), jnp.zeros((units))
-    Wq, bq = i2(keyq, ( T, units, units)), jnp.zeros(( T, units))
-    Wk, bk = i2(keyk, ( T, units, units)), jnp.zeros(( T, units))
-    Wv, bv = i2(keyv, ( T, units, units)), jnp.zeros(( T, units))
-    Wqm, bqm = i2(keyqm, ( T, head, int(units / head), units)), jnp.zeros(( T, head, int(units / head)))
-    Wkm, bkm = i2(keykm, ( T, head, int(units / head), units)), jnp.zeros(( T, head, int(units / head)))
-    Wvm, bvm = i2(keyvm, ( T, head, int(units / head), units)), jnp.zeros(( T, head, int(units / head)))
-    Wo, bo = i2(keyo,( T, units, units)), jnp.zeros(( T, units))
-    a1, a2, b1, b2  = jnp.ones(( T, units)), jnp.ones(( T, units)), jnp.zeros(( T, units)), jnp.zeros(( T,units))
-    Wfh, bfh = i1(keyfh,( T, ff_size, units)), jnp.zeros(( T, ff_size))
-    Whf, bhf = i2(keyhf,( T, units, ff_size)), jnp.zeros(( T, units))
-    Whh1, bhh1 = i1(keyhh1,(ff_size, units)), jnp.zeros((ff_size))
-    Who1, bho1 = jnp.zeros((input_size, ff_size)), jnp.zeros((input_size))
-    Who2, bho2 = jnp.zeros((input_size, ff_size)), jnp.zeros((input_size))
-    #return (Wemb, Wq, bq, Wk, bk, Wv, bv, Wo, bo, a, b, Wfh, bfh, Whf, bhf, Whh, bhh, Who1, bho1)
-    return (Wemb, Wi, bi, Wq, bq, Wk, bk, Wv, bv, Wqm, bqm, Wkm, bkm, Wvm, bvm, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf, Whh1, bhh1, Who1, bho1, Who2, bho2)
-
 

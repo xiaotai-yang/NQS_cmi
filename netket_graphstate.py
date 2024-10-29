@@ -1,5 +1,4 @@
 import jax.random
-import matplotlib.pyplot as plt
 import jax.numpy as jnp
 import netket as nk
 import numpy as np
@@ -11,16 +10,15 @@ import pickle
 # Parameters
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--L', type = int, default = 4)
-parser.add_argument('--p', type = int, default=1)
-parser.add_argument('--numsamples', type = int, default = 4096)
+parser.add_argument('--L', type = int, default = 8)
+parser.add_argument('--numsamples', type = int, default = 8192)
 parser.add_argument('--alpha', type = int, default=16)
 parser.add_argument('--nchain_per_rank', type = int, default=16)
-parser.add_argument('--numsteps', type = int, default=15000)
+parser.add_argument('--numsteps', type = int, default=2500)
 parser.add_argument('--chunk_size', type = int, default=131072)
 parser.add_argument('--angle', type = float, default=0.0*jnp.pi)
 parser.add_argument('--previous_training', type = bool, default=False)
-
+parser.add_argument('--nth', type = int, default=1)
 args = parser.parse_args()
 L = args.L
 numsamples = args.numsamples
@@ -30,7 +28,7 @@ numsteps = args.numsteps
 chunk_size = args.chunk_size
 angle = args.angle
 previous_training = args.previous_training
-
+nth = args.nth
 N = L**2
 hi = nk.hilbert.Spin(s=1 / 2, N=N)
 g = nk.graph.Hypercube(length=N, n_dim=1, pbc=False)
@@ -195,17 +193,17 @@ sa = nk.sampler.MetropolisLocal(hilbert=hi,
 schedule = optax.warmup_cosine_decay_schedule(init_value=2e-4,
                                               peak_value=2e-3,
                                               warmup_steps = 500,
-                                              decay_steps = 2500,
+                                              decay_steps = 2000,
                                               end_value = 2.5e-4)
 # Optimizer
 if previous_training == False:
     op = nk.optimizer.Sgd(learning_rate=schedule)
     sr = nk.optimizer.SR(diag_shift = optax.linear_schedule(init_value = 0.03,
-                                                            end_value = 0.002,
+                                                            end_value = 0.0025,
                                                             transition_steps = 1000))
 else:
     op = nk.optimizer.Sgd(learning_rate=2.5e-4)
-    sr = nk.optimizer.SR(diag_shift=0.002)
+    sr = nk.optimizer.SR(diag_shift=0.0025)
 
 # The variational state
 vs = nk.vqs.MCState(sa, ma, n_samples=numsamples, chunk_size = chunk_size)
@@ -221,7 +219,9 @@ gs = nk.VMC(
     variational_state=vs)
 
 start = time.time()
-gs.run(out='result/RBM/RBM_gs_angle=' + str(ang) + "L=" + str(N) + "_numsample=" + str(numsamples), n_iter=numsteps)
+gs.run(out='result/RBM/RBM_gs_angle=' + str(ang) + "L=" + str(N) + "_numsample=" + str(numsamples) + "nth=" + str(nth), n_iter=numsteps)
+with open(f"params/params_model2D_RBM_graphstate_L{L}_units{alpha}_batch{numsamples}_angle{ang}.pkl", "wb") as f:
+    pickle.dump(vs.parameters, f)
 end = time.time()
 print('### RBM calculation')
 print('Has', vs.n_parameters, 'parameters')

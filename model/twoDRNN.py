@@ -11,6 +11,7 @@ import sys
 import os
 from model.model_utlis import *
 
+@jax.jit
 def tensor_gru_rnn_step(local_inputs, local_states, params):  # local_input is already concantenated
     Wu, bu, Wr, br, Ws, bs, Wamp, bamp, Wphase, bphase = params
     rnn_inputs = jnp.outer(local_inputs, local_states).ravel()

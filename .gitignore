@@ -1,2 +1,4 @@
 
 *.pkl
+test*
+*.ipynb

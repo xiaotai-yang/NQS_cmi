@@ -139,7 +139,7 @@ def sample_prob_2DRWKV(params, fixed_params, key):
     RWKV_net_params = params[17:]
     ny_nx_indices = jnp.array([[(i, j) for j in range(Nx)] for i in range(Ny)])
     __, (samples, probs, phase) = scan(scan_fun_2d, init, ny_nx_indices)
-    samples = vmap(int_to_binary, 0)(samples).reshape(Ny * py, Nx * px)
+    samples = vmap(int_to_binary, 0)(samples)
     log_probs, phase = jnp.sum(jnp.log(probs)), jnp.sum(phase)
     samples_log_amp = log_probs / 2 + phase * 1j
 

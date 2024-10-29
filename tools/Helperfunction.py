@@ -1,7 +1,7 @@
 import jax
 import jax.numpy as jnp
 import itertools
-
+import optax
 def all_coe(array, reference, x, y):
     # Function to calculate x^n * y^m for a single element
     def calculate_product(element):
@@ -19,6 +19,5 @@ def clip_grad(g, clip_norm=5.0):
     norm = jnp.linalg.norm(g)
     scale = jnp.minimum(1.0, clip_norm / (norm + 1e-6))
     return g * scale
-
 
 

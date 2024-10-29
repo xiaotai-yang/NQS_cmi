@@ -13,50 +13,44 @@ from functools import partial
 from jax.nn.initializers import he_normal, he_uniform, glorot_normal, glorot_uniform
 from model.model_utlis import *
 
-def layer_norm(x, w, b):
+@jax.jit
+def layer_norm_T(x, w, b):
     mean = jnp.mean(x)
     std =  jnp.sqrt((jnp.sum((x - mean)**2) + 1e-8)/(x.size-1))
     return (x - mean)/ std * w + b
-
 @jax.jit
 def linear(x, w, b):
     return w@x+b
 @jax.jit
-def attention(q, k, v, loc):
+def attention(q, k, v, loc, mask):
     a = q.shape[0]
-
-    N = k.shape[0]
-    m =  jnp.tril(-(jnp.ones((N, N)) - jnp.eye(N))*1e9).T
-    QKV = nn.softmax(jnp.matmul(q, k.T)/jnp.sqrt(a) + m[loc]) @ v
+    QKV = nn.softmax(jnp.matmul(q, k.T)/jnp.sqrt(a) + mask[loc]) @ v
     return QKV
 
 @partial(jax.jit, static_argnames=("num_layer"))
-def TF_step(x, loc, num_layer, params):
-    #(Wemb, Wq, bq, Wk, bk, Wv, bv, Wo, bo, a, b, Wfh, bfh, Whf, bhf, Whh, bhh, Who1, bho1) = params
-    (Wemb, Wi, bi, Wq, bq, Wk, bk, Wv, bv, Wqm, bqm, Wkm, bkm, Wvm, bvm, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf, Whh1, bhh1, Who1, bho1, Who2, bho2) = params
-    _, y_ = scan(partial(TF_cell, cell_params = (Wq, bq, Wk, bk, Wv, bv, Wqm, bqm, Wkm, bkm, Wvm, bvm, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf), loc = loc)
-    , (x, x[:, loc]) , jnp.arange(num_layer))
-    state = nn.relu(Whh1 @ _[1][-1] + bhh1)
-    prob = nn.softmax(Who1 @ state + bho1)
-    phase = jnp.pi*nn.soft_sign(Who2 @ state + bho2)
-    return _[0], prob, phase
+def TF_step(x, K, V, loc, num_layer, params, mask):
+    (Wemb, Wi, bi, Wq, bq, Wk, bk, Wv, bv, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf, Whh1, bhh1, Whh2, bhh2, Who1, bho1, Who2, bho2) = params
+    _, y_ = scan(partial(TF_cell, cell_params = (Wq, bq, Wk, bk, Wv, bv, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf), loc = loc, mask = mask)
+    , (x, K, V) , jnp.arange(num_layer))
+    state1 = nn.relu(Whh1 @ _[0][-1] + bhh1)
+    prob = nn.softmax(Who1 @ state1 + bho1)
+    state2 = nn.relu(Whh2 @ _[0][-1] + bhh2)
+    phase = jnp.arctan(Who2 @ state2 + bho2)
+    return _, prob, phase
 
 @jax.jit
-def TF_cell(x_, l, cell_params, loc):
-    Wq, bq, Wk, bk, Wv, bv, Wqm, bqm, Wkm, bkm, Wvm, bvm, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf = cell_params
-    x, y = x_
-    Q = linear (y[l], Wq[l], bq[l])
-    K = vmap(linear, (0, None, None), 0)(x[l], Wk[l], bk[l])
-    V = vmap(linear, (0, None, None), 0)(x[l], Wv[l], bv[l])
-    Qm = linear(Q, Wqm[l], bqm[l])
-    Km = vmap(linear, (0, None, None), 1)(K, Wkm[l], bkm[l])
-    Vm = vmap(linear, (0, None, None), 1)(V, Wvm[l], bvm[l])
-    # Now Km, Vm  is of shape (head, L, units/head)
-    out = linear(vmap(attention,(0, 0, 0, None))(Qm, Km, Vm, loc).ravel(), Wo[l], bo[l])
-    z = layer_norm(y[l] + out, a1[l], b1[l])
-    y = y.at[l+1].set(layer_norm(z + linear(nn.relu(linear(z, Wfh[l], bfh[l])), Whf[l], bhf[l]), a2[l], b2[l]))
-    x = x.at[l+1, loc].set(y[l+1])
-    return (x, y), None
+def TF_cell(x_, l, cell_params, loc, mask):
+    Wq, bq, Wk, bk, Wv, bv, Wo, bo, a1, a2, b1, b2, Wfh, bfh, Whf, bhf = cell_params
+    x, K, V = x_
+    Q = linear (x[l], Wq[l], bq[l])
+    K.at[l, loc].set(linear(x[l], Wk[l], bk[l]))
+    V.at[l, loc].set(linear(x[l], Wv[l], bv[l]))
+
+    # Now Q is of shape (head, L, units/head)
+    out = linear(vmap(attention,(0, 1, 1, None, None))(Q, K[l], V[l], loc, mask).ravel(), Wo[l], bo[l])
+    z = layer_norm_T(x[l] + out, a1[l], b1[l])
+    x = x.at[l+1].set(layer_norm_T(z + linear(nn.relu(linear(z, Wfh[l], bfh[l])), Whf[l], bhf[l]), a2[l], b2[l]))
+    return (x, K, V), None
 
 def pos_2d(Ny, Nx, units):
     x_odd_f = jnp.repeat(jnp.array([1, 0, 0, 0]), units // 4)
@@ -72,24 +66,25 @@ def pos_2d(Ny, Nx, units):
 @partial(jax.jit, static_argnames=['fixed_params'])
 def sample_prob_2DTQS(params, fixed_params, key):
 
-    Ny, Nx, py, px, num_layer, units = fixed_params
+    Ny, Nx, py, px, num_layer, units, head = fixed_params
     int_to_binary = partial(int_to_binary_array, num_bits=px * py)
     wemb, Wi, bi = params[0], params[1], params[2]
     wemb = jnp.concatenate([wemb, jnp.zeros((1, units))], axis=0)
-
+    pos_encoding = pos_2d(Ny, Nx, units)
+    mask = jnp.tril(-(jnp.ones((Ny*Nx, Ny*Nx)) - jnp.eye(Ny*Nx)) * 1e9).T
     def scan_fun(carry_1d, loc):
-        input_, x, key = carry_1d
-        x = x.at[0].set(nn.tanh(vmap(linear, (0, None, None))(wemb[input_] + pos_2d(Ny, Nx, units), Wi, bi)))
-        x, new_prob, new_phase = TF_step(x, loc, num_layer, params)
+        input_, x, K, V, key = carry_1d
+        x = x.at[0].set(nn.tanh(linear(wemb[input_[loc]] + pos_encoding[loc], Wi, bi)))
+        (x, K, V), new_prob, new_phase = TF_step(x, K, V, loc, num_layer, params, mask)
         key, subkey = split(key)
         block_sample = categorical(subkey, jnp.log(new_prob))
         probs, phases = new_prob[block_sample], new_phase[block_sample]
         output = input_.at[loc+1].set(block_sample)
 
-        return (output, x, key), (block_sample, probs, phases)
+        return (output, x, K, V, key), (block_sample, probs, phases)
 
     # initialization
-    init = -jnp.ones(Ny*Nx+1, dtype=int), jnp.zeros((num_layer+1, Ny*Nx+1, units)), key
+    init = -jnp.ones(Ny*Nx+1, dtype=int), jnp.zeros((num_layer+1, units)), jnp.zeros((num_layer, Ny*Nx, head, units//head)), jnp.zeros((num_layer, Ny*Nx, head, units//head)), key
     ny_nx_indices = jnp.array([i for i in range(Ny*Nx)])
     __, (samples, probs, phases) = scan(scan_fun, init, ny_nx_indices)
     samples = int_to_binary(samples)
@@ -100,26 +95,27 @@ def sample_prob_2DTQS(params, fixed_params, key):
 @partial(jax.jit, static_argnames=['fixed_params'])
 def log_amp_2DTQS(samples, params, fixed_params):
 
-    Ny, Nx, py, px, num_layer, units = fixed_params
+    Ny, Nx, py, px, num_layer, units, head = fixed_params
     binary_to_int = partial(binary_array_to_int, num_bits=px * py)
     wemb, Wi, bi = params[0], params[1], params[2]
     wemb = jnp.concatenate([wemb, jnp.zeros((1, units))], axis=0)
+    pos_encoding = pos_2d(Ny, Nx, units)
+    mask = jnp.tril(-(jnp.ones((Ny*Nx, Ny*Nx)) - jnp.eye(Ny*Nx)) * 1e9).T
     def scan_fun(carry_1d, loc):
 
-        input_ , x  = carry_1d
-        x = x.at[0].set(nn.tanh(vmap(linear, (0, None, None))(wemb[input_] + pos_2d(Ny, Nx, units), Wi, bi)))
-        x, new_prob, new_phase = TF_step(x, loc, num_layer, params)
+        input_ , x, K, V  = carry_1d
+        x = x.at[0].set(nn.tanh(linear(wemb[input_[loc]] + pos_encoding[loc], Wi, bi)))
+        (x, K, V), new_prob, new_phase = TF_step(x, K, V, loc, num_layer, params, mask)
         block_sample = binary_to_int(samples[loc])
         probs, phases = new_prob[block_sample], new_phase[block_sample]
         output = input_.at[loc+1].set(block_sample)
 
-        return (output, x), (probs, phases)
+        return (output, x, K, V), (probs, phases)
 
     # initialization
-    init = -jnp.ones(Ny*Nx+1, dtype=int), jnp.zeros((num_layer+1, Ny*Nx+1, units))
+    init = -jnp.ones(Ny*Nx+1, dtype=int), jnp.zeros((num_layer+1, units)), jnp.zeros((num_layer, Ny*Nx, head, units//head)), jnp.zeros((num_layer, Ny*Nx, head, units//head))
     ny_nx_indices = jnp.array([i for i in range(Ny*Nx)])
     __, (probs, phases) = scan(scan_fun, init, ny_nx_indices)
-
     log_amp = jnp.sum(jnp.log(probs)) / 2 + jnp.sum(phases) * 1j
 
     return log_amp
