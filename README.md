@@ -77,7 +77,7 @@ shows decay of conditional mutual information in the measurement basis.
 
 ## Dependencies
 
-Our implmentation is based on Python (3.9.16), jax (0.4.30), optax(0.2.3), numpy (1.26.4), julia(1.10.4) and netket(3.13.0).
+Our implmentation is based on Python (3.9.16), jax (0.4.30), optax (0.2.3), numpy (1.26.4), julia (1.10.4) and netket (3.13.0).
 
 For further questions or inquiries, please feel free to send an email to ty39@illinois.edu.
 
