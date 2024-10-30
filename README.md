@@ -32,7 +32,7 @@ So the total qubit number is $(L\times p)$ or  $(L\times p)^2$ and each block ha
 - dmrg (only for 1D): Whether to use dmrg ground truth to get the phases of the quantum state. Dmrg code is provided in "DMRG" directory.
 - previous_training: Whether to continue to train the previous model. (set to False for the first training)
 
-#### For 1D models, please run the DMRG/1D_dmrg.ipynb first for the model you want to test and then run the Running_1d.py file with corresponding parameters. 
+#### For 1D "ES" models with dmrg informed phase, please run the DMRG/1D_dmrg.ipynb first and then run the Running_1d.py file with corresponding parameters. 
 ## Recurrent neural network (RNN)
 - numunits: Hidden layer width of the RNN.
 

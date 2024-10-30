@@ -180,17 +180,15 @@ elif (model_type == "TQS"):
     batch_log_amp = jax.jit(vmap(log_amp_TQS, (0, None, None, None)), static_argnames=['fixed_params'])
 
 if H_type == "ES":
-    M0 = jnp.load("DMRG/mps_tensors/ES_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-    M = jnp.load("DMRG/mps_tensors/ES_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-    Mlast = jnp.load("DMRG/mps_tensors/ES_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+    if dmrg == True:
+        M0 = jnp.load("DMRG/mps_tensors/ES_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        M = jnp.load("DMRG/mps_tensors/ES_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
+        Mlast = jnp.load("DMRG/mps_tensors/ES_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
     (xy_loc_bulk, xy_loc_fl, xy_loc_xzz, yloc_bulk, yloc_fl, yloc_xzz, zloc_bulk, zloc_fl,
     zloc_xzz, off_diag_bulk_coe, off_diag_fl_coe, off_diag_xzz_coe, zloc_bulk_diag, zloc_fl_diag,
     zloc_xzz_diag, coe_bulk_diag, coe_fl_diag, coe_xzz_diag) = vmc_off_diag_es(L, p, angle, basis_rotation)
     batch_diag_coe = vmap(diag_coe, (0, None, None, None, None, None, None))
 elif H_type == "cluster":
-    M0 = jnp.load("DMRG/mps_tensors/cluster_tensor_init_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-    M = jnp.load("DMRG/mps_tensors/cluster_tensor_" + str(L * p) + "_angle_" + str(ang) + ".npy")
-    Mlast = jnp.load("DMRG/mps_tensors/cluster_tensor_last_" + str(L * p) + "_angle_" + str(ang) + ".npy")
     (xy_loc_bulk, xy_loc_fl, yloc_bulk, yloc_fl, zloc_bulk, zloc_fl, off_diag_bulk_coe, off_diag_fl_coe,
      zloc_bulk_diag, zloc_fl_diag, coe_bulk_diag, coe_fl_diag) = vmc_off_diag_es(L, p, angle, basis_rotation)
     batch_diag_coe = vmap(diag_coe, (0, None, None, None, None))
@@ -200,7 +198,8 @@ def compute_cost(parameters, fixed_parameters, samples, Eloc, dmrg, M0_, M_, Mla
     samples = jax.lax.stop_gradient(samples)
     Eloc = jax.lax.stop_gradient(Eloc)
     log_amps_tensor = batch_log_amp(samples, parameters, fixed_parameters, setting)
-    log_amps_tensor += lax.cond(dmrg, lambda x:  batch_log_phase_dmrg(samples.reshape(samples.shape[0], -1), M0_, M_, Mlast_), lambda x: jnp.zeros(samples.shape[0], dtype = jnp.complex64), None)
+    if dmrg == True:
+        log_amps_tensor +=  batch_log_phase_dmrg(samples.reshape(samples.shape[0], -1), M0_, M_, Mlast_)
     cost = 2 * jnp.real(jnp.mean(log_amps_tensor.conjugate() * (Eloc - jnp.mean(Eloc))))
     return cost
 
