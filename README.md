@@ -6,7 +6,7 @@ It leverages the power of neural networks to approximate the quantum wave functi
 using variational methods. 
 However, different projection basis affects the performance of the NQS significantly. 
 Here we show that we can quantify this difficulty by conditional mutual information 
-with rotated cluster state and rotated graph state. (The url of the paper...)
+with rotated cluster state and rotated graph state. (https://arxiv.org/abs/2410.23152)
 
 ## 1D Hamiltonian 
 
